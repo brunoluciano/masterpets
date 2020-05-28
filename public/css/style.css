@@ -1583,3 +1583,63 @@ a:hover.link-hover {
     min-width: auto !important;
     height: 45px !important;
 }
+
+.hover-link:hover {
+    text-decoration: underline !important;
+}
+
+.btn.cyan.darken-1:hover {
+    background-color: #26c6da !important;
+}
+
+table.table-borderless tr{
+    border: 0px;
+}
+
+/*/////////////CUSTOM TABS/////////////*/
+.tabs .tab a{
+    background-color:#b2ebf2 !important;
+    color:rgb(74, 96, 102) !important;
+} /*Black color to the text*/
+
+.tabs .tab a:hover {
+    background-color:#71dfee !important;
+    color:#FFF !important;
+} /*Text color on hover*/
+
+.tabs .tab a.active {
+    background-color:#00acc1 !important;
+    color:#FFF !important;
+} /*Background and text color when a tab is active*/
+
+.tabs .tab a.active:hover {
+    background-color:#26c6da !important;
+    color:#FFF !important;
+} /*Background and text color when a tab is active*/
+
+.tabs .indicator {
+    background-color:#006064  !important;
+} /*Color of underline*/
+
+.fix-tabs-content .tabs-content.carousel .carousel-item {
+    width: 100% !important;
+    height: auto !important;
+}
+
+.gradient-tab-content {
+    background: rgb(245,251,255);
+    background: -moz-linear-gradient(180deg, rgba(245,251,255,1) 0%, rgba(203,218,228,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(245,251,255,1) 0%, rgba(203,218,228,1) 100%);
+    background: linear-gradient(180deg, rgba(245,251,255,1) 0%, rgba(203,218,228,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f5fbff",endColorstr="#cbdae4",GradientType=1);
+}
+
+/*//////////////////////////////////////*/
+
+.modal.modal-fluid {
+    display:block;
+    width: 90vw;
+    height: 100vh;
+    left: 5%;
+    right: 10%;
+}

@@ -142,12 +142,13 @@
                                 </div>
                                 <div class="input-field col l3 s6 select-light-text white-arrow">
                                     <select name="estado_id" required>
-                                        @php
-                                            $estados = DB::table('estados')->orderby('uf')->get();
-                                        @endphp
                                         <option value="" disabled selected>Escolha o estado</option>
                                         @foreach ($estados as $estado)
-                                            <option value="{{ $estado->id }}">{{ $estado->uf }}</option>
+                                            @php  
+                                                $estados = DB::table('estados')->orderby('uf')->get();
+                                                $estado->uf == "SP" ? $ativo = "selected" : $ativo = "";
+                                            @endphp
+                                            <option value="{{ $estado->id }}" {{ $ativo }}>{{ $estado->uf }}</option>
                                         @endforeach
                                     </select>
                                     <label>UF</label>

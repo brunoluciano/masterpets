@@ -10,7 +10,7 @@
     <title>Master PET</title>
 
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="{{ asset('css/materialize.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/materialize.css') }}">
 
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

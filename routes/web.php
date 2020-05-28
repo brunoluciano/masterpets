@@ -17,14 +17,15 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::view('/cadastrar', 'website.cadastrar');
-Route::view('/produtos', 'website.produtos');
-Route::view('/sobre', 'website.sobre');
-Route::view('/contato', 'website.contato');
+Route::view('cadastrar', 'website.cadastrar');
+Route::view('produtos', 'website.produtos');
+Route::view('sobre', 'website.sobre');
+Route::view('contato', 'website.contato');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::resource('home', 'ClienteHomeController');
+Route::get('home/cliente', 'ClienteHomeController@index')->name('cliente')->middleware('auth');
+Route::get('dashboard', 'PrincipalHomeController@index')->name('dashboard')->middleware('auth');
 // Route::resource('home', 'PrincipalHomeController');

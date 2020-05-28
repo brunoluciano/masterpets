@@ -24,9 +24,11 @@ class HomeController extends Controller
     public function index()
     {
         if(\Gate::allows('isCliente')) {
-            return view('sistema.cliente.home');
+            // return view('sistema.cliente.home');
+            return redirect()->route('cliente');
         } else {
-            return view('sistema.principal.home');
+            // return view('sistema.principal.home');
+            return redirect()->route('dashboard');
         }
         // return view('home');
     }

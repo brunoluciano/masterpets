@@ -2,6 +2,8 @@
 
 @section('content')
     @can('isGerente')
-        <h1>GERENTE / FUNCIONÁRIO</h1>
+        <h1>Gerente</h1>
+    @elsecan('isFuncionario')
+        <h1>Funcionário</h1>
     @endcan
 @endsection
