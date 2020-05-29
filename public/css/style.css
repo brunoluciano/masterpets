@@ -1255,6 +1255,10 @@ main {
     color: rgb(255, 255, 255) !important;
 }
 
+.input-field label.dark-text{
+    color: #616161 !important;
+}
+
 /* label focus color */
 
 .input-field input[type=text]:focus+label,
@@ -1610,6 +1614,7 @@ table.table-borderless tr{
 .tabs .tab a.active {
     background-color:#00acc1 !important;
     color:#FFF !important;
+    font-weight: bold !important;
 } /*Background and text color when a tab is active*/
 
 .tabs .tab a.active:hover {
@@ -1642,4 +1647,83 @@ table.table-borderless tr{
     height: 100vh;
     left: 5%;
     right: 10%;
+}
+
+.radio-inline {
+    display: inline !important;
+}
+
+.gradient-modal-content {
+    background: rgb(18,38,47);
+    background: -moz-radial-gradient(circle, rgba(18,38,47,1) 0%, rgba(28,28,28,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(18,38,47,1) 0%, rgba(28,28,28,1) 100%);
+    background: radial-gradient(circle, rgba(18,38,47,1) 0%, rgba(28,28,28,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#12262f",endColorstr="#1c1c1c",GradientType=1);
+}
+
+.header-dashboard-card {
+    color: #fff !important;
+    margin-top: 0px;
+    margin-left: 0px;
+    font-weight: lighter;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+/************** GRADIENTES CARDS DASHBOARD **************/
+.gradient-card-cadastro {
+    background: rgb(130,232,203);
+    background: -moz-linear-gradient(180deg, rgba(130,232,203,1) 0%, rgba(109,193,169,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(130,232,203,1) 0%, rgba(109,193,169,1) 100%);
+    background: linear-gradient(180deg, rgba(130,232,203,1) 0%, rgba(109,193,169,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#82e8cb",endColorstr="#6dc1a9",GradientType=1);
+}
+
+.gradient-card-venda {
+    background: rgb(232,231,130);
+    background: -moz-linear-gradient(180deg, rgba(232,231,130,1) 0%, rgba(188,193,109,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(232,231,130,1) 0%, rgba(188,193,109,1) 100%);
+    background: linear-gradient(180deg, rgba(232,231,130,1) 0%, rgba(188,193,109,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e8e782",endColorstr="#bcc16d",GradientType=1);
+}
+
+.gradient-card-agenda {
+    background: rgb(130,130,232);
+    background: -moz-linear-gradient(180deg, rgba(130,130,232,1) 0%, rgba(109,111,193,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(130,130,232,1) 0%, rgba(109,111,193,1) 100%);
+    background: linear-gradient(180deg, rgba(130,130,232,1) 0%, rgba(109,111,193,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#8282e8",endColorstr="#6d6fc1",GradientType=1);
+}
+
+.gradient-card-pesquisa {
+    background: rgb(232,179,130);
+    background: -moz-linear-gradient(180deg, rgba(232,179,130,1) 0%, rgba(193,150,109,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(232,179,130,1) 0%, rgba(193,150,109,1) 100%);
+    background: linear-gradient(180deg, rgba(232,179,130,1) 0%, rgba(193,150,109,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e8b382",endColorstr="#c1966d",GradientType=1);
+}
+
+.gradient-card-financeiro {
+    background: rgb(232,130,130);
+    background: -moz-linear-gradient(180deg, rgba(232,130,130,1) 0%, rgba(193,109,109,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(232,130,130,1) 0%, rgba(193,109,109,1) 100%);
+    background: linear-gradient(180deg, rgba(232,130,130,1) 0%, rgba(193,109,109,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e88282",endColorstr="#c16d6d",GradientType=1);
+}
+
+.gradient-card-relatorios {
+    background: rgb(130,232,131);
+    background: -moz-linear-gradient(180deg, rgba(130,232,131,1) 0%, rgba(109,193,110,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(130,232,131,1) 0%, rgba(109,193,110,1) 100%);
+    background: linear-gradient(180deg, rgba(130,232,131,1) 0%, rgba(109,193,110,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#82e883",endColorstr="#6dc16e",GradientType=1);
+}
+
+.gradient-card-estoque {
+    background: rgb(231,231,231);
+    background: -moz-linear-gradient(180deg, rgba(231,231,231,1) 0%, rgba(186,186,186,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(231,231,231,1) 0%, rgba(186,186,186,1) 100%);
+    background: linear-gradient(180deg, rgba(231,231,231,1) 0%, rgba(186,186,186,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e7e7e7",endColorstr="#bababa",GradientType=1);
 }

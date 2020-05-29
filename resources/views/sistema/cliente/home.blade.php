@@ -27,7 +27,7 @@
                 <div class="row my-0 mb-2">
                     <h5 class="m-0 pl-2">
                         <span class="teal-text text-darken-2 font-weight-bold">Meus PETS</span>
-                        <a href="#" class="waves-effect waves-light teal-text right mr-2"><i class="fas fa-plus"></i></a>
+                        <a href="#modalPets" class="waves-effect waves-light teal-text right mr-2 modal-trigger"><i class="fas fa-plus"></i></a>
                     </h5>
                 </div>
                 <div class="row my-0 pl-2">
@@ -79,9 +79,9 @@
                 <div id="agendamento" class="col l12 s12 gradient-tab-content">
                     <div class="row">
                         <div class="col l4 s12">
-                            <div class="input-field col l12 s12">
+                            <div class="input-field col l12 s12 mt-4">
                                 <input id="nascimento" type="text" name="data" id="data" class="datepicker" placeholder="Informe a data para o agendamento" required>
-                                <label for="nascimento">Data</label>
+                                <label for="nascimento" class="dark-text">Data</label>
                             </div>
                         </div>
                         <div class="col l8 s12">
@@ -136,9 +136,9 @@
     </div>
 
     <!-------------- Estrutura Modais -------------->
-    <div id="modalCliente" class="modal modal-fluid">
-        <div class="modal-content grey darken-4 p-0">
-            <h4 class="teal white-text p-4">
+    <div id="modalCliente" class="modal modal-fixed-footer modal-fluid">
+        <div class="modal-content grey darken-4 p-0 gradient-modal-content">
+            <h4 class="cyan darken-2 white-text p-4">
                 Cadastro de Cliente
                 <a href="#" class="right modal-action modal-close white-text"><i class="fa fa-times fa-xs" aria-hidden="true"></i></a>
             </h4>
@@ -272,24 +272,164 @@
                                 @enderror
                             </div>
                         </div>
-                        <button class="btn waves-effect waves-light green mb-0 hoverable" type="submit" name="action">Confirmar
-                            <i class="material-icons right">send</i>
-                        </button>
-                        <a href="#" class="waves-effect waves-light btn grey mb-0 hoverable modal-action modal-close">Cancelar</a>
-                        <br><br>
-                    </form>
                 </div>
             </div>
         </div>
-        {{-- <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div> --}}
+        <div class="modal-footer cyan darken-4 pr-4">
+            <button class="btn waves-effect waves-light green mb-0 hoverable" type="submit" name="action">Confirmar
+                <i class="material-icons right">send</i>
+            </button>
+            <a href="#" class="waves-effect waves-light btn grey mb-0 hoverable modal-action modal-close">Cancelar</a>
+        </div>
+        </form>
+    </div>
+
+    <div id="modalPets" class="modal modal-fixed-footer modal-fluid">
+        <div class="modal-content grey darken-4 p-0 gradient-modal-content">
+            <h4 class="cyan darken-2 white-text p-4">
+                Adicionar PET
+                <a href="#" class="right modal-action modal-close white-text"><i class="fa fa-times fa-xs" aria-hidden="true"></i></a>
+            </h4>
+            <div class="row m-0 pt-3">
+        <form class="col s12" action="{{ route('register') }}" method="POST">
+            @csrf
+                <div class="col l8 s12">
+                    <div class="row">
+                        <div class="input-field col l6 s12">
+                            <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" value="{{ $cliente->name }}" required autofocus>
+                            <label for="name">Nome</label>
+                            @error('name')
+                                <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="input-field col l6 s12">
+                            <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" value="{{ $cliente->name }}" required autofocus>
+                            <label for="name">Nome</label>
+                            @error('name')
+                                <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col l6 s12">
+                            <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" value="{{ $cliente->name }}" required autofocus>
+                            <label for="name">Nome</label>
+                            @error('name')
+                                <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="input-field col l6 s12">
+                            <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" value="{{ $cliente->name }}" required autofocus>
+                            <label for="name">Nome</label>
+                            @error('name')
+                                <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>   
+                    <div class="row">
+                        <div class="input-field col l4 s12">
+                            <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" value="{{ $cliente->name }}" required autofocus>
+                            <label for="name">Nome</label>
+                            @error('name')
+                                <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="input-field col l4 s12">
+                            <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" value="{{ $cliente->name }}" required autofocus>
+                            <label for="name">Nome</label>
+                            @error('name')
+                                <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="input-field col l4 s12">
+                            <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" value="{{ $cliente->name }}" required autofocus>
+                            <label for="name">Nome</label>
+                            @error('name')
+                                <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col l12 s12">
+                            <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" value="{{ $cliente->name }}" required autofocus>
+                            <label for="name">Nome</label>
+                            @error('name')
+                                <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col l12 s12">
+                            <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" value="{{ $cliente->name }}" required autofocus>
+                            <label for="name">Nome</label>
+                            @error('name')
+                                <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="col l3 offset-l1 s12">
+                    <label class="white-text">
+                        <input name="group1" type="radio" checked />
+                        <span>Macho</span>
+                    </label>
+                    <label class="ml-3 white-text">
+                        <input name="group1" type="radio" />
+                        <span>Fêmea</span>
+                    </label>
+
+                    <p>
+                        <label class="white-text">
+                            <input type="checkbox" checked/>
+                            <span>Vivo</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label class="white-text">
+                            <input type="checkbox" />
+                            <span>Agressivo</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label class="white-text">
+                            <input type="checkbox" />
+                            <span>Apto à reprodução</span>
+                        </label>
+                    </p>
+                    <br>
+                    <div class="row center-align">
+                        <span class="white-text">Adicionar Foto</span>
+                        <div class="file-field input-field">
+                            <div class="btn rounded-circle waves-effect waves-light">
+                                <span><i class="fa fa-camera" aria-hidden="true"></i></span>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <input class="btn-floating btn-large waves-effect waves-light teal right" type="file" name="action" /> --}}
+                        {{-- <i class="fa fa-camera fa-lg white-text center" aria-hidden="true"></i> --}}
+                    
+                        
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer cyan darken-4 pr-4">
+            <button class="btn waves-effect waves-light green mb-0 hoverable" type="submit" name="action">Confirmar
+                <i class="material-icons right">send</i>
+            </button>
+            <a href="#" class="waves-effect waves-light btn grey mb-0 hoverable modal-action modal-close">Cancelar</a>
+        </div>
+        </form>
     </div>
 
     <!-------------- Inicialização Modais -------------->
     <script>
         $(document).ready(function(){
             $('#modalCliente').modal();
+            $('#modalPets').modal();
         });
     </script>
 
