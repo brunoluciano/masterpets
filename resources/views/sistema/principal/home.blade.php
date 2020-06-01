@@ -4,7 +4,7 @@
     <br>
     <div class="row pt-4">
         <div class="col l3 s6">
-            <a href="#">
+            <a href="{{ route('cadastros') }}">
                 <div class="card-panel gradient-card-cadastro z-depth-2 hoverable">
                     <h4 class="header-dashboard-card center">CADASTROS</h4>
                     <h4 class="white-text my-0 right-align">

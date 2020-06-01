@@ -1596,6 +1596,13 @@ a:hover.link-hover {
     background-color: #26c6da !important;
 }
 
+.btn.green:hover {
+    background-color: #81c784 !important;
+}
+.btn.grey:hover {
+    background-color: #bdbdbd !important;
+}
+
 table.table-borderless tr{
     border: 0px;
 }

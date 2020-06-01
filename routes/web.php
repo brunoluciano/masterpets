@@ -28,4 +28,5 @@ Route::get('home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::get('home/cliente', 'ClienteHomeController@index')->name('cliente')->middleware('auth');
 Route::get('dashboard', 'PrincipalHomeController@index')->name('dashboard')->middleware('auth');
-// Route::resource('home', 'PrincipalHomeController');
+
+Route::view('dashboard/cadastros', 'sistema.principal.cadastros.index')->name('cadastros')->middleware('auth');

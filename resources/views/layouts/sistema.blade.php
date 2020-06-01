@@ -34,7 +34,17 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper bg-menu-gradient pl-3">
-                <a href="{{ url('/') }}" class="brand-logo mx-0">Master PET<i class="fas fa-paw ml-1"></i></a>
+                
+                @if (\Gate::allows('isCliente'))
+                    @php
+                        $homeUser = "cliente";
+                    @endphp
+                @else
+                    @php
+                        $homeUser = "dashboard";
+                    @endphp
+                @endif
+                <a href="{{ route($homeUser) }}" class="brand-logo mx-0">Master PET<i class="fas fa-paw ml-1"></i></a>
                 {{-- <a href="#" data-target="slide-out" class="sidenav-trigger mr-0"><i class="material-icons">menu</i></a> --}}
                 <a href="#" data-target="slide-out" class="sidenav-trigger right ml-0"><i class="fas fa-user-circle fa-lg"></i></a>
                 <ul class="right hide-on-med-and-down">
