@@ -1734,3 +1734,63 @@ table.table-borderless tr{
     background: linear-gradient(180deg, rgba(231,231,231,1) 0%, rgba(186,186,186,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e7e7e7",endColorstr="#bababa",GradientType=1);
 }
+
+.tabs.tabs-vertical {
+    height: auto;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.tabs-vertical .tab {
+    width: 100% !important;
+}
+
+/*/////////////CUSTOM VERTICAL TABS/////////////*/
+.tabs-vertical {
+    -moz-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    -o-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+
+.tabs-vertical .tab a{
+    -moz-transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    -o-transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    -webkit-transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    background-color:#b2f2c3 !important;
+    color:rgb(74, 96, 102) !important;
+} /*Black color to the text*/
+
+.tabs-vertical .tab a:hover {
+    -moz-transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    -o-transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    -webkit-transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    background-color:#83e6a2 !important;
+    color:#FFF !important;
+    border-right: 3px solid #008248;
+} /*Text color on hover*/
+
+.tabs-vertical .tab a.active {
+    background-color:#06cc7d !important;
+    color:#FFF !important;
+    font-weight: bold !important;
+    border-right: 3px solid #008248;
+} /*Background and text color when a tab is active*/
+
+.tabs-vertical .tab a.active:hover {
+    -moz-transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    -o-transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    -webkit-transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    transition: color .28s ease, background-color .28s ease, border-color .28s ease;
+    background-color:#26da89 !important;
+    color:#FFF !important;
+} /*Background and text color when a tab is active*/
+
+.tabs-vertical .indicator {
+    display: none !important;
+}

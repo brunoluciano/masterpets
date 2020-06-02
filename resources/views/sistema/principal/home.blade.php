@@ -16,7 +16,7 @@
         <div class="col l3 s6">
             <a href="#">
                 <div class="card-panel gradient-card-venda z-depth-2 hoverable">
-                    <h4 class="header-dashboard-card center">VENDA (PDV)</h4>
+                    <h4 class="header-dashboard-card center">VENDA</h4>
                     <h4 class="white-text my-0 right-align">
                         <i class="fas fa-shopping-cart fa-3x"></i>
                     </h4>

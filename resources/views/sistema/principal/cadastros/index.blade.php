@@ -7,7 +7,7 @@
     <div class="row">
         <br>
         <div class="col l12 s12 fix-tabs-content">
-            <ul id="tabs-swipe" class="tabs">
+            <ul id="tabs-main" class="tabs">
                 <li class="tab col l3 s6"><a class="active" href="#usuarios">Usuários</a></li>
                 <li class="tab col l3 s6"><a href="#produtos">Produtos</a></li>
                 <li class="tab col l3 s6"><a href="#animais">Animais</a></li>
@@ -55,8 +55,8 @@
                             </div>
                             <div class="input-field col l2 s12 select-light-text white-arrow">
                                 <select name="sexo" required>
-                                  <option value="1">Masculino</option>
-                                  <option value="2">Feminino</option>
+                                    <option value="1">Masculino</option>
+                                    <option value="2">Feminino</option>
                                 </select>
                                 <label>Sexo</label>
                                 @error('sexo')
@@ -140,7 +140,7 @@
                                 <select name="estado_id" required>
                                     <option value="" disabled selected>Escolha o estado</option>
                                     @php
-                                        $estados = DB::table('estados')->orderby('uf')->get();   
+                                        $estados = DB::table('estados')->orderby('uf')->get();
                                     @endphp
                                     @foreach ($estados as $estado)
                                         @php
@@ -162,32 +162,116 @@
                     </form>
                 </div>
             </div>
-            <div id="produtos" class="col l12 s12 gradient-tab-content">
-                <div class="row">
-                    <div class="col l3">
-                        <div class="collection">
-                            <a href="#!" class="collection-item active">Alvin</a>
-                            <a href="#!" class="collection-item">Alvin</a>
-                            <a href="#!" class="collection-item">Alvin</a>
-                            <a href="#!" class="collection-item">Alvin</a>
+            <div id="produtos" class="col l12 s12 gradient-modal-content">
+                <div class="row pt-2 mb-0">
+                    <div class="col l2">
+                        <ul id="tabs-produtos" class="tabs tabs-vertical">
+                            <li class="tab col l3 s6"><a class="active" href="#produtoCad">Produtos</a></li>
+                            <li class="tab col l3 s6"><a href="#marcas">Marcas</a></li>
+                            <li class="tab col l3 s6"><a href="#tiposProdutos">Tipos</a></li>
+                        </ul>
+                    </div>
+                    <div class="col l10">
+                        <div id="produtoCad" class="col s12">
+                            <form action="#">
+                                <div class="row">
+                                    <div class="input-field col l12 s12">
+                                        <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
+                                        <label for="name">Nome</label>
+                                        @error('name')
+                                            <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col l6 s12">
+                                        <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
+                                        <label for="name">Nome</label>
+                                        @error('name')
+                                            <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="input-field col l6 s12">
+                                        <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
+                                        <label for="name">Nome</label>
+                                        @error('name')
+                                            <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col l3 s12">
+                                        <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
+                                        <label for="name">Nome</label>
+                                        @error('name')
+                                            <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="input-field col l3 s12">
+                                        <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
+                                        <label for="name">Nome</label>
+                                        @error('name')
+                                            <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="input-field col l3 s12">
+                                        <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
+                                        <label for="name">Nome</label>
+                                        @error('name')
+                                            <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="input-field col l3 s12">
+                                        <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
+                                        <label for="name">Nome</label>
+                                        @error('name')
+                                            <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <button class="btn waves-effect waves-light green mb-0 hoverable" type="submit" name="action">Confirmar
+                                    <i class="material-icons right">send</i>
+                                </button>
+                                <a href="{{ url('home') }}" class="waves-effect waves-light btn grey mb-0 hoverable">Cancelar</a>
+                            </form>
                         </div>
-                    </div>
-                    <div class="col l9">
-                        <div id="test1" class="col s12">Test 1</div>
-                        <div id="test2" class="col s12">Test 2</div>
-                        <div id="test3" class="col s12">Test 3</div>
-                        <div id="test4" class="col s12">Test 4</div>
+                        <div id="marcas" class="col s12">Test 2</div>
+                        <div id="tiposProdutos" class="col s12">Test 3</div>
                     </div>
                 </div>
             </div>
-            <div id="animais" class="col l12 s12 gradient-tab-content">
-                <div class="row">
-                    
+            <div id="animais" class="col l12 s12 gradient-modal-content">
+                <div class="row pt-2 mb-0">
+                    <div class="col l2">
+                        <ul id="tabs-animais" class="tabs tabs-vertical">
+                            <li class="tab col l3 s6"><a class="active" href="#especie">Espécie</a></li>
+                            <li class="tab col l3 s6"><a href="#raca">Raça</a></li>
+                            <li class="tab col l3 s6"><a href="#porte">Porte</a></li>
+                            <li class="tab col l3 s6"><a href="#cor">Cor</a></li>
+                            <li class="tab col l3 s6"><a href="#pelo">Pelo</a></li>
+                        </ul>
+                    </div>
+                    <div class="col l10">
+                        <div id="especie" class="col s12">Test 1</div>
+                        <div id="raca" class="col s12">Test 2</div>
+                        <div id="porte" class="col s12">Test 3</div>
+                        <div id="cor" class="col s12">Test 4</div>
+                        <div id="pelo" class="col s12">Test 4</div>
+                    </div>
                 </div>
             </div>
-            <div id="servicos" class="col l12 s12 gradient-tab-content">
-                <div class="row">
-                    
+            <div id="servicos" class="col l12 s12 gradient-modal-content">
+                <div class="row pt-2 mb-0">
+                    <div class="col l2">
+                        <ul id="tabs-servicos" class="tabs tabs-vertical">
+                            <li class="tab col l3 s6"><a class="active" href="#servicoCad">Serviços</a></li>
+                            <li class="tab col l3 s6"><a href="#tiposServicos">Tipos</a></li>
+                        </ul>
+                    </div>
+                    <div class="col l10">
+                        <div id="servicoCad" class="col s12">Test 1</div>
+                        <div id="tiposServicos" class="col s12">Test 2</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -196,9 +280,12 @@
 
 <script>
     $(document).ready(function(){
-       $('#tabs-swipe').tabs({
+       $('ul#tabs-main').tabs({
            swipeable: true
        });
+       $('ul#tabs-produtos').tabs();
+       $('ul#tabs-animais').tabs();
+       $('ul#tabs-servicos').tabs();
    });
 </script>
 <script src="{{ asset('js/configDatepicker.js')}}"></script>

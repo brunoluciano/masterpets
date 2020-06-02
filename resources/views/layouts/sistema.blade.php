@@ -34,7 +34,7 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper bg-menu-gradient pl-3">
-                
+
                 @if (\Gate::allows('isCliente'))
                     @php
                         $homeUser = "cliente";
