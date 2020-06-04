@@ -7,6 +7,11 @@
     $path = "sistema.principal.cadastros.";
 @endphp
 <div class="container py-4">
+    @if ($message = Session::get('success'))
+        <div class="green">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
     <div class="row">
         <br>
         <div class="col l12 s12 fix-tabs-content">

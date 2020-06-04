@@ -8,9 +8,111 @@
     </ul>
 </div>
 <div class="col l10">
-    <div id="especie" class="col s12">Test 1</div>
-    <div id="raca" class="col s12">Test 2</div>
-    <div id="porte" class="col s12">Test 3</div>
-    <div id="cor" class="col s12">Test 4</div>
-    <div id="pelo" class="col s12">Test 4</div>
+    <div id="especie" class="col s12">
+        <form action="{{ route('especie.store') }}" method="POST">
+            {{ csrf_field() }}
+
+            <div class="row">
+                <div class="input-field col l12 s12">
+                    <input id="especieNome" type="text" name="nome" class="validate @error('nome') invalid @enderror" required>
+                    <label for="nome">Nome</label>
+                    @error('nome')
+                        <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light green mb-0 hoverable" type="submit" name="action">Confirmar
+                <i class="material-icons right">send</i>
+            </button>
+            <a href="{{ route('dashboard') }}" class="waves-effect waves-light btn grey mb-0 hoverable">Cancelar</a>
+        </form>
+    </div>
+    <div id="raca" class="col s12">
+        <form action="{{ route('raca.store') }}" method="POST">
+            {{ csrf_field() }}
+
+            <div class="row">
+                <div class="input-field col l6 s12">
+                    <input id="racaNome" type="text" name="nome" class="validate @error('name') invalid @enderror" required>
+                    <label for="nome">Nome</label>
+                    @error('nome')
+                        <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="input-field col l6 s12 select-light-text">
+                    <select name="especie_id" required>
+                        <option value="" disabled selected>Escolha a espécie</option>
+                        @foreach ($especies as $especie)
+                            <option value="{{ $especie->id }}">{{ $especie->nome }}</option>
+                        @endforeach
+                    </select>
+                    <label>Espécie</label>
+                    @error('estado_id')
+                        <span class="helper-text" data-error="wrong" data-success="right">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light green mb-0 hoverable" type="submit" name="action">Confirmar
+                <i class="material-icons right">send</i>
+            </button>
+            <a href="{{ route('dashboard') }}" class="waves-effect waves-light btn grey mb-0 hoverable">Cancelar</a>
+        </form>
+    </div>
+    <div id="porte" class="col s12">
+        <form action="#">
+            {{ csrf_field() }}
+
+            <div class="row">
+                <div class="input-field col l12 s12">
+                    <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
+                    <label for="name">Nome</label>
+                    @error('name')
+                        <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light green mb-0 hoverable" type="submit" name="action">Confirmar
+                <i class="material-icons right">send</i>
+            </button>
+            <a href="{{ route('dashboard') }}" class="waves-effect waves-light btn grey mb-0 hoverable">Cancelar</a>
+        </form>
+    </div>
+    <div id="cor" class="col s12">
+        <form action="#">
+            {{ csrf_field() }}
+
+            <div class="row">
+                <div class="input-field col l12 s12">
+                    <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
+                    <label for="name">Nome</label>
+                    @error('name')
+                        <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light green mb-0 hoverable" type="submit" name="action">Confirmar
+                <i class="material-icons right">send</i>
+            </button>
+            <a href="{{ route('dashboard') }}" class="waves-effect waves-light btn grey mb-0 hoverable">Cancelar</a>
+        </form>
+    </div>
+    <div id="pelo" class="col s12">
+        <form action="#">
+            {{ csrf_field() }}
+
+            <div class="row">
+                <div class="input-field col l12 s12">
+                    <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
+                    <label for="name">Nome</label>
+                    @error('name')
+                        <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light green mb-0 hoverable" type="submit" name="action">Confirmar
+                <i class="material-icons right">send</i>
+            </button>
+            <a href="{{ route('dashboard') }}" class="waves-effect waves-light btn grey mb-0 hoverable">Cancelar</a>
+        </form>
+    </div>
 </div>

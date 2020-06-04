@@ -61,6 +61,23 @@
                             </li>
                         @endif
                     @else
+                        @cannot('isCliente')
+                            <li class="waves-effect active">
+                                <a href="{{ route('dashboard') }}"><i class="material-icons left">home</i>Home</a>
+                            </li>
+                            <li>
+                                <div class="center row">
+                                    <div class="col s12">
+                                        <div class="row" id="topbarsearch">
+                                            <div class="input-field col s6 s12 red-text">
+                                                <i class="teal-text text-lighten-4 material-icons prefix">search</i>
+                                                <input type="text" placeholder="Pesquise aqui" id="autocomplete-input" class="autocomplete teal-text text-lighten-5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        @endcannot
                         <li class="nav-item dropdown">
                             <a class="dropdown-trigger btn" href="#" data-target="dropdown1">Olá, {{ Auth::user()->name }}</a>
                             {{-- <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -193,4 +210,15 @@
           edge: 'right',
       });
     });
+</script>
+<script>
+    $(document).ready(function(){
+    $('input.autocomplete').autocomplete({
+      data: {
+        "Apple": null,
+        "Microsoft": null,
+        "Google": 'https://placehold.it/250x250'
+      },
+    });
+  });
 </script>

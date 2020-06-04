@@ -29,4 +29,13 @@ Route::get('home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('home/cliente', 'ClienteHomeController@index')->name('cliente')->middleware('auth');
 Route::get('dashboard', 'PrincipalHomeController@index')->name('dashboard')->middleware('auth');
 
-Route::view('dashboard/cadastros', 'sistema.principal.cadastros.index')->name('cadastros')->middleware('auth');
+Route::get('dashboard/cadastros', 'CadastrosController')->name('cadastros')->middleware('auth');
+
+// CADASTROS //
+// Route::prefix('dashboard/cadastros')->group(function () {
+//     Route::post('especie/store', 'EspecieController@store')->name('especie.store')->middleware('auth');
+// });
+Route::group(['prefix' => 'dashboard/cadastros', 'middleware' => ['auth']], function () {
+    Route::post('especie/store', 'EspecieController@store')->name('especie.store');
+    Route::post('raca/store', 'RacaController@store')->name('raca.store');
+});

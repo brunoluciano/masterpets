@@ -122,9 +122,6 @@
         <div class="input-field col l3 s6 select-light-text white-arrow">
             <select name="estado_id" required>
                 <option value="" disabled selected>Escolha o estado</option>
-                @php
-                    $estados = DB::table('estados')->orderby('uf')->get();
-                @endphp
                 @foreach ($estados as $estado)
                     @php
                         $estado->uf == "SP" ? $ativo = "selected" : $ativo = "";

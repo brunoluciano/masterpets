@@ -1794,3 +1794,15 @@ table.table-borderless tr{
 .tabs-vertical .indicator {
     display: none !important;
 }
+
+#topbarsearch .input-field .prefix {
+    width:0rem !important;
+}
+
+#topbarsearch nav ul li:hover, nav ul li.active {
+    background-color: none !important;
+}
+
+.input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .autocomplete-content{
+    margin-left: 1rem !important;
+}
