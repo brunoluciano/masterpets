@@ -36,6 +36,24 @@ Route::get('dashboard/cadastros', 'CadastrosController')->name('cadastros')->mid
 //     Route::post('especie/store', 'EspecieController@store')->name('especie.store')->middleware('auth');
 // });
 Route::group(['prefix' => 'dashboard/cadastros', 'middleware' => ['auth']], function () {
-    Route::post('especie/store', 'EspecieController@store')->name('especie.store');
-    Route::post('raca/store', 'RacaController@store')->name('raca.store');
+    Route::prefix('animal')->group(function (){
+        Route::post('especie/store', 'EspecieController@store')->name('especie.store');
+        Route::post('raca/store', 'RacaController@store')->name('raca.store');
+        Route::post('porte/store', 'PorteController@store')->name('porte.store');
+        Route::post('cor/store', 'CorController@store')->name('cor.store');
+        Route::post('pelo/store', 'PeloController@store')->name('pelo.store');
+    });
+    Route::post('servico/store', 'ServicoController@store')->name('servico.store');
+    Route::post('tiposervico/store', 'TipoServicoController@store')->name('tiposervico.store');
 });
+
+Route::group(['prefix' => 'home/cliente', 'middleware' => ['auth']], function () {
+    Route::post('animal/store', 'AnimalController@store')->name('animal.store');
+    // Route::post('cliente/update', 'UserController@store')->name('cliente.update');
+
+    Route::get('findEspecies', 'AnimalController@getEspecie');
+    Route::get('findRacas', 'AnimalController@getRacas');
+    Route::get('findCores', 'AnimalController@getCores');
+});
+
+

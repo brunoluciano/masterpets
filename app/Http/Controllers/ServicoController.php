@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Cor;
+use App\Servico;
 use Illuminate\Http\Request;
 
-class CorController extends Controller
+class ServicoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,23 +36,25 @@ class CorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'descricao' => 'required'
+            'descricao' => 'required',
+            'tipo_servico_id' => 'required',
+            'valor' => 'required|min:1',
         ]);
 
-        Cor::create($request->all());
-        $cor = $request->input('descricao');
+        Servico::create($request->all());
+        $servico = $request->input('descricao');
 
         return redirect()->route('cadastros')
-                         ->with('success','Cor '.$cor.' inserida com sucesso!');
+                         ->with('success','Serviço '.$servico.' inserido com sucesso!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Servico  $servico
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Servico $servico)
     {
         //
     }
@@ -60,10 +62,10 @@ class CorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Servico  $servico
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Servico $servico)
     {
         //
     }
@@ -72,10 +74,10 @@ class CorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Servico  $servico
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Servico $servico)
     {
         //
     }
@@ -83,10 +85,10 @@ class CorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Servico  $servico
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Servico $servico)
     {
         //
     }

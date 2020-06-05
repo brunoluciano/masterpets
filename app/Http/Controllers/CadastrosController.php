@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Especie;
 use App\Estado;
+use App\TipoServico;
 
 class CadastrosController extends Controller
 {
@@ -19,7 +20,8 @@ class CadastrosController extends Controller
     {
         $estados = Estado::orderby('uf')->get();
         $especies = Especie::get();
-
-        return view('sistema.principal.cadastros.index', compact('especies', 'estados'));
+        $tiposervicos = TipoServico::get();
+        return view('sistema.principal.cadastros.index',
+               compact('especies', 'estados', 'tiposervicos'));
     }
 }

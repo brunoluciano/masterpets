@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Porte extends Model
+class TipoServico extends Model
 {
-    protected $table = "portes";
+    protected $table = "tiposervicos";
 
     protected $fillable = [
         'descricao'

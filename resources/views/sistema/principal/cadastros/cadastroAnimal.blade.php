@@ -59,14 +59,14 @@
         </form>
     </div>
     <div id="porte" class="col s12">
-        <form action="#">
+        <form action="{{ route('porte.store') }}" method="POST">
             {{ csrf_field() }}
 
             <div class="row">
                 <div class="input-field col l12 s12">
-                    <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
-                    <label for="name">Nome</label>
-                    @error('name')
+                    <input id="descricao" type="text" name="descricao" class="validate @error('descricao') invalid @enderror" required>
+                    <label for="descricao">Descrição</label>
+                    @error('descricao')
                         <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                     @enderror
                 </div>
@@ -78,14 +78,14 @@
         </form>
     </div>
     <div id="cor" class="col s12">
-        <form action="#">
+        <form action="{{ route('cor.store') }}" method="POST">
             {{ csrf_field() }}
 
             <div class="row">
                 <div class="input-field col l12 s12">
-                    <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
-                    <label for="name">Nome</label>
-                    @error('name')
+                    <input id="descricao" type="text" name="descricao" class="validate @error('descricao') invalid @enderror" required>
+                    <label for="descricao">Descrição</label>
+                    @error('descricao')
                         <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                     @enderror
                 </div>
@@ -97,14 +97,14 @@
         </form>
     </div>
     <div id="pelo" class="col s12">
-        <form action="#">
+        <form action="{{ route('pelo.store') }}" method="POST">
             {{ csrf_field() }}
 
             <div class="row">
                 <div class="input-field col l12 s12">
-                    <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
-                    <label for="name">Nome</label>
-                    @error('name')
+                    <input id="descricao" type="text" name="descricao" class="validate @error('descricao') invalid @enderror" required>
+                    <label for="descricao">Descrição</label>
+                    @error('descricao')
                         <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                     @enderror
                 </div>

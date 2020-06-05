@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Cor;
+use App\TipoServico;
 use Illuminate\Http\Request;
 
-class CorController extends Controller
+class TipoServicoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,20 +39,20 @@ class CorController extends Controller
             'descricao' => 'required'
         ]);
 
-        Cor::create($request->all());
-        $cor = $request->input('descricao');
+        TipoServico::create($request->all());
+        $tiposervico = $request->input('descricao');
 
         return redirect()->route('cadastros')
-                         ->with('success','Cor '.$cor.' inserida com sucesso!');
+                         ->with('success','Tipo de serviço '.$tiposervico.' inserido com sucesso!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\TipoServico  $tipoServico
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(TipoServico $tipoServico)
     {
         //
     }
@@ -60,10 +60,10 @@ class CorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\TipoServico  $tipoServico
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(TipoServico $tipoServico)
     {
         //
     }
@@ -72,10 +72,10 @@ class CorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\TipoServico  $tipoServico
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, TipoServico $tipoServico)
     {
         //
     }
@@ -83,10 +83,10 @@ class CorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\TipoServico  $tipoServico
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TipoServico $tipoServico)
     {
         //
     }

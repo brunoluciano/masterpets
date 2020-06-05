@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Porte;
 use Illuminate\Http\Request;
 
 class PorteController extends Controller
@@ -34,7 +35,15 @@ class PorteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'descricao' => 'required'
+        ]);
+
+        Porte::create($request->all());
+        $porte = $request->input('descricao');
+
+        return redirect()->route('cadastros')
+                         ->with('success','Porte '.$porte.' inserido com sucesso!');
     }
 
     /**

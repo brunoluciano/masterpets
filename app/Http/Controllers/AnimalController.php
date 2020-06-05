@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Animal;
+use App\Especie;
+use App\Raca;
+use App\Cor;
 use Illuminate\Http\Request;
 
 class AnimalController extends Controller
@@ -34,7 +38,27 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'especie_id' => 'required',
+            'dono_id' => 'required',
+            'nascimento' => 'required',
+            'raca_predominante_id' => 'required',
+            'porte_id' => 'required',
+            'cor_predominante_id' => 'required',
+            'pelo_id' => 'required',
+            'alergias' => 'max:250',
+            'observacoes' => 'max:250',
+            'sexo' => 'required',
+        ]);
+
+        // var_dump($request->all());
+
+        Animal::create($request->all());
+        $nome = $request->input('nome');
+
+        return redirect()->route('cliente')
+                         ->with('success','O PET '.$nome.' foi inserido com sucesso!');
     }
 
     /**
@@ -80,5 +104,20 @@ class AnimalController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getEspecie() {
+        $e = Especie::all();
+        return response()->json($e);
+    }
+
+    public function getRacas() {
+        $r = Raca::all();
+        return response()->json($r);
+    }
+
+    public function getCores() {
+        $c = Cor::all();
+        return response()->json($c);
     }
 }

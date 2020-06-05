@@ -6,28 +6,35 @@
 </div>
 <div class="col l10">
     <div id="servicoCad" class="col s12">
-        <form action="#">
+        <form action="{{ route('servico.store') }}" method="POST">
+            {{ csrf_field() }}
+
             <div class="row">
                 <div class="input-field col l12 s12">
-                    <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
-                    <label for="name">Nome</label>
-                    @error('name')
+                    <input id="descricao" type="text" name="descricao" class="validate @error('descricao') invalid @enderror" required>
+                    <label for="descricao">Descrição</label>
+                    @error('descricao')
                         <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                     @enderror
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col l6 s12">
-                    <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
-                    <label for="name">Nome</label>
-                    @error('name')
-                        <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                <div class="input-field col l6 s12 select-light-text white-arrow">
+                    <select name="tipo_servico_id" required>
+                        <option value="" disabled selected>Escolha o tipo do serviço</option>
+                        @foreach ($tiposervicos as $tiposervico)
+                            <option value="{{ $tiposervico->id }}">{{ $tiposervico->descricao }}</option>
+                        @endforeach
+                    </select>
+                    <label>Tipo do Serviço</label>
+                    @error('tipo_servico_id')
+                        <span class="helper-text" data-error="wrong" data-success="right">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="input-field col l6 s12">
-                    <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
-                    <label for="name">Nome</label>
-                    @error('name')
+                    <input id="valor" type="number" name="valor" class="validate @error('name') invalid @enderror" min="1" step="0.01" required>
+                    <label for="valor">Valor</label>
+                    @error('valor')
                         <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                     @enderror
                 </div>
@@ -39,12 +46,14 @@
         </form>
     </div>
     <div id="tiposServicos" class="col s12">
-        <form action="#">
+        <form action="{{ route('tiposervico.store') }}" method="POST">
+            {{ csrf_field() }}
+
             <div class="row">
                 <div class="input-field col l12 s12">
-                    <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>
-                    <label for="name">Nome</label>
-                    @error('name')
+                    <input id="descricao" type="text" name="descricao" class="validate @error('descricao') invalid @enderror" required>
+                    <label for="descricao">Descrição</label>
+                    @error('descricao')
                         <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                     @enderror
                 </div>
