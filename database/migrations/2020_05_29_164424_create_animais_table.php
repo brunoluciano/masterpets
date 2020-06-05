@@ -28,9 +28,9 @@ class CreateAnimaisTable extends Migration
             $table->unsignedBigInteger('pelo_id');
             $table->text('alergias')->nullable();
             $table->text('observacoes')->nullable();
-            $table->boolean('vivo')->default(true);
+            $table->boolean('vivo')->default(false);
             $table->boolean('agressivo')->default(false);
-            $table->boolean('apto_reproduzir')->default(true);
+            $table->boolean('apto_reproduzir')->default(false);
             $table->string('path_img')->nullable();
 
             $table->foreign('dono_id')->references('id')->on('users');

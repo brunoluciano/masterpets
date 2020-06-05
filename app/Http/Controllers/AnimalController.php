@@ -38,27 +38,29 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nome' => 'required',
-            'especie_id' => 'required',
-            'dono_id' => 'required',
-            'nascimento' => 'required',
-            'raca_predominante_id' => 'required',
-            'porte_id' => 'required',
-            'cor_predominante_id' => 'required',
-            'pelo_id' => 'required',
-            'alergias' => 'max:250',
-            'observacoes' => 'max:250',
-            'sexo' => 'required',
-        ]);
+        // var_dump($request->file('imgPet'),$request->all());
+        var_dump($request->file('imgPet'));
+        $path_img =  $request->file('imgPet')->store('teste');
+        echo $path_img;
+        // $request->validate([
+        //     'nome' => 'required',
+        //     'especie_id' => 'required',
+        //     'dono_id' => 'required',
+        //     'nascimento' => 'required',
+        //     'raca_predominante_id' => 'required',
+        //     'porte_id' => 'required',
+        //     'cor_predominante_id' => 'required',
+        //     'pelo_id' => 'required',
+        //     'alergias' => 'max:250',
+        //     'observacoes' => 'max:250',
+        //     'sexo' => 'required',
+        // ]);
 
-        // var_dump($request->all());
+        // Animal::create($request->all());
+        // $nome = $request->input('nome');
 
-        Animal::create($request->all());
-        $nome = $request->input('nome');
-
-        return redirect()->route('cliente')
-                         ->with('success','O PET '.$nome.' foi inserido com sucesso!');
+        // return redirect()->route('cliente')
+        //                  ->with('success','O PET '.$nome.' foi inserido com sucesso!');
     }
 
     /**

@@ -35,26 +35,41 @@
                     </h5>
                 </div>
                 <div class="row my-0 pl-2">
-                    @foreach ($petsHome as $pet)
-                        <div class="row valign-wrappe my-1">
-                            <div class="col l2 s1 center pr-0">
-                                <img src="{{ asset('images/cao.jpg') }}" class="circle responsive-img pet-img">
-                            </div>
-                            <div class="col l10 s11 pl-0">
-                                <table class="p-0 table-borderless">
-                                    <tr>
-                                        <th class="p-0"><h6 class="mt-1 font-weight-bold">{{ $pet->nome }}</h6></th>
-                                        <th class="p-0" rowspan="2"><a href="#" class="waves-effect waves-light btn btn-small cyan darken-1 font-weight-normal right">DETALHES</a></th>
-                                    </tr>
-                                    <tr>
-                                        <td class="p-0"><span>{{ $pet->especie->nome }} • {{ $pet->raca_predominante->nome }}</span></td>
-                                    </tr>
-                                </table>
-                            </div>
+                    @if (!$possuiPet)
+                        <div class="valign-wrapper">
+                            <h5 class="grey-text text-darken-2 center">Você não possui nenhum PET cadastrado!</h5>
                         </div>
-                        <hr class="my-0">
-                    @endforeach
-                    <a href="#modalListaPets" class="my-0 grey-text text-darken-2 hover-link modal-trigger">Ver todos</a>
+                    @else
+                        @foreach ($petsHome as $pet)
+                            <div class="row valign-wrappe my-1">
+                                <div class="col l2 s1 center pr-0">
+                                    <img src="{{ asset('images/cao.jpg') }}" class="circle responsive-img pet-img">
+                                </div>
+                                <div class="col l10 s11 pl-0">
+                                    <table class="p-0 table-borderless">
+                                        <tr>
+                                            <th class="p-0">
+                                                <h6 class="mt-1 font-weight-bold">
+                                                    {{ $pet->nome }}
+                                                    @if ($pet->sexo == "M")
+                                                        <i class="fa fa-mars blue-text" aria-hidden="true"></i>
+                                                    @else 
+                                                    <i class="fa fa-venus pink-text" aria-hidden="true"></i>
+                                                    @endif
+                                                </h6>
+                                            </th>
+                                            <th class="p-0" rowspan="2"><a href="#" class="waves-effect waves-light btn btn-small cyan darken-1 font-weight-normal right">DETALHES</a></th>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-0"><span>{{ $pet->especie->nome }} • {{ $pet->raca_predominante->nome }}</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <hr class="my-0">
+                        @endforeach
+                        <a href="#modalListaPets" class="my-0 grey-text text-darken-2 hover-link modal-trigger">Ver todos</a>
+                    @endif
                 </div>
             </div>
         </div>

@@ -22,9 +22,10 @@ class ClienteHomeController extends Controller
 
             $petsHome = Animal::where('dono_id', '=', $cliente->id)->orderby('nome')->take(2)->get();
             $petsLista = Animal::where('dono_id', '=', $cliente->id)->orderby('nome')->get();
+            $possuiPet = $petsLista->count() > 0 ? true : false;
 
             return view('sistema.cliente.home', compact('cliente',
-            'petsHome', 'petsLista', 'portes', 'pelos'));
+            'petsHome', 'petsLista', 'possuiPet', 'portes', 'pelos'));
         }
     }
 }

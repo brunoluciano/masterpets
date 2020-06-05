@@ -14,7 +14,32 @@
                         <div class="col l10 s11 pl-0">
                             <table class="p-0 table-borderless">
                                 <tr>
-                                    <th class="p-0"><h6 class="mt-1 font-weight-bold">{{ $pet->nome }}</h6></th>
+                                    <th class="p-0">
+                                        <h6 class="mt-1 font-weight-bold">
+                                            {{ $pet->nome }}
+                                            @if ($pet->sexo == "M")
+                                                <i class="fa fa-mars blue-text" aria-hidden="true"></i>
+                                            @else 
+                                                <i class="fa fa-venus pink-text" aria-hidden="true"></i>
+                                            @endif
+                                        </h6>
+                                        @if (!$pet->vivo)
+                                            <div class="chip py-0 black white-text">
+                                                <i class="fas fa-bone"></i> Falecido
+                                            </div>   
+                                        @else
+                                            @if ($pet->agressivo)
+                                                <div class="chip py-0 red lighten-1 white-text">
+                                                    <i class="fas fa-angry"></i> Agressivo
+                                                </div>   
+                                            @endif
+                                            @if ($pet->apto_reproduzir)
+                                                <div class="chip py-0 green lighten-1 white-text">
+                                                    <i class="fas fa-heart"></i> Apto à reproduzir
+                                                </div>   
+                                            @endif    
+                                        @endif
+                                    </th>
                                     <th class="p-0" rowspan="2"><a href="#" class="waves-effect waves-light btn btn-small cyan darken-1 font-weight-normal right">DETALHES</a></th>
                                 </tr>
                                 <tr>

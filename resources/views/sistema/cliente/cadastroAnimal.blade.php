@@ -5,21 +5,21 @@
             <a href="#" class="right modal-action modal-close white-text"><i class="fa fa-times fa-xs" aria-hidden="true"></i></a>
         </h4>
         <div class="row m-0 pt-3">
-    <form class="col s12" action="{{ route('animal.store') }}" method="POST">
+    <form class="col s12" action="{{ route('animal.store') }}" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
 
             <div class="col l8 s12">
                 <div class="row">
                     <div class="input-field col l6 s12">
-                        <input id="nome" type="text" name="nome" class="validate @error('nome') invalid @enderror" required>
+                        <input id="nome" type="text" name="nome" class="validate @error('nome') invalid @enderror" >
                         <label for="nome">Nome</label>
                         @error('nome')
                             <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="input-field col l6 s12">
-                        <input type="text" id="especie" class="autocomplete" name="especie" autocomplete="off" required>
-                        <input type="hidden" id="especie_id" name="especie_id" required>
+                        <input type="text" id="especie" class="autocomplete" name="especie" autocomplete="off" >
+                        <input type="hidden" id="especie_id" name="especie_id" >
                         <label for="autocomplete-input">Espécie</label>
                         @error('especie')
                             <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
@@ -36,7 +36,7 @@
                         @enderror
                     </div>
                     <div class="input-field col l6 s12">
-                        <input id="nascimentoAnimal" type="text" name="nascimento" class="datepicker" required>
+                        <input id="nascimentoAnimal" type="text" name="nascimento" class="datepicker" >
                         <label for="nascimento">Nascimento</label>
                         <i class="fas fa-calendar-alt fa-xs prefix right white-text" aria-hidden="true"></i>
                         @error('nascimento')
@@ -46,8 +46,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col l4 s12">
-                        <input id="raca_predominante" type="text" name="raca_predominante" class="autocomplete" autocomplete="off" required>
-                        <input type="hidden" id="raca_predominante_id" name="raca_predominante_id" required>
+                        <input id="raca_predominante" type="text" name="raca_predominante" class="autocomplete" autocomplete="off" >
+                        <input type="hidden" id="raca_predominante_id" name="raca_predominante_id" >
                         <label for="raca_predominante">Raça Predominante</label>
                         @error('raca_predominante')
                             <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
@@ -62,7 +62,7 @@
                         @enderror
                     </div>
                     <div class="input-field col l4 s12 select-light-text white-arrow">
-                        <select name="porte_id" required>
+                        <select name="porte_id" >
                             <option value="" disabled selected>Escolha o porte do animal</option>
                             @foreach ($portes as $porte)
                                 <option value="{{ $porte->id }}">{{ $porte->descricao }}</option>
@@ -76,8 +76,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col l4 s12">
-                        <input id="cor_predominante" type="text" name="cor_predominante" class="autocomplete" autocomplete="off" required>
-                        <input type="hidden" id="cor_predominante_id" name="cor_predominante_id" required>
+                        <input id="cor_predominante" type="text" name="cor_predominante" class="autocomplete" autocomplete="off" >
+                        <input type="hidden" id="cor_predominante_id" name="cor_predominante_id" >
                         <label for="cor_predominante">Cor Predominante</label>
                         @error('cor_predominante')
                             <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
@@ -92,7 +92,7 @@
                         @enderror
                     </div>
                     <div class="input-field col l4 s12 select-light-text white-arrow">
-                        <select name="pelo_id" required>
+                        <select name="pelo_id" >
                             <option value="" disabled selected>Escolha o pelo do animal</option>
                             @foreach ($pelos as $pelo)
                                 <option value="{{ $pelo->id }}">{{ $pelo->descricao }}</option>
@@ -135,7 +135,7 @@
 
                 <p>
                     <label class="white-text">
-                        <input disabled type="checkbox" name="vivo" value="1" checked/>
+                        <input type="checkbox" name="vivo" value="1" checked/>
                         <span>Vivo</span>
                     </label>
                 </p>
@@ -147,7 +147,7 @@
                 </p>
                 <p>
                     <label class="white-text">
-                        <input type="checkbox" name="apto_reproduzir" value="1"/>
+                        <input type="checkbox" name="apto_reproduzir" value="1" />
                         <span>Apto à reprodução</span>
                     </label>
                 </p>
@@ -157,7 +157,7 @@
                     <div class="file-field input-field">
                         <div class="btn rounded-circle waves-effect waves-light">
                             <span><i class="fa fa-camera" aria-hidden="true"></i></span>
-                            <input type="file">
+                            <input type="file" name="imgPet">
                         </div>
                         <div class="file-path-wrapper">
                         <input class="file-path validate" type="text">
