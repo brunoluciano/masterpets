@@ -43,7 +43,7 @@
                         @foreach ($petsHome as $pet)
                             <div class="row valign-wrappe my-1">
                                 <div class="col l2 s1 center pr-0">
-                                    <img src="{{ asset('images/cao.jpg') }}" class="circle responsive-img pet-img">
+                                    <img src="{{ asset('storage/'.$pet->path_img) }}" class="circle responsive-img pet-img">
                                 </div>
                                 <div class="col l10 s11 pl-0">
                                     <table class="p-0 table-borderless">
@@ -53,7 +53,7 @@
                                                     {{ $pet->nome }}
                                                     @if ($pet->sexo == "M")
                                                         <i class="fa fa-mars blue-text" aria-hidden="true"></i>
-                                                    @else 
+                                                    @else
                                                     <i class="fa fa-venus pink-text" aria-hidden="true"></i>
                                                     @endif
                                                 </h6>

@@ -39,28 +39,37 @@ class AnimalController extends Controller
     public function store(Request $request)
     {
         // var_dump($request->file('imgPet'),$request->all());
-        var_dump($request->file('imgPet'));
-        $path_img =  $request->file('imgPet')->store('teste');
-        echo $path_img;
-        // $request->validate([
-        //     'nome' => 'required',
-        //     'especie_id' => 'required',
-        //     'dono_id' => 'required',
-        //     'nascimento' => 'required',
-        //     'raca_predominante_id' => 'required',
-        //     'porte_id' => 'required',
-        //     'cor_predominante_id' => 'required',
-        //     'pelo_id' => 'required',
-        //     'alergias' => 'max:250',
-        //     'observacoes' => 'max:250',
-        //     'sexo' => 'required',
-        // ]);
+        // var_dump($request->file('imgPet'));
 
-        // Animal::create($request->all());
-        // $nome = $request->input('nome');
+        $request->validate([
+            'nome' => 'required',
+            'especie_id' => 'required',
+            'dono_id' => 'required',
+            'nascimento' => 'required',
+            'raca_predominante_id' => 'required',
+            'porte_id' => 'required',
+            'cor_predominante_id' => 'required',
+            'pelo_id' => 'required',
+            'alergias' => 'max:250',
+            'observacoes' => 'max:250',
+            'sexo' => 'required',
+        ]);
 
-        // return redirect()->route('cliente')
-        //                  ->with('success','O PET '.$nome.' foi inserido com sucesso!');
+        $dono_id = $request->input('dono_id');
+
+        $requestData = $request->all();
+        $requestData['path_img'] = $request->file('imgPet')->store('cliente/'. $dono_id . '/pets');
+
+        Animal::create($requestData);
+
+        // $animalImg = new Animal();
+        // $animalImg->path_img = $request->file('imgPet')->store('cliente/'. $dono_id . '/pets');
+        // $animalImg->save();
+
+        $nome = $request->input('nome');
+
+        return redirect()->route('cliente')
+                         ->with('success','O PET '.$nome.' foi inserido com sucesso!');
     }
 
     /**
