@@ -57,8 +57,14 @@ class AnimalController extends Controller
 
         $dono_id = $request->input('dono_id');
 
+
         $requestData = $request->all();
-        $requestData['path_img'] = $request->file('imgPet')->store('cliente/'. $dono_id . '/pets');
+        if(!$request->file() == null) {
+            $requestData['path_img'] = $request->file('imgPet')->store('cliente/'. $dono_id . '/pets');
+        } else {
+            $requestData['path_img'] = "storage/animal/animalDefault.jpg";
+        }
+        
 
         Animal::create($requestData);
 
