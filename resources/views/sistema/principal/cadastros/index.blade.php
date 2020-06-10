@@ -8,9 +8,14 @@
 @endphp
 <div class="container py-4">
     @if ($message = Session::get('success'))
-        <div class="green">
-            <p>{{ $message }}</p>
-        </div>
+        <script>
+            toastr.options = {
+                "positionClass": "toast-top-full-width",
+                "showDuration": "300",
+                "hideDuration": "1000"
+            }
+            Command: toastr["success"]("{{ $message }}")
+        </script>
     @endif
     <div class="row">
         <br>

@@ -96,7 +96,7 @@
             </div>
             <div class="row">
                 <div class="input-field col l4 s12">
-                    <input id="preco_compra" type="text" name="preco_compra" class="validate @error('preco_compra') invalid @enderror" required>
+                    <input id="preco_compra" type="text" name="preco_compra" step="0.25" class="validate @error('preco_compra') invalid @enderror" required>
                     <i class="fas fa-dolly fa-xs prefix right white-text" aria-hidden="true"></i>
                     <label for="preco_compra">Preço de Compra</label>
                     @error('preco_compra')
@@ -104,7 +104,7 @@
                     @enderror
                 </div>
                 <div class="input-field col l4 s12">
-                    <input id="preco_venda" type="text" name="preco_venda" class="validate @error('preco_venda') invalid @enderror" required>
+                    <input id="preco_venda" type="text" name="preco_venda" step="0.25" class="validate @error('preco_venda') invalid @enderror" required>
                     <i class="fas fa-donate fa-xs prefix right white-text" aria-hidden="true"></i>
                     <label for="preco_venda">Preço de Venda</label>
                     @error('preco_venda')

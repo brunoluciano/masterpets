@@ -62,7 +62,7 @@ class AnimalController extends Controller
         if(!$request->file() == null) {
             $requestData['path_img'] = $request->file('imgPet')->store('cliente/'. $dono_id . '/pets');
         } else {
-            $requestData['path_img'] = "storage/animal/animalDefault.jpg";
+            $requestData['path_img'] = "animal/animalDefault.jpg";
         }
         
 

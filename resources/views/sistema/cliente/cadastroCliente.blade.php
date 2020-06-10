@@ -6,8 +6,9 @@
         </h4>
         <div class="row m-0">
             <div class="col l12">
-                <form class="col s12" action="{{ route('register') }}" method="POST">
+                <form class="col s12" action="{{ route('cliente.update', $cliente->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
 
                     <div class="row">
                         <div class="input-field col l4 s12">
@@ -24,6 +25,7 @@
                                 <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                             @enderror
                         </div>
+                        <input id="password" type="hidden" name="password" value="{{ $cliente->password }}">
                         <div class="input-field col l2 s12">
                             <input id="cpf" type="text" name="cpf" class="validate @error('cpf') invalid @enderror" value="{{ $cliente->cpf }}" required>
                             <label for="cpf">CPF</label>
@@ -36,8 +38,8 @@
                                 @php
                                     $sexoSelected = $cliente->sexo;
                                 @endphp
-                                <option value="1" class="{{ $sexoSelected == 1 ? 'selected' : '' }}">Masculino</option>
-                                <option value="2" class="{{ $sexoSelected == 1 ? 'selected' : ''}}">Feminino</option>
+                                <option value="1" {{ $sexoSelected == 1 ? 'selected' : '' }}>Masculino</option>
+                                <option value="2" {{ $sexoSelected == 2 ? 'selected' : ''}}>Feminino</option>
                             </select>
                             <label>Sexo</label>
                             @error('sexo')
@@ -46,17 +48,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col l3 s6">
-                            <input id="password" type="password" name="password" class="validate" required>
-                            <label for="password">Senha</label>
-                            @error('password')
-                                <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="input-field col l3 s6">
-                            <input id="password_confirmation" type="password" name="password_confirmation" class="validate" required>
-                            <label for="password_confirmation">Confirmar Senha</label>
-                        </div>
                         <div class="input-field col l3 s12">
                             <input id="nascimentoCliente" type="text" name="nascimento" id="nascimento" class="datepicker" value="{{ $cliente->nascimento }}" required>
                             <label for="nascimento">Nascimento</label>
@@ -72,39 +63,37 @@
                                 <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col l6 s12">
+                        <div class="input-field col l4 s12">
                             <input id="endereco" type="text" name="endereco" class="validate" value="{{ $cliente->endereco }}" required>
                             <label for="endereco">Endereço</label>
                             @error('endereco')
                                 <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="input-field col l3 s6">
+                        <div class="input-field col l2 s6">
                             <input id="numero" type="number" name="numero" min="1" class="validate @error('numero') invalid @enderror" value="{{ $cliente->numero }}" required>
                             <label for="numero">Número</label>
                             @error('numero')
                                 <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="input-field col l3 s6">
+                    </div>
+                    <div class="row">
+                        <div class="input-field col l2 s6">
                             <input id="complemento" type="text" name="complemento" class="validate" value="{{ $cliente->complemento }}" required>
                             <label for="complemento">Complemento</label>
                             @error('complemento')
                                 <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col l3 s6">
+                        <div class="input-field col l2 s6">
                             <input id="bairro" type="text" name="bairro" class="validate" value="{{ $cliente->bairro }}" required>
                             <label for="bairro">Bairro</label>
                             @error('bairro')
                                 <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="input-field col l3 s6">
+                        <div class="input-field col l2 s6">
                             <input id="cep" type="text" name="cep" class="validate @error('cep') invalid @enderror" value="{{ $cliente->cep }}" required>
                             <label for="cep">CEP</label>
                             @error('cep')

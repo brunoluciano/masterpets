@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
 
 use App\Animal;
 use App\Porte;
 use App\Pelo;
+
+use App\User;
 
 class ClienteHomeController extends Controller
 {
@@ -27,5 +28,29 @@ class ClienteHomeController extends Controller
             return view('sistema.cliente.home', compact('cliente',
             'petsHome', 'petsLista', 'possuiPet', 'portes', 'pelos'));
         }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'sexo' => 'required',
+            'endereco' => 'required',
+            'numero' => ['required','min:1'],
+            'complemento' => 'required',
+            'cidade' => 'required',
+            'estado_id' => 'required',
+            'bairro' => 'required',
+            'cep' => ['required','size:8'],
+            'telefone' => 'required',
+            'nascimento' => 'required',
+            'cpf' => ['required','size:11'],
+        ]);
+
+        User::findOrFail($id)->update($request->all());
+
+        return redirect()->route('cliente')
+                         ->with('success','Perfil atualizado com sucesso!');
     }
 }

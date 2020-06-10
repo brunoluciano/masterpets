@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Produto;
 use App\Marca;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -51,15 +51,16 @@ class ProdutoController extends Controller
             'estoque_atual' => 'required',
         ]);
 
-
         $descricao = $request->input('descricao');
         // $produto_id = Produto::order_by('id', 'desc')->first();
 
         $requestData = $request->all();
         if(!$request->file() == null) {
-            $requestData['path_img'] = $request->file('imgProduto')->store('produto/' . $descricao);
+            $time = Carbon::now('America/Sao_Paulo');
+            $time = $time->format('Y-m-d_H-i-s');
+            $requestData['path_img'] = $request->file('imgProduto')->store('produto/' . $descricao . '/' . $time);
         } else {
-            $requestData['path_img'] = "storage/produto/produtoDefault.jpg";
+            $requestData['path_img'] = "produto/produtoDefault.jpg";
         }
 
         Produto::create($requestData);

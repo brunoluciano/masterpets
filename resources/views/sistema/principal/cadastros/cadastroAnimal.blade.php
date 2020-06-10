@@ -39,7 +39,7 @@
                         <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="input-field col l6 s12 select-light-text">
+                <div class="input-field col l6 s12 select-light-text white-arrow">
                     <select name="especie_id" required>
                         <option value="" disabled selected>Escolha a espécie</option>
                         @foreach ($especies as $especie)

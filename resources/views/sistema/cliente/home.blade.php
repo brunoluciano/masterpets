@@ -4,9 +4,14 @@
     @can('isCliente')
     <div class="container py-4">
         @if ($message = Session::get('success'))
-            <div class="green">
-                <p>{{ $message }}</p>
-            </div>
+            <script>
+                toastr.options = {
+                    "positionClass": "toast-top-full-width",
+                    "showDuration": "300",
+                    "hideDuration": "1000"
+                }
+                Command: toastr["success"]("{{ $message }}")
+            </script>
         @endif
         <div class="row">
             <div class="col l5 s12 p-4 rounded z-depth-2 card-info-user">
@@ -41,11 +46,11 @@
                         </div>
                     @else
                         @foreach ($petsHome as $pet)
-                            <div class="row valign-wrappe my-1">
-                                <div class="col l2 s1 center pr-0">
-                                    <img src="{{ asset('storage/'.$pet->path_img) }}" class="circle responsive-img pet-img">
+                            <div class="row valign-wrapper my-1">
+                                <div class="col l2 s2 center pr-0 pt-1">
+                                    <img src="{{ asset('storage/'.$pet->path_img) }}" class="circle responsive-img pet-img z-depth-2">
                                 </div>
-                                <div class="col l10 s11 pl-0">
+                                <div class="col l10 s10 pl-0">
                                     <table class="p-0 table-borderless">
                                         <tr>
                                             <th class="p-0">
@@ -58,7 +63,7 @@
                                                     @endif
                                                 </h6>
                                             </th>
-                                            <th class="p-0" rowspan="2"><a href="#" class="waves-effect waves-light btn btn-small cyan darken-1 font-weight-normal right">DETALHES</a></th>
+                                            <th class="p-0" rowspan="2"><a href="#modalPetUpdate{{ $pet->id }}" class="waves-effect waves-light btn btn-small cyan darken-1 font-weight-normal right modal-trigger">DETALHES</a></th>
                                         </tr>
                                         <tr>
                                             <td class="p-0"><span>{{ $pet->especie->nome }} • {{ $pet->raca_predominante->nome }}</span></td>
@@ -146,12 +151,15 @@
 
     @include('sistema.cliente.listaPets')
 
+    @include('sistema.cliente.petUpdate')
+
     <!-------------- Inicialização Modais -------------->
     <script>
         $(document).ready(function(){
             $('#modalCliente').modal();
             $('#modalPets').modal();
             $('#modalListaPets').modal();
+            $('#modalPetUpdate').modal();
         });
     </script>
 

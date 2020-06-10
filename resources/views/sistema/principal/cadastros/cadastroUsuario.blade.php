@@ -1,19 +1,19 @@
-<label class="white-text">
-    <input name="group1" type="radio" checked />
-    <span>Cliente</span>
-</label>
-<label class="white-text ml-3">
-    <input name="group1" type="radio" />
-    <span>Funcionário</span>
-</label>
-<label class="white-text ml-3">
-    <input name="group1" type="radio" />
-    <span>Gerente</span>
-</label>
-<hr class="my-4 divider">
-<form class="col s12" action="{{ route('register') }}" method="POST">
-    @csrf
+<form class="col s12" action="{{ route('usuario.store') }}" method="POST">
+    {{ csrf_field() }}
 
+    <label class="white-text">
+        <input name="tipo_usuario_id" type="radio" value="1" checked />
+        <span>Cliente</span>
+    </label>
+    <label class="white-text ml-3">
+        <input name="tipo_usuario_id" type="radio" value="2" />
+        <span>Funcionário</span>
+    </label>
+    <label class="white-text ml-3">
+        <input name="tipo_usuario_id" type="radio" value="3" />
+        <span>Gerente</span>
+    </label>
+    <hr class="my-4 divider">
     <div class="row">
         <div class="input-field col l4 s12">
             <input id="name" type="text" name="name" class="validate @error('name') invalid @enderror" required>

@@ -33,6 +33,10 @@ Route::get('dashboard/cadastros', 'CadastrosController')->name('cadastros')->mid
 
 // CADASTROS //
 Route::group(['prefix' => 'dashboard/cadastros', 'middleware' => ['auth']], function () {
+    Route::prefix('usuario')->group(function (){
+        Route::post('store', 'UserController@store')->name('usuario.store');
+    });
+
     Route::prefix('produto')->group(function (){
         Route::post('store', 'ProdutoController@store')->name('produto.store');
         Route::post('marca/store', 'MarcaController@store')->name('marca.store');
@@ -55,9 +59,9 @@ Route::group(['prefix' => 'dashboard/cadastros', 'middleware' => ['auth']], func
 
 // CLIENTE //
 Route::group(['prefix' => 'home/cliente', 'middleware' => ['auth']], function () {
+    Route::put('update/{id}', 'ClienteHomeController@update')->name('cliente.update');
     Route::post('animal/store', 'AnimalController@store')->name('animal.store');
-    // Route::post('cliente/update', 'UserController@store')->name('cliente.update');
-
+    
     Route::get('findEspecies', 'AnimalController@getEspecie');
     Route::get('findRacas', 'AnimalController@getRacas');
     Route::get('findCores', 'AnimalController@getCores');
