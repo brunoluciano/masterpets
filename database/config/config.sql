@@ -30,3 +30,10 @@ INSERT INTO `tipousuarios` (`id`, `descricao`, `created_at`, `updated_at`)
     VALUES  (NULL, 'Cliente', CURRENT_TIME(), CURRENT_TIME()),
             (NULL, 'Funcionário', CURRENT_TIME(), CURRENT_TIME()),
             (NULL, 'Gerente', CURRENT_TIME(), CURRENT_TIME());
+
+INSERT INTO `unidademedidas` (`id`, `descricao`, `abreviacao`, `created_at`, `updated_at`)
+    VALUES (NULL, 'grama', 'g', CURRENT_TIME(), CURRENT_TIME()),
+           (NULL, 'quilo', 'kg', CURRENT_TIME(), CURRENT_TIME()),
+           (NULL, 'mililitro', 'ml', CURRENT_TIME(), CURRENT_TIME()),
+           (NULL, 'litro', 'l', CURRENT_TIME(), CURRENT_TIME());
+
