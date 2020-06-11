@@ -1176,6 +1176,14 @@ main {
     border-color: #fff !important;
 }
 
+.border-blue {
+    border-color: #2196F3 !important;
+}
+
+.border-pink {
+    border-color: #e91e63 !important;
+}
+
 .rounded-sm {
     border-radius: 0.2rem !important;
 }

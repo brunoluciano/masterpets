@@ -153,13 +153,14 @@
 
     @include('sistema.cliente.petUpdate')
 
+    @include('sistema.cliente.petRemove')
+
     <!-------------- Inicialização Modais -------------->
     <script>
         $(document).ready(function(){
             $('#modalCliente').modal();
             $('#modalPets').modal();
             $('#modalListaPets').modal();
-            $('#modalPetUpdate').modal();
         });
     </script>
 

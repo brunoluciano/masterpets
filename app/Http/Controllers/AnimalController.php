@@ -6,7 +6,9 @@ use App\Animal;
 use App\Especie;
 use App\Raca;
 use App\Cor;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AnimalController extends Controller
 {
@@ -64,7 +66,7 @@ class AnimalController extends Controller
         } else {
             $requestData['path_img'] = "animal/animalDefault.jpg";
         }
-        
+
 
         Animal::create($requestData);
 
@@ -109,7 +111,63 @@ class AnimalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'especie_id' => 'required',
+            'dono_id' => 'required',
+            'nascimento' => 'required',
+            'raca_predominante_id' => 'required',
+            'porte_id' => 'required',
+            'cor_predominante_id' => 'required',
+            'pelo_id' => 'required',
+            'alergias' => 'max:250',
+            'observacoes' => 'max:250',
+            'sexo' => 'required',
+        ]);
+
+        // dd($request->all());
+        $animal = Animal::where('id','=',$id)->first();
+        $dono_id = $request->input('dono_id');
+
+        $requestData = $request->all();
+        if($request->file() != null) {
+            if($animal->path_img != "animal/animalDefault.jpg"){
+                Storage::delete($animal->path_img);
+            }
+            $requestData['path_img'] = $request->file('imgPet')->store('cliente/'. $dono_id . '/pets');
+        }
+
+        try {
+            if($requestData['vivo'] == null){
+                $requestData['vivo'] = 0;
+            }
+        } catch (Exception $e) {
+            $requestData['vivo'] = 0;
+        }
+
+        try {
+            if($requestData['agressivo'] == null){
+                $requestData['agressivo'] = 0;
+            }
+        } catch (Exception $e) {
+            $requestData['agressivo'] = 0;
+        }
+
+        try {
+            if($requestData['apto_reproduzir'] == null){
+                $requestData['apto_reproduzir'] = 0;
+            }
+        } catch (Exception $e) {
+            $requestData['apto_reproduzir'] = 0;
+        }
+
+
+        Animal::findOrFail($id)->update($requestData);
+
+        $nome = $request->input('nome');
+
+        return redirect()->route('cliente')
+                         ->with('success','O PET '.$nome.' foi atualizado com sucesso!');
     }
 
     /**
@@ -120,7 +178,15 @@ class AnimalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $animal = Animal::where('id','=',$id)->first();
+        // dd($animal->path_img);
+        if($animal->path_img != "animal/animalDefault.jpg"){
+            Storage::delete($animal->path_img);
+        }
+        Animal::findOrFail($id)->delete();
+
+        return redirect()->route('cliente')
+                         ->with('success','PET '. $animal->nome .' removido com sucesso!');
     }
 
     public function getEspecie() {

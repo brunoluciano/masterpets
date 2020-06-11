@@ -61,7 +61,9 @@ Route::group(['prefix' => 'dashboard/cadastros', 'middleware' => ['auth']], func
 Route::group(['prefix' => 'home/cliente', 'middleware' => ['auth']], function () {
     Route::put('update/{id}', 'ClienteHomeController@update')->name('cliente.update');
     Route::post('animal/store', 'AnimalController@store')->name('animal.store');
-    
+    Route::put('animal/update/{id}', 'AnimalController@update')->name('animal.update');
+    Route::delete('animal/destroy/{id}', 'AnimalController@destroy')->name('animal.destroy');
+
     Route::get('findEspecies', 'AnimalController@getEspecie');
     Route::get('findRacas', 'AnimalController@getRacas');
     Route::get('findCores', 'AnimalController@getCores');
