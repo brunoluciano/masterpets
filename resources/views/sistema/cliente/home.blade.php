@@ -25,7 +25,7 @@
                 <div class="row my-0 pl-2">
                     <div class="font-italic grey-text text-darken-2">
                         <p class="m-0">{{ $cliente->email }}</p>
-                        <p class="m-0">{{ $cliente->endereco . " - " . $cliente->bairro}}</p>
+                        <p class="m-0">{{ $cliente->endereco . " " . $cliente->numero . " - " . $cliente->bairro}}</p>
                         <p class="m-0">{{ $cliente->cidade }} - {{ $cliente->estado->uf }}</p>
                         <p class="m-0">{{ $cliente->telefone }}</p>
                     </div>
@@ -48,7 +48,7 @@
                         @foreach ($petsHome as $pet)
                             <div class="row valign-wrapper my-1">
                                 <div class="col l2 s2 center pr-0 pt-1">
-                                    <img src="{{ asset('storage/'.$pet->path_img) }}" class="circle responsive-img pet-img z-depth-2">
+                                    <img src="{{ asset('storage/'.$pet->path_img) }}" class="circle responsive-img pet-img z-depth-2 border border-{{ $pet->sexo == "M" ? 'blue' : 'pink' }}">
                                 </div>
                                 <div class="col l10 s10 pl-0">
                                     <table class="p-0 table-borderless">
@@ -65,8 +65,19 @@
                                             </th>
                                             <th class="p-0" rowspan="2"><a href="#modalPetUpdate{{ $pet->id }}" class="waves-effect waves-light btn btn-small cyan darken-1 font-weight-normal right modal-trigger">DETALHES</a></th>
                                         </tr>
+                                        @php
+                                            $idade = \Carbon\Carbon::parse($pet->nascimento)->diff(\Carbon\Carbon::now())->format('%y anos, %m meses e %d dias');
+
+                                            $raca_secundaria = isset($pet->raca_secundaria->nome) ? $pet->raca_secundaria->nome : '';
+                                            $raca_secundaria_id = isset($pet->raca_secundaria_id) ? $pet->raca_secundaria_id : '';
+                                            $raca_secundaria_show = isset($pet->raca_secundaria->nome) ? " | " . $pet->raca_secundaria->nome : '';
+
+                                            $cor_secundaria = isset($pet->cor_secundaria->descricao) ? $pet->cor_secundaria->descricao : '';
+                                            $cor_secundaria_id = isset($pet->cor_secundaria_id) ? $pet->cor_secundaria_id : '';
+                                            $cor_secundaria_show = isset($pet->cor_secundaria->descricao) ? " | " . $pet->cor_secundaria->descricao : '';
+                                        @endphp
                                         <tr>
-                                            <td class="p-0"><span>{{ $pet->especie->nome }} • {{ $pet->raca_predominante->nome }}</span></td>
+                                            <td class="p-0"><span>{{ $pet->especie->nome }} • {{ $pet->raca_predominante->nome }} {{ $raca_secundaria_show }}</span></td>
                                         </tr>
                                     </table>
                                 </div>

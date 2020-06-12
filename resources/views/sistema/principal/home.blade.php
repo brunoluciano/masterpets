@@ -14,7 +14,7 @@
             </a>
         </div>
         <div class="col l3 m6 s12">
-            <a href="#">
+            <a href="{{ route('venda.index') }}">
                 <div class="card-panel gradient-card-venda z-depth-2 hoverable">
                     <h3 class="header-dashboard-card center">VENDA</h3>
                     <h4 class="white-text my-0 right-align">

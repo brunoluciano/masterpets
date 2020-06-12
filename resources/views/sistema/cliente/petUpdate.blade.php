@@ -14,6 +14,14 @@
                     <div class="card black white-text z-depth-2 border border-{{ $pet->sexo == "M" ? 'blue' : 'pink' }}">
                         @php
                             $idade = \Carbon\Carbon::parse($pet->nascimento)->diff(\Carbon\Carbon::now())->format('%y anos, %m meses e %d dias');
+
+                            $raca_secundaria = isset($pet->raca_secundaria->nome) ? $pet->raca_secundaria->nome : '';
+                            $raca_secundaria_id = isset($pet->raca_secundaria_id) ? $pet->raca_secundaria_id : '';
+                            $raca_secundaria_show = isset($pet->raca_secundaria->nome) ? " | " . $pet->raca_secundaria->nome : '';
+
+                            $cor_secundaria = isset($pet->cor_secundaria->descricao) ? $pet->cor_secundaria->descricao : '';
+                            $cor_secundaria_id = isset($pet->cor_secundaria_id) ? $pet->cor_secundaria_id : '';
+                            $cor_secundaria_show = isset($pet->cor_secundaria->descricao) ? " | " . $pet->cor_secundaria->descricao : '';
                         @endphp
                         <div class="card-image">
                             <img src="{{ asset('storage/'.$pet->path_img) }}">
@@ -35,13 +43,13 @@
                                     <td class="py-2"><b>Espécie:</b> <span class="font-italic">{{ $pet->especie->nome }}</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="py-2"><b>Raça:</b> <span class="font-italic">{{ $pet->raca_predominante->nome }}</span></td>
+                                    <td class="py-2"><b>Raça:</b> <span class="font-italic">{{ $pet->raca_predominante->nome }} {{ $raca_secundaria_show }}</span></td>
                                 </tr>
                                 <tr>
                                     <td class="py-2"><b>Porte:</b> <span class="font-italic">{{ $pet->porte->descricao }}</span></td>
                                 </tr>
                                 <tr>
-                                    <td class="py-2"><b>Cor:</b> <span class="font-italic">{{ $pet->cor_predominante->descricao }}</span></td>
+                                    <td class="py-2"><b>Cor:</b> <span class="font-italic">{{ $pet->cor_predominante->descricao }} {{ $cor_secundaria_show }}</span></td>
                                 </tr>
                                 <tr>
                                     <td class="py-2"><b>Pelo:</b> <span class="font-italic">{{ $pet->pelo->descricao }}</span></td>
@@ -49,7 +57,7 @@
                             </table>
                             @if ($pet->observacoes!=null)
                                 <hr>
-                                <p><b>Obs:</b>
+                                <p><b>Observações:</b>
                                    <span class="font-italic">{{ $pet->observacoes }}</span>
                                 </p>
                             @endif
@@ -129,8 +137,8 @@
                                     @enderror
                                 </div>
                                 <div class="input-field col l4 s12">
-                                    <input id="raca_secundaria" type="text" name="raca_secundaria" class="autocomplete" value="{{ $pet->raca_secundaria }}" autocomplete="off">
-                                    <input type="hidden" id="raca_secundaria_id" name="raca_secundaria_id" value="{{ $pet->raca_secundaria_id }}">
+                                    <input id="raca_secundaria" type="text" name="raca_secundaria" class="autocomplete" value="{{ $raca_secundaria }}" autocomplete="off">
+                                    <input type="hidden" id="raca_secundaria_id" name="raca_secundaria_id" value="{{ $raca_secundaria_id }}">
                                     <label for="raca_secundaria">Raça Secundária</label>
                                     @error('raca_secundaria')
                                         <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
@@ -159,8 +167,8 @@
                                     @enderror
                                 </div>
                                 <div class="input-field col l4 s12">
-                                    <input id="cor_secundaria" type="text" name="cor_secundaria" class="autocomplete" autocomplete="off">
-                                    <input type="hidden" id="cor_secundaria_id" name="cor_secundaria_id" value="{{ $pet->cor_secundaria_id }}">
+                                    <input id="cor_secundaria" type="text" name="cor_secundaria" class="autocomplete" value="{{ $cor_secundaria }}" autocomplete="off">
+                                    <input type="hidden" id="cor_secundaria_id" name="cor_secundaria_id" value="{{ $cor_secundaria_id }}">
                                     <label for="cor_secundaria">Cor Secundária</label>
                                     @error('cor_secundaria')
                                         <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>

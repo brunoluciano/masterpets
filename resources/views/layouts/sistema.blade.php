@@ -29,6 +29,10 @@
     <!-- Toastr -->
     <link href="{{ asset('toastr/toastr.min.css') }}" rel="stylesheet"/>
     <script src="{{ asset('toastr/toastr.min.js') }}"></script>
+
+    <!-- Mask -->
+    <script src="{{ asset('js/mask/dist/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/mask.js') }}"></script>
 </head>
 <body>
     <div class="navbar-fixed">

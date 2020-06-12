@@ -57,6 +57,14 @@ Route::group(['prefix' => 'dashboard/cadastros', 'middleware' => ['auth']], func
     Route::post('tiposervico/store', 'TipoServicoController@store')->name('tiposervico.store');
 });
 
+// VENDA //
+Route::group(['prefix' => 'dashboard/venda', 'middleware' => ['auth']], function () {
+    Route::get('carrinho', 'VendaController@index')->name('venda.index');
+
+    Route::get('findProdutos', 'VendaController@getProdutos');
+});
+
+
 // CLIENTE //
 Route::group(['prefix' => 'home/cliente', 'middleware' => ['auth']], function () {
     Route::put('update/{id}', 'ClienteHomeController@update')->name('cliente.update');

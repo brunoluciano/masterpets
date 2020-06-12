@@ -111,6 +111,8 @@ class AnimalController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
+
         $request->validate([
             'nome' => 'required',
             'especie_id' => 'required',
@@ -130,6 +132,11 @@ class AnimalController extends Controller
         $dono_id = $request->input('dono_id');
 
         $requestData = $request->all();
+
+        if($requestData['raca_secundaria'] == null) {
+            $requestData['raca_secundaria_id'] = null;
+        }
+
         if($request->file() != null) {
             if($animal->path_img != "animal/animalDefault.jpg"){
                 Storage::delete($animal->path_img);

@@ -1551,6 +1551,18 @@ i#carousel-prev {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#01459b", endColorstr="#01719b", GradientType=1);
 }
 
+.bg-pdv-gradient {
+    background: rgb(43,82,108);
+    background: -moz-linear-gradient(0deg, rgba(43,82,108,1) 0%, rgba(101,160,193,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(43,82,108,1) 0%, rgba(101,160,193,1) 100%);
+    background: linear-gradient(0deg, rgba(43,82,108,1) 0%, rgba(101,160,193,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2b526c",endColorstr="#65a0c1",GradientType=1);
+}
+
+.bg-pdv-produto {
+    background-color: #1b394d;
+}
+
 a.link-hover {
     text-decoration: none;
     -webkit-transition: .5s ease-in-out;
@@ -1614,8 +1626,17 @@ a:hover.link-hover {
 .btn.green:hover {
     background-color: #81c784 !important;
 }
+
 .btn.grey:hover {
     background-color: #bdbdbd !important;
+}
+
+.btn.amber:hover {
+    background-color: #ffa000 !important;
+}
+
+.btn.red.lighten-1:hover {
+    background-color: #e53935 !important;
 }
 
 table.table-borderless tr{
@@ -1838,4 +1859,25 @@ input.no-arrows::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number].no-arrows {
   -moz-appearance: textfield !important;
+}
+
+/* Table Overflow */
+table.table-overflow tbody {
+    display:block;
+    max-height:156px;
+    overflow:auto;
+}
+
+table.table-overflow thead, table.table-overflow tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table.table-overflow thead {
+    width: 100%;
+}
+
+table.table-overflow  {
+    width:100%;
 }
