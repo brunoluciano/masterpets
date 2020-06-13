@@ -60,8 +60,11 @@ Route::group(['prefix' => 'dashboard/cadastros', 'middleware' => ['auth']], func
 // VENDA //
 Route::group(['prefix' => 'dashboard/venda', 'middleware' => ['auth']], function () {
     Route::get('carrinho', 'VendaController@index')->name('venda.index');
+    Route::post('carrinho/adicionarProduto', 'VendaController@addProduto')->name('adicionar.produto.store');
+    Route::get('carrinho/cancelarVenda', 'VendaController@cancelarVenda')->name('cancelar.venda');
 
     Route::get('findProdutos', 'VendaController@getProdutos');
+    Route::get('findClientes', 'VendaController@getClientes');
 });
 
 

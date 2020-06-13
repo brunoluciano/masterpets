@@ -16,10 +16,12 @@ class CreateItensvendasTable extends Migration
         Schema::create('itensvendas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('produto_id');
-            $table->unsignedBigInteger('venda_id');
+            $table->unsignedBigInteger('venda_id')->default(null)->nullable();
+            $table->unsignedBigInteger('vendedor_id');
 
             $table->foreign('produto_id')->references('id')->on('produtos');
             $table->foreign('venda_id')->references('id')->on('vendas');
+            $table->foreign('vendedor_id')->references('id')->on('users');
 
             $table->bigInteger('quantidade');
             $table->double('total');

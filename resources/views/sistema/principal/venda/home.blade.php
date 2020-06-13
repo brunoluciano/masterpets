@@ -14,46 +14,49 @@
                     </div>
                 </div>
                 <div class="row m-0 p-3 bg-pdv-produto border rounded z-depth-2 hoverable">
-                    <div class="col l4 s12 mt-2">
-                        {{-- <img id="produto_img" src="{{ env('APP_URL') }}/storage/produto/Vital Pro Adulto/jRI75Uo29ZOadXFePmq5qNzIN4VaxY184iO6X2Fl.png" class="responsive-img z-depth-2"> --}}
-                        <img id="produto_img" src="{{ asset('images/produtoSemFigura.jpg') }}" class="responsive-img z-depth-2">
-                    </div>
-                    <div class="col l8 s12 mt-2">
-                        <div class="row">
-                            <div class="input-field col l3 s2">
-                                <input id="codigo" type="text" name="id" value="" disabled>
-                                <label for="id" id="codigoLabel">Código</label>
+                    <form id="adicionar_produto_form" action="{{ route('adicionar.produto.store') }}" method="POST">
+                        @csrf
+
+                        <div class="col l4 s12 mt-2">
+                            <img id="produto_img" src="{{ asset('images/produtoSemFigura.jpg') }}" class="responsive-img z-depth-2 materialboxed">
+                        </div>
+                        <div class="col l8 s12 mt-2">
+                            <div class="row">
+                                <div class="input-field col l3 s2">
+                                    <input id="codigo" type="text" name="produto_id" value="" disabled>
+                                    <label for="id" id="codigoLabel">Código</label>
+                                </div>
+                                <div class="input-field col l9 s10">
+                                    <input id="descricao" type="text" name="descricao" disabled>
+                                    <label id="descricaoLabel" class="active" for="descricao">Descrição</label>
+                                </div>
                             </div>
-                            <div class="input-field col l9 s10">
-                                <input id="descricao" type="text" name="descricao" disabled>
-                                <label id="descricaoLabel" class="active" for="descricao">Descrição</label>
+                            <div class="row">
+                                <div class="input-field col l6 s6">
+                                    <input id="quantidade" type="number" min="1" name="quantidade" value="1" class="validate @error('nome') invalid @enderror" >
+                                    <label for="quantidade">Quantidade</label>
+                                    @error('quantidade')
+                                        <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="input-field col l6 s6">
+                                    <input id="preco_venda" type="text" name="preco_venda" value="R$ 0,00" disabled>
+                                    <label id="preco_vendaLabel" for="preco_venda">Valor Unitário</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col l12 s12">
+                                    <input id="total_venda" type="text" name="total_venda" value="R$ 0,00" disabled>
+                                    <label for="total_venda">Valor Total</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button id="adicionar_produto_submit" class="btn waves-effect waves-light btn-block" type="submit" name="action">Adicionar Produto
+                                    <i class="material-icons right">send</i>
+                                </button>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="input-field col l6 s6">
-                                <input id="quantidade" type="number" min="1" name="quantidade" class="validate @error('nome') invalid @enderror" >
-                                <label for="quantidade">Quantidade</label>
-                                @error('quantidade')
-                                    <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="input-field col l6 s6">
-                                <input id="preco_venda" type="text" name="preco_venda" value="R$ XX,XX" disabled>
-                                <label id="preco_vendaLabel" for="preco_venda">Valor Unitário</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col l12 s12">
-                                <input id="total_venda" type="text" name="total_venda" class="money" value="R$ XX,XX" disabled>
-                                <label class="active" for="total_venda">Valor Total</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <button class="btn waves-effect waves-light btn-block" type="submit" name="action">Adicionar Produto
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="col l5 s12">
@@ -64,21 +67,15 @@
                                 <td class="right-align py-0">Cliente</td>
                                 <td class="py-0">
                                     <div class="input-field my-0">
-                                        <input id="email_inline" type="email" class="validate" placeholder="Informe o cliente da venda">
+                                        <input id="cliente" type="text" name="cliente" class="autocomplete" autocomplete="off" placeholder="Informe o cliente da venda">
+                                        <input type="hidden" id="cliente_id" name="cliente_id" >
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="right-align py-0">Vendedor</td>
                                 <td class="py-0">
-                                    <div class="input-field select-light-text white-arrow my-0">
-                                        <select>
-                                            <option value="" disabled selected>Escolher vendedor...</option>
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="3">Option 3</option>
-                                        </select>
-                                    </div>
+                                    <input disabled id="vendedor" type="text" name="vendedor" value="{{ $user->name }}">
                                 </td>
                             </tr>
                         </table>
@@ -87,36 +84,41 @@
                 <div class="row m-0">
                     <h5 class="font-weight-light">Itens no carrinho <i class="fa fa-shopping-cart" aria-hidden="true"></i></h5>
 
-                    {{-- <p class="py-2 px-3 rounded blue-grey lighten-1 center-align z-depth-2">Seu carrinho está vazio <i class="fas fa-exclamation-triangle yellow-text"></i></p> --}}
-
-                    <table class="striped centered border rounded hoverable table-overflow">
-                        <thead class="teal lighten-1">
-                            <tr>
-                                <th data-field="id">Itens</th>
-                                <th data-field="name">Produto</th>
-                                <th data-field="price">Valor</th>
-                                <th data-field="price">Operações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for ($i = 0; $i < 5; $i++)
+                    {{-- @if ($itens_carrinho->count() == 0) --}}
+                        <p id="carrinhoVazio" class="py-2 px-3 rounded blue-grey lighten-1 center-align z-depth-2" @if ($itens_carrinho->count() > 0 ) style="visibility: hidden; position: absolute" @else style="visibility: visible; position: relative" @endif>Seu carrinho está vazio <i class="fas fa-exclamation-triangle yellow-text"></i></p>
+                    {{-- @else --}}
+                        <table id="tableCarrinho" class="striped centered border rounded hoverable table-overflow" @if ($itens_carrinho->count() == 0 ) style="visibility: hidden; position: absolute" @else style="visibility: visible; position: relative" @endif>
+                            <thead class="teal lighten-1">
                                 <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>.87</td>
-                                    <td>
-                                        <a href="#" class="waves-effect waves-light btn amber"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="waves-effect waves-light btn red lighten-1"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                    </td>
+                                    <th class="td-qtd-carrinho-venda" data-field="id">Itens</th>
+                                    <th colspan="2" class="td-descricao-carrinho-venda" data-field="name">Produto</th>
+                                    <th class="td-preco-carrinho-venda" data-field="price">Valor</th>
+                                    <th class="td-operacoes-carrinho-venda" data-field="price">Operações</th>
                                 </tr>
-                            @endfor
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody id="lista_carrinho" class="text-shadow">
+                                @foreach ($itens_carrinho as $item)
+                                    <tr>
+                                        <td class="td-qtd-carrinho-venda">{{ $item->quantidade }}</td>
+                                        <td class="td-img-carrinho-venda">
+                                            <img src="{{ env('APP_URL') }}/storage/{{ $item->produto->path_img }}" class="chip-img right-align">
+                                        </td>
+                                        <td class="td-descricao-carrinho-venda">{{ $item->produto->descricao }}</td>
+                                        <td class="td-preco-carrinho-venda">R$ {{ number_format($item->produto->preco_venda,2,',','.') }}</td>
+                                        <td class="td-operacoes-carrinho-venda">
+                                            <a href="#" class="waves-effect waves-light btn amber"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="waves-effect waves-light btn red lighten-1"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    {{-- @endif --}}
                     <hr class="mt-4">
                     <h5 class="font-weight-light">Total do Pedido:</h5>
                     <div class="row m-0">
                         <div class="col s12 px-0 center-align">
-                            <h5 class="grey lighten-3 teal-text py-2 px-3 mt-1 rounded-pill font-weight-bold hoverable">R$ XX,XX</h5>
+                            <h5 id="total_venda" class="grey lighten-3 teal-text py-2 px-3 mt-1 rounded-pill font-weight-bold hoverable">R$ {{ $total_venda }}</h5>
                         </div>
                     </div>
                     <div class="row m-0">
@@ -124,7 +126,7 @@
                             <a href="#" class="waves-effect waves-light btn btn-block green lighten-1">Confirmar Venda <i class="fa fa-check"></i></a>
                         </div>
                         <div class="col l6 s12 px-0">
-                            <a href="#" class="waves-effect waves-light btn btn-block grey lighten-2 grey-text text-darken-3">Cancelar <i class="fas fa-times"></i></a>
+                            <a href="#cancelarVenda" class="waves-effect waves-light btn btn-block grey lighten-2 grey-text text-darken-3 modal-trigger">Cancelar <i class="fas fa-times"></i></a>
                         </div>
                     </div>
                 </div>
@@ -132,14 +134,22 @@
         </div>
     </div>
 </div>
+
+ <!-------------- Estrutura Modais -------------->
+ @include('sistema.principal.venda.cancelarVenda')
+
 <script>
     $(document).ready(function(){
         $('select').formSelect();
+        $('.materialboxed').materialbox({
+            inDuration: 400
+        });
     });
 </script>
 
 <script>
     $(document).ready(function(){
+        // AUTO COMPLETE PRODUTOS
         $.ajax({
             type: 'get',
             url: '{!! URL::to('dashboard/venda/findProdutos') !!}',
@@ -160,28 +170,119 @@
                     data: dataPro,
                     onAutocomplete:function(reqdata){
                         console.log(dataPro2[reqdata])
+                        $('input#quantidade').val(1);
+
+                        var preco_venda = dataPro2[reqdata]['preco_venda'];
+                        preco_venda = preco_venda.toFixed(2).toString().replace(".", ",");
+                        var total = $('input#quantidade').val() * dataPro2[reqdata]['preco_venda'];
+                        total = total.toFixed(2).toString().replace(".", ",");
+
                         $('input#codigo').val(dataPro2[reqdata]['id']);
                         $('input#descricao').val(dataPro2[reqdata]['descricao']);
-                        $('input#preco_venda').val(dataPro2[reqdata]['preco_venda']);
+                        $('input#preco_venda').val("R$ " + preco_venda);
+
                         $('input#quantidade').attr('max', dataPro2[reqdata]['estoque_atual']);
-                        $('input#quantidade').attr('max', dataPro2[reqdata]['estoque_atual']);
-                        $('img#produto_img').attr('src', '{{ env("APP_URL") }}/storage/'+dataPro2[reqdata]['path_img'])
+                        $('input#total_venda').val("R$ " + total);
+                        $('img#produto_img').attr('src', '{{ env("APP_URL") }}/storage/'+dataPro2[reqdata]['path_img']);
+                        $('img#produto_img').attr('data-caption', dataPro2[reqdata]['descricao']);
 
                         $('label#codigoLabel').addClass('active');
                         $('label#descricaoLabel').addClass('active');
                         $('label#preco_vendaLabel').addClass('active');
+
+                        $('input#quantidade').click(function(){
+                            var total = $('input#quantidade').val() * dataPro2[reqdata]['preco_venda'];
+                            total = total.toFixed(2).toString().replace(".", ",");
+                            $('input#total_venda').val("R$ " + total);
+                            $('input#total_venda').addClass('money');
+                        });
+                    }
+                });
+
+
+            }
+        })
+
+        // // ADICIONAR PRODUTO CARRINHO //
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $("#adicionar_produto_submit").click(function(event) {
+            event.preventDefault();
+
+            var teste = $('#adicionar_produto_form').serialize();
+
+            $('#adicionar_produto_form').find(':input:disabled').removeAttr('disabled');
+
+            console.log(teste);
+
+            $.ajax({
+                type: "post",
+                url: '{!! URL::to('dashboard/venda/carrinho/adicionarProduto') !!}',
+                dataType: "json",
+                data: $('#adicionar_produto_form').serialize(),
+                success: function(response){
+                    $('#carrinhoVazio').attr('style', 'visibility: hidden; position: absolute');
+                    $('#tableCarrinho').attr('style', 'visibility: visible; position: relative');
+
+                    toastr.options = {
+                        "positionClass": "toast-top-full-width",
+                        "showDuration": "300",
+                        "hideDuration": "1000"
+                    }
+                    Command: toastr["success"](response.message)
+
+                    var preco_venda = response.produtos.produto.preco_venda.toFixed(2).toString().replace(".", ",");
+
+                    $("#lista_carrinho").prepend("<tr><td class='td-qtd-carrinho-venda'>"+response.produtos.quantidade+"</td>"+
+                                                    "<td class='td-img-carrinho-venda'><img src='{{ env('APP_URL') }}/storage/"+response.produtos.produto.path_img+"' class='chip-img right-align'></td>"+
+                                                    "<td class='td-descricao-carrinho-venda'>"+response.produtos.produto.descricao+"</td>"+
+                                                    "<td class='td-preco-carrinho-venda'>R$ "+preco_venda+"</td>"+
+                                                    "<td class='td-operacoes-carrinho-venda'><a href='#' class='waves-effect waves-light btn amber'><i class='fas fa-edit'></i></a>"+
+                                                                                            "<a href='#' class='waves-effect waves-light btn red lighten-1'><i class='fa fa-trash'></i></a></td></tr>")
+
+                    $("h5#total_venda").text("R$ "+response.total_venda);
+                },
+                error: function(response){
+                    toastr.options = {
+                        "positionClass": "toast-top-full-width",
+                        "showDuration": "300",
+                        "hideDuration": "1000"
+                    }
+                    Command: toastr["error"]("Erro ao adicionar o produto no carrinho! Tente novamente.")
+                }
+            });
+        });
+
+        // AUTO COMPLETE CLIENTES //
+        $.ajax({
+            type: 'get',
+            url: '{!! URL::to('dashboard/venda/findClientes') !!}',
+            success:function(response){
+                console.log(response);
+                // converter array para object
+                var cliArray = response;
+                var dataCli = {};
+                var dataCli2 = {};
+                for (var i = 0; i < cliArray.length; i++) {
+                    dataCli[cliArray[i].name] = null;
+                    dataCli2[cliArray[i].name] = cliArray[i];
+                }
+                console.log(dataCli2);
+
+                // materialize css
+                $('input#cliente').autocomplete({
+                    data: dataCli,
+                    onAutocomplete:function(reqdata){
+                        console.log(dataCli2[reqdata])
+                        $('input#cliente_id').val(dataCli2[reqdata]['id']);
                     }
                 });
             }
         })
-
-        $('input#quantidade').click(function(){
-            var total = $('input#quantidade').val() * $('input#preco_venda').val()
-            $('input#total_venda').addClass('money');
-            $('input#total_venda').val(total);
-
-        });
     })
 </script>
-
 @endsection

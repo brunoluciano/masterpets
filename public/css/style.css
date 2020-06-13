@@ -2,6 +2,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 main {
@@ -1880,4 +1881,40 @@ table.table-overflow thead {
 
 table.table-overflow  {
     width:100%;
+}
+
+.chip-img {
+    /* float: left; */
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
+
+.td-qtd-carrinho-venda {
+    width: 60px;
+    white-space: normal;
+}
+
+.td-img-carrinho-venda {
+    width: 32px;
+    white-space: normal;
+}
+
+.td-descricao-carrinho-venda {
+    width: auto;
+    white-space: normal;
+}
+
+.td-preco-carrinho-venda {
+    width: 75px;
+    white-space: normal;
+}
+
+.td-operacoes-carrinho-venda {
+    width: 120px;
+    white-space: normal;
+}
+
+.text-shadow {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }

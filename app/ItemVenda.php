@@ -9,7 +9,7 @@ class ItemVenda extends Model
     protected $table = 'itensvendas';
 
     protected $fillable = [
-        'produto_id', 'venda_id', 'quantidade', 'total'
+        'produto_id', 'venda_id', 'vendedor_id', 'quantidade', 'total'
     ];
 
     public function produto() {
