@@ -1640,6 +1640,14 @@ a:hover.link-hover {
     background-color: #e53935 !important;
 }
 
+.btn.orange.lighten-2:hover {
+    background-color: #ffa726 !important;
+}
+
+.btn.grey.lighten-1:hover {
+    background-color: #9e9e9e !important;
+}
+
 table.table-borderless tr{
     border: 0px;
 }
@@ -1863,24 +1871,42 @@ input[type=number].no-arrows {
 }
 
 /* Table Overflow */
+table.table-overflow thead, table.table-overflow tbody tr,
+table.table-overflow-cliente thead, table.table-overflow-cliente tbody tr,
+table.table-overflow-pesquisa thead, table.table-overflow-pesquisa tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table.table-overflow thead,
+table.table-overflow-cliente thead,
+table.table-overflow-pesquisa thead {
+    width: 100%;
+}
+
+table.table-overflow,
+table.table-overflow-cliente,
+table.table-overflow-pesquisa {
+    width:100%;
+}
+
 table.table-overflow tbody {
     display:block;
     max-height:156px;
     overflow:auto;
 }
 
-table.table-overflow thead, table.table-overflow tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
+table.table-overflow-cliente tbody {
+    display:block;
+    max-height:80vh;
+    overflow:auto;
 }
 
-table.table-overflow thead {
-    width: 100%;
-}
-
-table.table-overflow  {
-    width:100%;
+table.table-overflow-pesquisa tbody {
+    display:block;
+    max-height:400px;
+    overflow:auto;
 }
 
 .chip-img {
@@ -1917,4 +1943,8 @@ table.table-overflow  {
 
 .text-shadow {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.data-error {
+    color: #F44336 !important;
 }

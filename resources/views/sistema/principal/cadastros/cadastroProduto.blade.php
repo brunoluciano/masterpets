@@ -111,7 +111,7 @@
                         <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="file-field input-field col l4 s12 valign-wrapper">
+                <div class="file-field input-field col l4 s12">
                     <div class="btn rounded-circle waves-effect waves-light">
                         <span><i class="fa fa-camera" aria-hidden="true"></i></span>
                         <input type="file" name="imgProduto">

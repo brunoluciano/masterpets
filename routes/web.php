@@ -60,11 +60,19 @@ Route::group(['prefix' => 'dashboard/cadastros', 'middleware' => ['auth']], func
 // VENDA //
 Route::group(['prefix' => 'dashboard/venda', 'middleware' => ['auth']], function () {
     Route::get('carrinho', 'VendaController@index')->name('venda.index');
+    Route::match(['post','delete'],'carrinho/confirmarVenda', 'VendaController@confirmarVenda')->name('venda.store');
     Route::post('carrinho/adicionarProduto', 'VendaController@addProduto')->name('adicionar.produto.store');
+    Route::delete('carrinho/removerProduto/{id}', 'VendaController@remProduto')->name('remover.produto.destroy');
     Route::get('carrinho/cancelarVenda', 'VendaController@cancelarVenda')->name('cancelar.venda');
+    Route::view('carrinho/vendaFinalizada', 'sistema.principal.venda.vendaFinalizada')->name('venda.finalizada');
 
     Route::get('findProdutos', 'VendaController@getProdutos');
     Route::get('findClientes', 'VendaController@getClientes');
+});
+
+// PESQUISA //
+Route::group(['prefix' => 'dashboard/pesquisa', 'middleware' => ['auth']], function () {
+    Route::get('', 'PesquisaController@index')->name('pesquisa.index');
 });
 
 

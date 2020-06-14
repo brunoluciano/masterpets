@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Animal;
 use App\Porte;
 use App\Pelo;
+use App\Venda;
 
 use App\User;
 
@@ -25,8 +26,11 @@ class ClienteHomeController extends Controller
             $petsLista = Animal::where('dono_id', '=', $cliente->id)->orderby('nome')->get();
             $possuiPet = $petsLista->count() > 0 ? true : false;
 
+            $compras = Venda::where('cliente_id','=',$cliente->id)->orderBy('id','desc')->get();
+
             return view('sistema.cliente.home', compact('cliente',
-            'petsHome', 'petsLista', 'possuiPet', 'portes', 'pelos'));
+            'petsHome', 'petsLista', 'possuiPet', 'portes', 'pelos',
+            'compras'));
         }
     }
 
@@ -50,7 +54,7 @@ class ClienteHomeController extends Controller
 
         User::findOrFail($id)->update($request->all());
 
-        return redirect()->route('cliente')
+        return redirect()->route('dashboard')
                          ->with('success','Perfil atualizado com sucesso!');
     }
 }

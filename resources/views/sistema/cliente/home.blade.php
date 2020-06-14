@@ -59,7 +59,7 @@
                                                     @if ($pet->sexo == "M")
                                                         <i class="fa fa-mars blue-text" aria-hidden="true"></i>
                                                     @else
-                                                    <i class="fa fa-venus pink-text" aria-hidden="true"></i>
+                                                        <i class="fa fa-venus pink-text" aria-hidden="true"></i>
                                                     @endif
                                                 </h6>
                                             </th>
@@ -131,23 +131,33 @@
                     <table>
                         <thead>
                             <tr class="grey-text text-darken-2">
-                                <th>Data</th>
-                                <th>Descrição</th>
+                                <th>Horário da Compra</th>
+                                <th colspan="2">Descrição</th>
                                 <th>Valor Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($i = 8; $i >= 1; $i--)
+                            @foreach ($compras as $compra)
                                 <tr>
-                                    <td>XX/XX/XXXX XX:XX</td>
-                                    <td>
-                                        <span class="chip teal lighten-2 white-text rounded text-muted">Compra 00{{ $i }}</span>
-                                        Descrição
-                                        <a href="#" class="mt-2 grey-text text-darken-2 hover-link right">Ver mais</a>
-                                    </td>
-                                    <td>R$ $$,$$</td>
+                                    <td rowspan="2">{{ \Carbon\Carbon::parse($compra->horario_venda)->format('d/m/Y H:i:s') }}</td>
+                                    <td class="py-0 pt-2"><span class="chip teal lighten-2 white-text rounded text-muted z-depth-1">Compra {{ sprintf('%03d',$compra->id) }}</span></td>
+                                    <td rowspan="2"><a href="#verMaisCompra{{ $compra->id }}" class="mt-2 teal-text text-darken-2 hover-link ml-2 right modal-trigger"><i>Ver mais</i></a></td>
+                                    <td rowspan="2" class="font-weight-bold cyan-text text-darken-3">R$ {{ number_format($compra->total_venda,2,',','.') }}</td>
                                 </tr>
-                            @endfor
+                                <tr>
+                                    <td class="valign-wrapper py-1">
+                                        @foreach (\App\ItemVenda::where('venda_id','=',$compra->id)->take(3)->get() as $item)
+                                            <img class="chip-img ml-2" src="{{ env('APP_URL') }}/storage/{{ $item->produto->path_img }}">
+                                            <span>{{ $item->produto->descricao }}</span>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <script>
+                                    $(document).ready(function(){
+                                        $('#verMaisCompra{{ $compra->id }}').modal();
+                                    });
+                                </script>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -165,6 +175,8 @@
     @include('sistema.cliente.petUpdate')
 
     @include('sistema.cliente.petRemove')
+
+    @include('sistema.cliente.listaItensVenda')
 
     <!-------------- Inicialização Modais -------------->
     <script>

@@ -9,7 +9,7 @@
                 <h5 class="font-weight-light">Localize um produto/serviço abaixo:</h5>
                 <div class="row mb-0">
                     <div class="input-field col s12">
-                        <input type="text" id="produto" class="autocomplete">
+                        <input type="text" id="produto" class="autocomplete" autocomplete="off">
                         <label for="autocomplete-input">Digite o código ou o nome</label>
                     </div>
                 </div>
@@ -32,12 +32,13 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col l6 s6">
+                                <div id="input-quantidade" class="input-field col l6 s6">
                                     <input id="quantidade" type="number" min="1" name="quantidade" value="1" class="validate @error('nome') invalid @enderror" >
                                     <label for="quantidade">Quantidade</label>
                                     @error('quantidade')
                                         <span class="helper-text" data-error="{{ $message }}" data-success="Correto!">{{ $message }}</span>
                                     @enderror
+                                    <span id="qtd-semEstoque" class="helper-text data-error" style="visibility: hidden; position: absolute">Produto indisponível em estoque!</span>
                                 </div>
                                 <div class="input-field col l6 s6">
                                     <input id="preco_venda" type="text" name="preco_venda" value="R$ 0,00" disabled>
@@ -59,78 +60,88 @@
                     </form>
                 </div>
             </div>
-            <div class="col l5 s12">
-                <div class="row m-0 grey darken-4 border rounded z-depth-2">
-                    <div class="col l12 s12">
-                        <table class="hoverable">
-                            <tr>
-                                <td class="right-align py-0">Cliente</td>
-                                <td class="py-0">
-                                    <div class="input-field my-0">
-                                        <input id="cliente" type="text" name="cliente" class="autocomplete" autocomplete="off" placeholder="Informe o cliente da venda">
-                                        <input type="hidden" id="cliente_id" name="cliente_id" >
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="right-align py-0">Vendedor</td>
-                                <td class="py-0">
-                                    <input disabled id="vendedor" type="text" name="vendedor" value="{{ $user->name }}">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="row m-0">
-                    <h5 class="font-weight-light">Itens no carrinho <i class="fa fa-shopping-cart" aria-hidden="true"></i></h5>
+            <form action="{{ route('venda.store') }}" method="POST">
+                @csrf
 
-                    {{-- @if ($itens_carrinho->count() == 0) --}}
-                        <p id="carrinhoVazio" class="py-2 px-3 rounded blue-grey lighten-1 center-align z-depth-2" @if ($itens_carrinho->count() > 0 ) style="visibility: hidden; position: absolute" @else style="visibility: visible; position: relative" @endif>Seu carrinho está vazio <i class="fas fa-exclamation-triangle yellow-text"></i></p>
-                    {{-- @else --}}
-                        <table id="tableCarrinho" class="striped centered border rounded hoverable table-overflow" @if ($itens_carrinho->count() == 0 ) style="visibility: hidden; position: absolute" @else style="visibility: visible; position: relative" @endif>
-                            <thead class="teal lighten-1">
+                <div class="col l5 s12">
+                    <div class="row m-0 grey darken-4 border rounded z-depth-2">
+                        <div class="col l12 s12">
+                            <table class="hoverable">
                                 <tr>
-                                    <th class="td-qtd-carrinho-venda" data-field="id">Itens</th>
-                                    <th colspan="2" class="td-descricao-carrinho-venda" data-field="name">Produto</th>
-                                    <th class="td-preco-carrinho-venda" data-field="price">Valor</th>
-                                    <th class="td-operacoes-carrinho-venda" data-field="price">Operações</th>
+                                    <td class="right-align py-0">Cliente</td>
+                                    <td class="py-0">
+                                        <div class="input-field my-0">
+                                            <input id="cliente" type="text" name="cliente" class="autocomplete" autocomplete="off" placeholder="Informe o cliente da venda" required>
+                                            <input type="hidden" id="cliente_id" name="cliente_id" required>
+                                        </div>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody id="lista_carrinho" class="text-shadow">
-                                @foreach ($itens_carrinho as $item)
-                                    <tr>
-                                        <td class="td-qtd-carrinho-venda">{{ $item->quantidade }}</td>
-                                        <td class="td-img-carrinho-venda">
-                                            <img src="{{ env('APP_URL') }}/storage/{{ $item->produto->path_img }}" class="chip-img right-align">
-                                        </td>
-                                        <td class="td-descricao-carrinho-venda">{{ $item->produto->descricao }}</td>
-                                        <td class="td-preco-carrinho-venda">R$ {{ number_format($item->produto->preco_venda,2,',','.') }}</td>
-                                        <td class="td-operacoes-carrinho-venda">
-                                            <a href="#" class="waves-effect waves-light btn amber"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="waves-effect waves-light btn red lighten-1"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    {{-- @endif --}}
-                    <hr class="mt-4">
-                    <h5 class="font-weight-light">Total do Pedido:</h5>
-                    <div class="row m-0">
-                        <div class="col s12 px-0 center-align">
-                            <h5 id="total_venda" class="grey lighten-3 teal-text py-2 px-3 mt-1 rounded-pill font-weight-bold hoverable">R$ {{ $total_venda }}</h5>
+                                <tr>
+                                    <td class="right-align py-0">Vendedor</td>
+                                    <td class="py-0">
+                                        <input disabled id="vendedor" type="text" name="vendedor" value="{{ $user->name }}">
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <div class="row m-0">
-                        <div class="col l6 s12 px-0">
-                            <a href="#" class="waves-effect waves-light btn btn-block green lighten-1">Confirmar Venda <i class="fa fa-check"></i></a>
+                        <h5 class="font-weight-light">Itens no carrinho <i class="fa fa-shopping-cart" aria-hidden="true"></i></h5>
+
+                        {{-- @if ($itens_carrinho->count() == 0) --}}
+                            <p id="carrinhoVazio" class="py-2 px-3 rounded blue-grey lighten-1 center-align z-depth-2" @if ($itens_carrinho->count() > 0 ) style="visibility: hidden; position: absolute" @else style="visibility: visible; position: relative" @endif>Seu carrinho está vazio <i class="fas fa-exclamation-triangle yellow-text"></i></p>
+                        {{-- @else --}}
+                            <table id="tableCarrinho" class="striped centered border rounded hoverable table-overflow" @if ($itens_carrinho->count() == 0 ) style="visibility: hidden; position: absolute" @else style="visibility: visible; position: relative" @endif>
+                                <thead class="teal lighten-1">
+                                    <tr>
+                                        <th class="td-qtd-carrinho-venda" data-field="id">Itens</th>
+                                        <th colspan="2" class="td-descricao-carrinho-venda" data-field="name">Produto</th>
+                                        <th class="td-preco-carrinho-venda" data-field="price">Valor</th>
+                                        <th class="td-operacoes-carrinho-venda" data-field="price">Operações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lista_carrinho" class="text-shadow">
+                                    @foreach ($itens_carrinho as $item)
+                                        <tr>
+                                            <td class="td-qtd-carrinho-venda">{{ $item->quantidade }}</td>
+                                            <td class="td-img-carrinho-venda">
+                                                <img src="{{ env('APP_URL') }}/storage/{{ $item->produto->path_img }}" class="chip-img right-align">
+                                            </td>
+                                            <td class="td-descricao-carrinho-venda">{{ $item->produto->descricao }}</td>
+                                            <td class="td-preco-carrinho-venda">R$ {{ number_format($item->produto->preco_venda,2,',','.') }}</td>
+
+                                            <form action="{{ route('remover.produto.destroy', $item->id) }}" method="POST">
+                                                <td class="td-operacoes-carrinho-venda">
+                                                    <a href="#" class="waves-effect waves-light btn amber"><i class="fas fa-edit"></i></a>
+
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="remProduto btn waves-effect waves-light red lighten-1" type="submit" data-id="{{ $item->id }}"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        {{-- @endif --}}
+                        <hr class="mt-4">
+                        <h5 class="font-weight-light">Total do Pedido:</h5>
+                        <div class="row m-0">
+                            <div class="col s12 px-0 center-align">
+                                <h5 id="total_venda" class="grey lighten-3 teal-text py-2 px-3 mt-1 rounded-pill font-weight-bold hoverable">R$ {{ $total_venda }}</h5>
+                            </div>
                         </div>
-                        <div class="col l6 s12 px-0">
-                            <a href="#cancelarVenda" class="waves-effect waves-light btn btn-block grey lighten-2 grey-text text-darken-3 modal-trigger">Cancelar <i class="fas fa-times"></i></a>
+                        <div class="row m-0">
+                            <div class="col l6 s12 px-0">
+                                <button class="btn waves-effect waves-ligh btn-block green lighten-1" type="submit" name="action">Confirmar Venda <i class="fa fa-check"></i></button>
+                            </div>
+                            <div class="col l6 s12 px-0">
+                                <a href="#cancelarVenda" class="waves-effect waves-light btn btn-block grey lighten-2 grey-text text-darken-3 modal-trigger">Cancelar <i class="fas fa-times"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -145,6 +156,7 @@
             inDuration: 400
         });
     });
+
 </script>
 
 <script>
@@ -170,7 +182,6 @@
                     data: dataPro,
                     onAutocomplete:function(reqdata){
                         console.log(dataPro2[reqdata])
-                        $('input#quantidade').val(1);
 
                         var preco_venda = dataPro2[reqdata]['preco_venda'];
                         preco_venda = preco_venda.toFixed(2).toString().replace(".", ",");
@@ -181,7 +192,17 @@
                         $('input#descricao').val(dataPro2[reqdata]['descricao']);
                         $('input#preco_venda').val("R$ " + preco_venda);
 
-                        $('input#quantidade').attr('max', dataPro2[reqdata]['estoque_atual']);
+                        if (dataPro2[reqdata]['estoque_atual']==0) {
+                            $("#qtd-semEstoque").attr('style', 'visibility: visible; position: relative');
+                            $('input#quantidade').val(0);
+                            $('input#quantidade').prop( "disabled", true );
+                        } else {
+                            $("#qtd-semEstoque").attr('style', 'visibility: hidden; position: absolute');
+                            $('input#quantidade').attr('max', dataPro2[reqdata]['estoque_atual']);
+                            $('input#quantidade').val(1);
+                            $('input#quantidade').prop( "disabled", false );
+                        }
+
                         $('input#total_venda').val("R$ " + total);
                         $('img#produto_img').attr('src', '{{ env("APP_URL") }}/storage/'+dataPro2[reqdata]['path_img']);
                         $('img#produto_img').attr('data-caption', dataPro2[reqdata]['descricao']);
@@ -203,7 +224,7 @@
             }
         })
 
-        // // ADICIONAR PRODUTO CARRINHO //
+        // ADICIONAR PRODUTO CARRINHO //
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -241,10 +262,27 @@
                                                     "<td class='td-img-carrinho-venda'><img src='{{ env('APP_URL') }}/storage/"+response.produtos.produto.path_img+"' class='chip-img right-align'></td>"+
                                                     "<td class='td-descricao-carrinho-venda'>"+response.produtos.produto.descricao+"</td>"+
                                                     "<td class='td-preco-carrinho-venda'>R$ "+preco_venda+"</td>"+
-                                                    "<td class='td-operacoes-carrinho-venda'><a href='#' class='waves-effect waves-light btn amber'><i class='fas fa-edit'></i></a>"+
-                                                                                            "<a href='#' class='waves-effect waves-light btn red lighten-1'><i class='fa fa-trash'></i></a></td></tr>")
+                                                    "<td class='td-operacoes-carrinho-venda'>"+
+                                                        "<a href='#' class='waves-effect waves-light btn amber'><i class='fas fa-edit'></i></a>"+
+                                                        "<input type='hidden' name='_token' value='{{ csrf_token() }}'>"+
+                                                        "<input type='hidden' name='_method' value='DELETE'>"+
+                                                        "<button id='remProdutoAjax' class='btn waves-effect waves-light red lighten-1' type='submit' data-id='"+response.produtos.id+"'><i class='fa fa-trash'></i></button>"+
+                                                    "</td></tr>")
 
                     $("h5#total_venda").text("R$ "+response.total_venda);
+                    if (response.atualizar_qtd_produto==0) {
+                        $("#qtd-semEstoque").attr('style', 'visibility: visible; position: relative');
+                        $('input#quantidade').val(0);
+                        $('input#quantidade').prop( "disabled", true );
+                    } else {
+                        $("#qtd-semEstoque").attr('style', 'visibility: hidden; position: absolute');
+                        $('input#quantidade').attr('max', response.atualizar_qtd_produto);
+                        $('input#quantidade').val(1);
+                        $('input#quantidade').prop( "disabled", false );
+                    }
+
+                    console.log("ID INSERIDO");
+                    console.log(response.produtos.id);
                 },
                 error: function(response){
                     toastr.options = {
@@ -252,7 +290,47 @@
                         "showDuration": "300",
                         "hideDuration": "1000"
                     }
-                    Command: toastr["error"]("Erro ao adicionar o produto no carrinho! Tente novamente.")
+                    Command: toastr["error"]("Erro ao adicionar o produto no carrinho!")
+                }
+            });
+        });
+
+        // REMOVER PRODUTO CARRINHO //
+        $(".remProduto").click(function (e) {
+            e.preventDefault();
+
+            var obj = $(this); // first store $(this) in obj
+            var id = $(this).attr('data-id'); // get id of data using this
+            var token = $("meta[name='csrf-token']").attr("content");
+            console.log("ID: PRODUTO EXCLUIDO");
+            console.log(id);
+            $.ajax({
+                type: "DELETE",
+                url: "{!! URL::to('dashboard/venda/carrinho/removerProduto/') !!}" + '/' + id,
+                dataType: "json",
+                data: {
+                    _token: token,
+                    "id": id,
+                },
+                success: function(response) {
+                    $("h5#total_venda").text("R$ "+response.total_venda);
+                    if (response.success) {
+                        $(obj).closest("tr").remove(); // You can remove row like this
+                        toastr.options = {
+                            "positionClass": "toast-top-full-width",
+                            "showDuration": "300",
+                            "hideDuration": "1000"
+                        }
+                        Command: toastr["success"](response.message)
+                    }
+                },
+                error: function() {
+                    toastr.options = {
+                        "positionClass": "toast-top-full-width",
+                        "showDuration": "300",
+                        "hideDuration": "1000"
+                    }
+                    Command: toastr["error"]("Erro ao remover o produto do carrinho!")
                 }
             });
         });

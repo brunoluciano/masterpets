@@ -24,7 +24,7 @@ class Produto extends Model
         return $this->belongsTo('App\Marca');
     }
 
-    public function tipo_produto()
+    public function tipo()
     {
         return $this->belongsTo('App\TipoProduto');
     }
