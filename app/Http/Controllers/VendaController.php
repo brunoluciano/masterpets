@@ -162,7 +162,8 @@ class VendaController extends Controller
                                     ->orderBy('id','desc')->with('produto')->first();
 
             // Cálculo para somar o total da venda
-            $total_venda = ItemVenda::where('vendedor_id','=',$user->id)->sum('total');
+            $total_venda = ItemVenda::where('vendedor_id','=',$user->id)
+                                    ->where('venda_id','=',null)->sum('total');
             $total_venda = number_format($total_venda, 2, ',', '.');
 
             if ($itemvenda) {
@@ -198,7 +199,8 @@ class VendaController extends Controller
         $item->delete();
 
         // Cálculo para atualizar a soma total da venda
-        $total_venda = ItemVenda::where('vendedor_id','=',$user->id)->sum('total');
+        $total_venda = ItemVenda::where('vendedor_id','=',$user->id)
+                                ->where('venda_id','=',null)->sum('total');
         $total_venda = number_format($total_venda, 2, ',', '.');
 
         return response()->json(

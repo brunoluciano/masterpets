@@ -75,6 +75,27 @@ Route::group(['prefix' => 'dashboard/pesquisa', 'middleware' => ['auth']], funct
     Route::get('', 'PesquisaController@index')->name('pesquisa.index');
 });
 
+// FINANCEIRO //
+Route::group(['prefix' => 'dashboard/financeiro', 'middleware' => ['auth']], function () {
+    Route::get('', 'FinanceiroController@index')->name('financeiro.index');
+});
+
+// ESTOQUE //
+Route::group(['prefix' => 'dashboard/estoque', 'middleware' => ['auth']], function () {
+    Route::get('', 'EstoqueController@index')->name('estoque.index');
+    Route::put('novaentrada/{id}', 'EstoqueController@atualizarEntrada')->name('entrada.produto.update');
+
+    Route::get('findProdutos', 'EstoqueController@getProdutos');
+});
+
+// RELATÓRIOS //
+Route::group(['prefix' => 'dashboard/relatorios', 'middleware' => ['auth']], function () {
+    Route::get('', 'RelatorioController@index')->name('relatorios.index');
+
+    Route::get('clientes/compras', 'RelatorioController@clientesCompras')->name('relatorio.clientes.compras');
+    Route::get('clientes/consultas', 'RelatorioController@clientesConsultas')->name('relatorio.clientes.consultas');
+    Route::get('clientes/assiduidade', 'RelatorioController@clientesAssiduidade')->name('relatorio.clientes.assiduidade');
+});
 
 // CLIENTE //
 Route::group(['prefix' => 'home/cliente', 'middleware' => ['auth']], function () {

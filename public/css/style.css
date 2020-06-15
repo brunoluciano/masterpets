@@ -1149,6 +1149,10 @@ main {
     border-color: #6c757d !important;
 }
 
+.border-blue-grey {
+    border-color: #78909c !important;
+}
+
 .border-success {
     border-color: #28a745 !important;
 }
@@ -1644,8 +1648,16 @@ a:hover.link-hover {
     background-color: #ffa726 !important;
 }
 
+.btn.orange:hover {
+    background-color: #f57c00 !important;
+}
+
 .btn.grey.lighten-1:hover {
     background-color: #9e9e9e !important;
+}
+
+.btn.light-blue.lighten-2:hover {
+    background-color: #03a9f4 !important;
 }
 
 table.table-borderless tr{

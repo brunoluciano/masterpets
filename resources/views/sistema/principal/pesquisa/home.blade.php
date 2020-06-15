@@ -24,8 +24,8 @@
                 <li class="tab col l3 s6"><a href="#produtos">Produtos</a></li>
                 <li class="tab col l3 s6"><a href="#servicos">Serviços</a></li>
             </ul>
-            <div id="usuarios" class="col l12 s12 gradient-tab-content">
-                <div class="row px-4 pt-0 pb-4 mb-0 gradient-modal-content">
+            <div id="usuarios" class="col l12 s12 gradient-modal-content">
+                <div class="row px-4 pt-0 pb-4 mb-0">
                     @include($path.'listaUsuarios')
                 </div>
             </div>

@@ -57,7 +57,7 @@
     @can('isGerente')
     <div class="row">
         <div class="col l3 m6 s12">
-            <a href="#">
+            <a href="{{ route('financeiro.index') }}">
                 <div class="card-panel gradient-card-financeiro z-depth-2 hoverable">
                     <h3 class="header-dashboard-card center">FINANCEIRO</h3>
                     <h4 class="white-text my-0 right-align">
@@ -67,7 +67,7 @@
             </a>
         </div>
         <div class="col l3 m6 s12">
-            <a href="#">
+            <a href="{{ route('relatorios.index') }}">
                 <div class="card-panel gradient-card-relatorios z-depth-2 hoverable">
                     <h3 class="header-dashboard-card center">RELATÓRIOS</h3>
                     <h4 class="white-text my-0 right-align">
@@ -77,7 +77,7 @@
             </a>
         </div>
         <div class="col l3 m6 s12">
-            <a href="#">
+            <a href="{{ route('estoque.index') }}">
                 <div class="card-panel gradient-card-estoque z-depth-2 hoverable">
                     <h3 class="header-dashboard-card center">ESTOQUE</h3>
                     <h4 class="white-text my-0 right-align">
