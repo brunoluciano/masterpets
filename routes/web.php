@@ -18,7 +18,7 @@ Route::get('/', function () {
 })->name('index');
 
 Route::view('cadastrar', 'website.cadastrar');
-Route::view('produtos', 'website.produtos');
+Route::get('produtos', 'ProdutoHomeController@index');
 Route::view('sobre', 'website.sobre');
 Route::view('contato', 'website.contato');
 
@@ -95,6 +95,17 @@ Route::group(['prefix' => 'dashboard/relatorios', 'middleware' => ['auth']], fun
     Route::get('clientes/compras', 'RelatorioController@clientesCompras')->name('relatorio.clientes.compras');
     Route::get('clientes/consultas', 'RelatorioController@clientesConsultas')->name('relatorio.clientes.consultas');
     Route::get('clientes/assiduidade', 'RelatorioController@clientesAssiduidade')->name('relatorio.clientes.assiduidade');
+
+    Route::get('funcionarios/vendas', 'RelatorioController@funcionariosVendas')->name('relatorio.funcionarios.vendas');
+
+    Route::get('animais/consultas', 'RelatorioController@animaisConsultas')->name('relatorio.animais.consultas');
+    Route::get('animais/assiduidade', 'RelatorioController@animaisAssiduidade')->name('relatorio.animais.assiduidade');
+
+    Route::get('financeiro/lucro', 'RelatorioController@financeiroLucro')->name('relatorio.financeiro.lucro');
+
+    Route::get('estoque/produtos', 'RelatorioController@estoqueProdutos')->name('relatorio.estoque.produtos');
+    Route::get('estoque/falta', 'RelatorioController@estoqueFalta')->name('relatorio.estoque.falta');
+    Route::get('estoque/lancamentos', 'RelatorioController@estoqueLancamentos')->name('relatorio.estoque.lancamentos');
 });
 
 // CLIENTE //

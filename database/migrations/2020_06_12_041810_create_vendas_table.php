@@ -21,10 +21,10 @@ class CreateVendasTable extends Migration
 
             $table->foreign('vendedor_id')->references('id')->on('users');
             $table->foreign('cliente_id')->references('id')->on('users');
-            $table->foreign('tipo_pagamento_id')->references('id')->on('tipopagamentos');
+            $table->foreign('tipo_pagamento_id')->references('id')->on('tipopagamentos')->nullable();
 
             $table->dateTime('horario_venda');
-            $table->double('total_pago');
+            $table->double('total_pago')->nullable();
             $table->double('troco')->default(0)->nullable();
             $table->double('total_venda');
             $table->timestamps();

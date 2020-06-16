@@ -1,12 +1,12 @@
 <div class="col l2">
-    <ul id="tabs-clientes" class="tabs tabs-vertical">
-        <li class="tab col l3 s6"><a class="active" href="#clientesCompras">Compras</a></li>
-        <li class="tab col l3 s6"><a href="#clientesConsultas">Consultas</a></li>
-        <li class="tab col l3 s6"><a href="#clientesAssiduidade">Assiduidade</a></li>
+    <ul id="tabs-estoque" class="tabs tabs-vertical">
+        <li class="tab col l3 s6"><a class="active" href="#estoqueProdutos">Produtos</a></li>
+        <li class="tab col l3 s6"><a href="#estoqueFalta">Em Falta</a></li>
+        <li class="tab col l3 s6"><a href="#estoqueLancamentos">Novos Lançamentos</a></li>
     </ul>
 </div>
 <div class="col l10">
-    <div id="clientesCompras" class="col s12">
+    <div id="estoqueProdutos" class="col s12">
         <form action="{{ route('relatorio.clientes.compras') }}" method="GET" target="_blank">
             <div class="row mb-0">
                 <label class="white-text col l3 mt-4">
@@ -24,13 +24,13 @@
             </div>
             <div class="row mt-0">
                 <button class="btn waves-effect waves-light orange" type="submit" name="action">
-                    <i class="fas fa-print"></i> Gerar Relatório • Compras Realizadas
+                    <i class="fas fa-print"></i> Gerar Relatório • Produtos armazenados no estoque
                 </button>
             </div>
         </form>
     </div>
 
-    <div id="clientesConsultas" class="col s12">
+    <div id="estoqueFalta" class="col s12">
         <form action="{{ route('relatorio.clientes.consultas') }}" method="GET" target="_blank">
             <div class="row mb-0">
                 <label class="white-text col l3 mt-4">
@@ -48,13 +48,13 @@
             </div>
             <div class="row mt-0">
                 <button class="btn waves-effect waves-light orange" type="submit" name="action">
-                    <i class="fas fa-print"></i> Gerar Relatório • Consultas
+                    <i class="fas fa-print"></i> Gerar Relatório • Produtos em Falta
                 </button>
             </div>
         </form>
     </div>
 
-    <div id="clientesAssiduidade" class="col s12">
+    <div id="estoqueLancamentos" class="col s12">
         <form action="{{ route('relatorio.clientes.assiduidade') }}" method="GET" target="_blank">
             <div class="row mb-0">
                 <label class="white-text col l3 mt-4">
@@ -72,7 +72,7 @@
             </div>
             <div class="row mt-0">
                 <button class="btn waves-effect waves-light orange" type="submit" name="action">
-                    <i class="fas fa-print"></i> Gerar Relatório • Assiduidade de Clientes
+                    <i class="fas fa-print"></i> Gerar Relatório • Últimos produtos lançados
                 </button>
             </div>
         </form>

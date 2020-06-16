@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
-use Dompdf\Dompdf;
-use Dompdf\Options;
+
+use App\Venda;
 
 class RelatorioController extends Controller
 {
@@ -14,16 +14,73 @@ class RelatorioController extends Controller
         return view('sistema.principal.relatorios.home');
     }
 
-    public function clientesCompras(){
-        $options = new Options();
-        $options->set('isRemoteEnabled', TRUE);
-        $dompdf = new Dompdf($options);
+    public function clientesCompras(Request $request){
+        // dd($request->all());
+        $desde = $request->input('desde');
+        $ate = $request->input('ate');
+
+        if($request->input('porperiodo') != null){
+            if($desde != null &&  $ate != null){
+                $porperiodo = true;
+                $vendas = Venda::whereBetween('horario_venda',[$desde,$ate])->get();
+                $desde = Carbon::parse($desde)->format('d/m/Y');
+                $ate = Carbon::parse($ate)->format('d/m/Y');
+            } else {
+                $porperiodo = false;
+                $vendas = Venda::get();
+            }
+        } else {
+            $porperiodo = false;
+            $vendas = Venda::get();
+        }
+        $somaTotal = $vendas->sum('total_venda');
+        $somaTotal = number_format($somaTotal,2,',','.');
+
+        // dd($vendas);
+
+        $pdfComprasClientes = PDF::loadView('sistema.principal.relatorios.paginas.comprasclientes', compact('vendas','porperiodo','desde','ate','somaTotal'));
 
         $hoje = Carbon::now();
-
-        $pdfComprasClientes = PDF::loadView('sistema.principal.relatorios.paginas.testepdf');
-
         return $pdfComprasClientes->setPaper('a4')->stream('relatorioComprasClientes'.$hoje.'.pdf', array('Attachment' => 0));
+    }
 
+    public function clientesAssiduidade(Request $request){
+        $desde = $request->input('desde');
+        $ate = $request->input('ate');
+
+        if($request->input('porperiodo') != null){
+            if($desde != null &&  $ate != null){
+                $porperiodo = true;
+                $assiduidade = Venda::select('cliente_id')
+                                    ->selectRaw('COUNT(*) AS count')
+                                    ->groupBy('cliente_id')
+                                    ->orderByDesc('count')
+                                    ->whereBetween('horario_venda',[$desde,$ate])->get();
+                $desde = Carbon::parse($desde)->format('d/m/Y');
+                $ate = Carbon::parse($ate)->format('d/m/Y');
+            } else {
+                $porperiodo = false;
+                $assiduidade = Venda::select('cliente_id')
+                                    ->selectRaw('COUNT(*) AS count')
+                                    ->groupBy('cliente_id')
+                                    ->orderByDesc('count')
+                                    ->get();
+            }
+        } else {
+            $porperiodo = false;
+            $assiduidade = Venda::select('cliente_id')
+                                ->selectRaw('COUNT(cliente_id) AS count')
+                                ->groupBy('cliente_id')
+                                ->orderByDesc('count')
+                                ->get();
+
+        }
+        $qtdVendas = $assiduidade->sum('count');
+
+
+        $pdfComprasClientes = PDF::loadView('sistema.principal.relatorios.paginas.assiduidadeclientes', compact('assiduidade','porperiodo','desde','ate','qtdVendas'));
+
+        $hoje = Carbon::now();
+        return $pdfComprasClientes->setPaper('a4')->stream('relatorioAssiduidadeClientes'.$hoje.'.pdf', array('Attachment' => 0));
     }
 }

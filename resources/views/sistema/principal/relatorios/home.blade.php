@@ -32,22 +32,22 @@
             </div>
             <div id="funcionarios" class="col l12 s12 gradient-modal-content">
                 <div class="row pt-2 py-4 mb-0">
-                    {{-- @include($path.'relatorioClientes') --}}
+                    @include($path.'relatorioFuncionarios')
                 </div>
             </div>
             <div id="animais" class="col l12 s12 gradient-modal-content">
                 <div class="row pt-2 mb-0">
-                    {{-- @include($path.'relatorioClientes') --}}
+                    @include($path.'relatorioAnimais')
                 </div>
             </div>
             <div id="financeiro" class="col l12 s12 gradient-modal-content">
                 <div class="row pt-2 mb-0">
-                    {{-- @include($path.'relatorioClientes') --}}
+                    @include($path.'relatorioFinanceiro')
                 </div>
             </div>
             <div id="estoque" class="col l12 s12 gradient-modal-content">
                 <div class="row pt-2 mb-0">
-                    {{-- @include($path.'relatorioClientes') --}}
+                    @include($path.'relatorioEstoque')
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@
        $('ul#tabs-funcionarios').tabs();
        $('ul#tabs-animais').tabs();
        $('ul#tabs-financeiro').tabs();
-       $('ul#tabs-servicos').tabs();
+       $('ul#tabs-estoque').tabs();
    });
 </script>
 <script src="{{ asset('js/configDatepicker.js')}}"></script>

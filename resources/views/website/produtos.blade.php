@@ -132,21 +132,25 @@
                         <div class="col l10 offset-l1 s12 pt-3">
                             <h5 class="font-weight-light center teal-text mx-0"><b>Novidades que chegaram para você!</b></h5>
                             <div id="carouselFirst" class="carousel mt-0 my-0 py-0">
-                                @for ($i = 0; $i < 5; $i++)
-                                    <a class="carousel-item" href="#{{ $i }}">
+                                @foreach($produtosLancamento as $produto)
+                                    @php
+                                        $valorProduto = number_format($produto->preco_venda,2,',','.');
+                                    @endphp
+
+                                    <a class="carousel-item" href="#">
                                         <div class="card hoverable z-depth-2 margin-top-slide">
                                             <div class="card-image">
-                                                <img src="{{ asset('images/produtoSemFigura.jpg') }}">
+                                                <img src="{{ env('APP_URL') }}/storage/{{ $produto->path_img }}">
                                             </div>
                                             <div class="card-content center px-1 py-2">
-                                                <h5 class="m-0 grey-text text-darken-2">Produto Exemplo</h5>
+                                                <h5 class="m-0 grey-text text-darken-2">{{ $produto->descricao }}</h5>
                                                 <hr class="grey-text text-lighten-5">
                                                 <span class="font-weight-light grey-text text-darken-1">A partir de</span>
-                                                <h6 class="m-0 font-weight-bold green-text text-darken-3">R$ XXX,XX</h6>
+                                                <h6 class="m-0 font-weight-bold green-text text-darken-3">R$ {{ $valorProduto }}</h6>
                                             </div>
                                         </div>
                                     </a>
-                                @endfor
+                                @endforeach
                                 <div class="row slider-center margin-top-slide">
                                     <i id="carousel-next" class="material-icons z-depth-2 teal">chevron_right</i>
                                     <i id="carousel-prev" class="material-icons z-depth-2 teal">chevron_left</i>
@@ -154,21 +158,25 @@
                             </div>
                             <hr class="mx-0">
                             <div class="row">
-                                @for ($i = 0; $i < 20; $i++)
-                                    <div class="col l3 s6">
+                                @foreach ($produtosAll as $produto)
+                                    @php
+                                        $valorProduto = number_format($produto->preco_venda,2,',','.');
+                                    @endphp
+
+                                    <div class="col l3 s6"">
                                         <div class="card hoverable z-depth-2">
                                             <div class="card-image">
-                                                <img src="{{ asset('images/produtoSemFigura.jpg') }}">
+                                                <img src="{{ env('APP_URL') }}/storage/{{ $produto->path_img }}">
                                             </div>
-                                            <div class="card-content center p-2">
-                                                <h5 class="m-0 grey-text text-darken-2">Produto Exemplo</h5>
+                                            <div class="card-content center p-2" style="min-height: 130px">
+                                                <h5 class="m-0 grey-text text-darken-2">{{ $produto->descricao }}</h5>
                                                 <hr class="grey-text text-lighten-5">
                                                 <span class="font-weight-light grey-text text-darken-1">A partir de</span>
-                                                <h6 class="m-0 font-weight-bold green-text text-darken-3">R$ XXX,XX</h6>
+                                                <h6 class="m-0 font-weight-bold green-text text-darken-3">R$ {{ $valorProduto }}</h6>
                                             </div>
                                         </div>
                                     </div>
-                                @endfor
+                                @endforeach
                             </div>
                         </div>
                     </div>
