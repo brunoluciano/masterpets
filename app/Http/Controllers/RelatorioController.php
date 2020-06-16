@@ -78,9 +78,38 @@ class RelatorioController extends Controller
         $qtdVendas = $assiduidade->sum('count');
 
 
-        $pdfComprasClientes = PDF::loadView('sistema.principal.relatorios.paginas.assiduidadeclientes', compact('assiduidade','porperiodo','desde','ate','qtdVendas'));
+        $pdfAssiduidadeClientes = PDF::loadView('sistema.principal.relatorios.paginas.assiduidadeclientes', compact('assiduidade','porperiodo','desde','ate','qtdVendas'));
 
         $hoje = Carbon::now();
-        return $pdfComprasClientes->setPaper('a4')->stream('relatorioAssiduidadeClientes'.$hoje.'.pdf', array('Attachment' => 0));
+        return $pdfAssiduidadeClientes->setPaper('a4')->stream('relatorioAssiduidadeClientes'.$hoje.'.pdf', array('Attachment' => 0));
+    }
+
+    public function funcionariosVendas(Request $request){
+        $desde = $request->input('desde');
+        $ate = $request->input('ate');
+
+        if($request->input('porperiodo') != null){
+            if($desde != null &&  $ate != null){
+                $porperiodo = true;
+                $vendasFuncionarios = Venda::whereBetween('horario_venda',[$desde,$ate])
+                                    ->orderBy('horario_venda')->get();
+                $desde = Carbon::parse($desde)->format('d/m/Y');
+                $ate = Carbon::parse($ate)->format('d/m/Y');
+            } else {
+                $porperiodo = false;
+                $vendasFuncionarios = Venda::orderBy('horario_venda')->get();
+            }
+        } else {
+            $porperiodo = false;
+            $vendasFuncionarios = Venda::orderBy('horario_venda')->get();
+
+        }
+        $valorTotal = $vendasFuncionarios->sum('total_venda');
+
+
+        $pdfVendasFuncionarios = PDF::loadView('sistema.principal.relatorios.paginas.vendasfuncionarios', compact('vendasFuncionarios','porperiodo','desde','ate','valorTotal'));
+
+        $hoje = Carbon::now();
+        return $pdfVendasFuncionarios->setPaper('a4')->stream('relatorioAssiduidadeClientes'.$hoje.'.pdf', array('Attachment' => 0));
     }
 }

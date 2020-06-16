@@ -143,7 +143,7 @@
                                                 <img src="{{ env('APP_URL') }}/storage/{{ $produto->path_img }}">
                                             </div>
                                             <div class="card-content center px-1 py-2">
-                                                <h5 class="m-0 grey-text text-darken-2">{{ $produto->descricao }}</h5>
+                                                <h6 class="m-0 grey-text text-darken-2">{{ $produto->descricao }}</h6>
                                                 <hr class="grey-text text-lighten-5">
                                                 <span class="font-weight-light grey-text text-darken-1">A partir de</span>
                                                 <h6 class="m-0 font-weight-bold green-text text-darken-3">R$ {{ $valorProduto }}</h6>
@@ -169,7 +169,7 @@
                                                 <img src="{{ env('APP_URL') }}/storage/{{ $produto->path_img }}">
                                             </div>
                                             <div class="card-content center p-2" style="min-height: 130px">
-                                                <h5 class="m-0 grey-text text-darken-2">{{ $produto->descricao }}</h5>
+                                                <h6 class="m-0 grey-text text-darken-2">{{ $produto->descricao }}</h6>
                                                 <hr class="grey-text text-lighten-5">
                                                 <span class="font-weight-light grey-text text-darken-1">A partir de</span>
                                                 <h6 class="m-0 font-weight-bold green-text text-darken-3">R$ {{ $valorProduto }}</h6>

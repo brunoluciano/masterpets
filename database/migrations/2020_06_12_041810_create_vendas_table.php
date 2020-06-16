@@ -17,7 +17,7 @@ class CreateVendasTable extends Migration
             $table->id();
             $table->unsignedBigInteger('vendedor_id');
             $table->unsignedBigInteger('cliente_id');
-            $table->unsignedBigInteger('tipo_pagamento_id');
+            $table->unsignedBigInteger('tipo_pagamento_id')->nullable();
 
             $table->foreign('vendedor_id')->references('id')->on('users');
             $table->foreign('cliente_id')->references('id')->on('users');

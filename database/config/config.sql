@@ -35,5 +35,6 @@ INSERT INTO `unidademedidas` (`id`, `descricao`, `abreviacao`, `created_at`, `up
     VALUES (NULL, 'grama', 'g', CURRENT_TIME(), CURRENT_TIME()),
            (NULL, 'quilo', 'kg', CURRENT_TIME(), CURRENT_TIME()),
            (NULL, 'mililitro', 'ml', CURRENT_TIME(), CURRENT_TIME()),
-           (NULL, 'litro', 'l', CURRENT_TIME(), CURRENT_TIME());
+           (NULL, 'litro', 'l', CURRENT_TIME(), CURRENT_TIME()),
+           (NULL, 'unidade', 'un', CURRENT_TIME(), CURRENT_TIME());
 
