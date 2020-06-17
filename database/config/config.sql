@@ -38,3 +38,39 @@ INSERT INTO `unidademedidas` (`id`, `descricao`, `abreviacao`, `created_at`, `up
            (NULL, 'litro', 'l', CURRENT_TIME(), CURRENT_TIME()),
            (NULL, 'unidade', 'un', CURRENT_TIME(), CURRENT_TIME());
 
+INSERT INTO `especies` (`id`, `nome`, `created_at`, `updated_at`) 
+    VALUES (NULL, 'Canino', NULL, NULL), 
+           (NULL, 'Felino', NULL, NULL);
+
+INSERT INTO `racas` (`id`, `nome`, `especie_id`, `created_at`, `updated_at`) 
+    VALUES (NULL, 'Poodle', '1', NULL, NULL), 
+           (NULL, 'Siamês', '2', NULL, NULL);
+
+
+INSERT INTO `portes` (`id`, `descricao`, `created_at`, `updated_at`) 
+    VALUES (NULL, 'Pequeno', NULL, NULL), 
+           (NULL, 'Médio', NULL, NULL), 
+           (NULL, 'Grande', NULL, NULL), 
+           (NULL, 'Gigante', NULL, NULL);
+
+INSERT INTO `cores` (`id`, `descricao`, `created_at`, `updated_at`) 
+    VALUES (NULL, 'Preto', NULL, NULL), 
+           (NULL, 'Branco', NULL, NULL), 
+           (NULL, 'Marrom', NULL, NULL), 
+           (NULL, 'Castanho', NULL, NULL), 
+           (NULL, 'Rajado', NULL, NULL);
+
+INSERT INTO `pelos` (`id`, `descricao`, `created_at`, `updated_at`) 
+    VALUES (NULL, 'Curto', NULL, NULL), 
+           (NULL, 'Médio', NULL, NULL), 
+           (NULL, 'Longo', NULL, NULL);
+
+INSERT INTO `tiposervicos` (`id`, `descricao`, `created_at`, `updated_at`) 
+    VALUES (NULL, 'Banho', NULL, NULL);
+
+INSERT INTO `servicos` (`id`, `descricao`, `tipo_servico_id`, `valor`, `created_at`, `updated_at`) 
+    VALUES (NULL, 'Banho pet médio', '1', '45', NULL, NULL);
+
+
+
+

@@ -40,7 +40,7 @@
 <script>
     $(document).ready(function(){
         $("#verificar_disponibilidade").click(function(e){
-            e.preventDefault();
+            // e.preventDefault();
 
             var data_evento = $("#data_evento").val();
             console.log(data_evento);

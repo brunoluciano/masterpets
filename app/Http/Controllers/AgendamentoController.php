@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agendamento;
+use Carbon\Carbon as CarbonCarbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -24,12 +25,45 @@ class AgendamentoController extends Controller
             $agendamentos = Agendamento::where('data_evento','=',$data_evento->subDay(1))
                                        ->orderBy('hora_inicio', 'desc')->get();
 
+            $teste = new Carbon('08:00');
+            $hora = new Carbon('08:00');
+            // dd($hora);
+            for ($i=8; $i <= 18; $i++) { 
+                // $horario .= array('hora' => $i);
+                $horario[] = array('hora' => Carbon::parse($hora)->format('H:i'));
+                if($hora == $teste){
+                    echo "IGUAL";
+                } else {
+                    echo "nao igaul";
+                }
+                
+                $hora = $hora->addHour(1);
+            }
+            // dd($horario);
+
             // $hora_indisponivel = array('horario' => '');
+            $cont = 0;
+
+            foreach ($horario as $hora) {
+                foreach ($agendamentos as $agenda) {
+                    if($hora->hora ){
+
+                    }
+
+                }
+
+            }
+
             foreach ($agendamentos as $agenda) {
+                while($horario[$cont]['hora'] < $agenda->hora_inicio){
+                    $hora_indisponivel[] = array('horario' => $horario[$cont]['hora'], 'disponivel' => false);
+                }
                 $agenda->hora_inicio = Carbon::parse($agenda->hora_inicio)->format('H:i');
                 $hora_indisponivel[] = array('horario' => $agenda->hora_inicio, 'disponivel' => false);
+                
+                $cont++;
             }
-            // dd($hora_indisponivel);
+            dd($hora_indisponivel);
 
             return response()->json([
                 'success' => true,
