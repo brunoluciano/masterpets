@@ -117,12 +117,15 @@
 
     @include('sistema.cliente.listaItensVenda')
 
+    @include('sistema.cliente.modalAgendamento')
+
     <!-------------- Inicialização Modais -------------->
     <script>
         $(document).ready(function(){
             $('#modalCliente').modal();
             $('#modalPets').modal();
             $('#modalListaPets').modal();
+            $('#modalAgendamento').modal();
         });
     </script>
 

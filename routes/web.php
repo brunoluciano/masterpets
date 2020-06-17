@@ -120,6 +120,7 @@ Route::group(['prefix' => 'home/cliente', 'middleware' => ['auth']], function ()
     Route::get('findCores', 'AnimalController@getCores');
 
     Route::post('findAgendamentos', 'AgendamentoController@getAgendamentos')->name('agendamento.consultar');
+    Route::get('findEventos', 'AgendamentoController@getEventos')->name('evento.consultar');
 });
 
 

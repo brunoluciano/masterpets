@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agendamento;
+use App\Servico;
 use Carbon\Carbon as CarbonCarbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -28,42 +29,28 @@ class AgendamentoController extends Controller
             $teste = new Carbon('08:00');
             $hora = new Carbon('08:00');
             // dd($hora);
-            for ($i=8; $i <= 18; $i++) { 
-                // $horario .= array('hora' => $i);
-                $horario[] = array('hora' => Carbon::parse($hora)->format('H:i'));
-                if($hora == $teste){
-                    echo "IGUAL";
-                } else {
-                    echo "nao igaul";
-                }
-                
-                $hora = $hora->addHour(1);
-            }
-            // dd($horario);
-
-            // $hora_indisponivel = array('horario' => '');
             $cont = 0;
+            for ($i=8; $i <= 18; $i++) { 
+                $horario[$cont] = array('hora' => Carbon::parse($hora)->format('H:i'));
+
+                $hora_indisponivel[] = array('horario' => $horario[$cont]['hora'], 'disponivel' => true);
+                $hora = $hora->addHour(1);
+                $cont++;
+            }
 
             foreach ($horario as $hora) {
                 foreach ($agendamentos as $agenda) {
-                    if($hora->hora ){
-
+                    $agenda->hora_inicio = Carbon::parse($agenda->hora_inicio)->format('H:i');
+                    if($agenda->hora_inicio == $hora['hora']){
+                        $h = Carbon::parse($agenda->hora_inicio)->format('H');
+                        $hora_indisponivel[$h-8] = array('horario' => $agenda->hora_inicio, 'disponivel' => false);
                     }
-
                 }
-
             }
 
-            foreach ($agendamentos as $agenda) {
-                while($horario[$cont]['hora'] < $agenda->hora_inicio){
-                    $hora_indisponivel[] = array('horario' => $horario[$cont]['hora'], 'disponivel' => false);
-                }
-                $agenda->hora_inicio = Carbon::parse($agenda->hora_inicio)->format('H:i');
-                $hora_indisponivel[] = array('horario' => $agenda->hora_inicio, 'disponivel' => false);
-                
-                $cont++;
-            }
-            dd($hora_indisponivel);
+            $hora_indisponivel = array_reverse($hora_indisponivel);
+
+            // dd($hora_indisponivel);
 
             return response()->json([
                 'success' => true,
@@ -71,6 +58,12 @@ class AgendamentoController extends Controller
                 'indisponivel' => $hora_indisponivel,
             ]);
         }
+    }
+
+    public function getEventos()
+    {
+        $eventos = Servico::orderBy('descricao', 'asc')->get();
+        return response()->json($eventos);
     }
 
     /**

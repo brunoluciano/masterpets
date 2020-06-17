@@ -6,7 +6,7 @@
                     @csrf
 
                     <label for="data_evento" class="dark-text">Data</label>
-                    <input id="data_evento" type="text" name="data_evento" class="datepicker dark-text" placeholder="Informe a data para o agendamento" autocomplete="off" required>
+                    <input id="data_evento" type="text" name="data_evento" class="datepicker dark-text" placeholder="Informe uma data para agendamento" autocomplete="off" required>
                     <span id="data_invalida" class="helper-text data-error" style="display:none;">É necessário informar uma data válida! (Ex: Data atual ou posterior)</span>
                     <button id="verificar_disponibilidade" class="btn waves-effect waves-light cyan btn-block" type="submit" name="action">
                         Verificar disponibilidade <i class="fas fa-search"></i>
@@ -27,7 +27,7 @@
                         <tr>
                             <td>{{ $i }}:00</td>
                             <td>
-                                <a href="#" class="waves-effect waves-light btn right"><i class="fas fa-plus-circle"></i> Novo Evento</a>
+                                <a href="#modalAgendamento" class="waves-effect waves-light btn right modal-trigger"><i class="fas fa-plus-circle"></i> Novo Evento</a>
                             </td>
                         </tr>
                     @endfor
@@ -40,11 +40,9 @@
 <script>
     $(document).ready(function(){
         $("#verificar_disponibilidade").click(function(e){
-            // e.preventDefault();
+            e.preventDefault();
 
             var data_evento = $("#data_evento").val();
-            console.log(data_evento);
-
 
             $.ajaxSetup({
                 headers: {
@@ -60,26 +58,20 @@
                 if(response.success == false){
                     $("#data_invalida").show();
                 } else {
-                    console.log(response.indisponivel.length);
                     $("#data_invalida").hide();
-
                     $("#table_agendamentos").empty();
                     response.indisponivel.forEach(el => {
                         if(el.disponivel == false){
-                            var msg = "Horário já reservado!";
+                            $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
+                                                             "<td>Horário indisponível!</td>"+
+                                                             "<td><a href='#' class='waves-effect waves-light btn right disabled'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
                         } else {
-                            var msg = "";
+                            $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
+                                                             "<td></td>"+
+                                                             "<td><a href='#modalAgendamento' class='waves-effect waves-light btn right modal-trigger'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
                         }
-                        $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
-                                                             "<td>"+msg+"</td>"+
-                                                             "<td><a href='#'' class='waves-effect waves-light btn right disabled'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>")
                     });
-
-
                 }
-
-
-
             }
         })
         });
