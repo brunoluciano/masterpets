@@ -5,7 +5,7 @@
 </div>
 <div class="col l10">
     <div id="financeiroLucro" class="col s12">
-        <form action="{{ route('relatorio.clientes.compras') }}" method="GET" target="_blank">
+        <form action="{{ route('relatorio.financeiro.lucro') }}" method="GET" target="_blank">
             <div class="row mb-0">
                 <label class="white-text col l3 mt-4">
                     <input name="porperiodo" type="checkbox" value="1" />

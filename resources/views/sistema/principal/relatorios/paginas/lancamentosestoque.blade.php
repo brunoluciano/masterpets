@@ -4,48 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>RELATÓRIO VENDAS REALIZADAS</title>
+    <title>RELATÓRIO ÚLTIMOS LANÇAMENTOS</title>
 </head>
 <body class="center">
-    <h2 class="mb-0">Relatório • Vendas Realizadas</h2>
+    <h2 class="mb-0">Relatório • Últimos Lançamentos</h2>
     <hr>
-    @if ($porperiodo)
-        <h4 class="my-0">Por período: {{ $desde }} - {{ $ate }}</h4>
-    @else
-        <h4 class="my-0">Todo período</h4>
-    @endif
 
-    @if ($vendasFuncionarios->count() > 0)
+    @if ($produtos->count() > 0)
         <table class="striped centered blue-grey darken-2 white-text text-shadow">
             <thead class="cyan darken-3">
                 <tr>
-                    <th>Código</th>
-                    <th>Funcionário</th>
-                    <th>E-mail</th>
-                    <th>Telefone</th>
-                    <th>Valor da Venda</th>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Cód. Barras</th>
+                    <th>Estoque Mínimo</th>
+                    <th>Estoque Máximo</th>
+                    <th>Estoque Atual</th>
+                    <th>Preço Compra</th>
+                    <th>Preço Venda</th>
+                    <th>Data de criação</th>
+                    <th>Última atualização</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($vendasFuncionarios as $venda)
+                @foreach ($produtos as $produto)
                     @php
-                        $valorVenda = number_format($venda->total_venda,2,',','.');
+                        $preco_compra = number_format($produto->preco_compra,2,',','.');
+                        $preco_venda = number_format($produto->preco_venda,2,',','.');
+                        $criacao = \Carbon\Carbon::parse($produto->created_at)->format('d/m/Y H:i:s');
+                        $atualizacao = \Carbon\Carbon::parse($produto->updated_at)->format('d/m/Y H:i:s');
+                        if ($produto->estoque_atual >= ($produto->estoque_maximo / 2)) {
+                            $estoque_cor = "green-text text-accent-3";
+                        } else if (($produto->estoque_atual < ($produto->estoque_maximo / 2)) && ($produto->estoque_atual > $produto->estoque_minimo)) {
+                            $estoque_cor = "yellow-text text-accent-3";
+                        } else {
+                            $estoque_cor = "red-text text-accent-3";
+                        }
                     @endphp
-                <tr>
-                    <td>{{ $venda->vendedor->id }}</td>
-                    <td>{{ $venda->vendedor->name }}</td>
-                    <td>{{ $venda->vendedor->email }}</td>
-                    <td>{{ $venda->vendedor->telefone }}</td>
-                    <td>R$ {{ $valorVenda }}</td>
-                </tr>
+                    <tr>
+                        <td>{{ $produto->id }}</td>
+                        <td>{{ $produto->descricao }}</td>
+                        <td>{{ $produto->cod_barras }}</td>
+                        <td>{{ $produto->estoque_minimo }}</td>
+                        <td>{{ $produto->estoque_maximo }}</td>
+                        <td class="{{ $estoque_cor }} font-weight-bold">{{ $produto->estoque_atual }}</td>
+                        <td>R$ {{ $preco_compra }}</td>
+                        <td>R$ {{ $preco_venda }}</td>
+                        <td>{{ $criacao }}</td>
+                        <td>{{ $atualizacao }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
         <br>
-        <h5 class="left-align">Valor total de vendas: <b>R$ {{ $valorTotal }}</b></h5>
+        <h5 class="left-align">Quantidade total de produtos: <b>{{ $qtd }}</b></h5>
     @else
         <div class="row yellow lighten-2 rounded z-depth-2">
-            <h5 class="center py-2">Nenhuma venda encontrada nesse período!</h5>
+            <h5 class="center py-2">Nenhuma produto encontrado!</h5>
         </div>
     @endif
 

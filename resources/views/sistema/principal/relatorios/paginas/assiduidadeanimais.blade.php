@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>RELATÓRIO VENDAS REALIZADAS</title>
+    <title>RELATÓRIO ASSIDUIDADE DE PETS</title>
 </head>
 <body class="center">
-    <h2 class="mb-0">Relatório • Vendas Realizadas</h2>
+    <h2 class="mb-0">Relatório • Assiduidade de PETs</h2>
     <hr>
     @if ($porperiodo)
         <h4 class="my-0">Por período: {{ $desde }} - {{ $ate }}</h4>
@@ -20,10 +20,9 @@
             <thead class="cyan darken-3">
                 <tr>
                     <th>Código</th>
-                    <th>Funcionário</th>
-                    <th>E-mail</th>
-                    <th>Telefone</th>
-                    <th>Valor da Venda</th>
+                    <th>Animal</th>
+                    <th>Dono</th>
+                    <th>Consultas Realizadas</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,7 +34,6 @@
                     <td>{{ $venda->vendedor->id }}</td>
                     <td>{{ $venda->vendedor->name }}</td>
                     <td>{{ $venda->vendedor->email }}</td>
-                    <td>{{ $venda->vendedor->telefone }}</td>
                     <td>R$ {{ $valorVenda }}</td>
                 </tr>
                 @endforeach
@@ -45,7 +43,7 @@
         <h5 class="left-align">Valor total de vendas: <b>R$ {{ $valorTotal }}</b></h5>
     @else
         <div class="row yellow lighten-2 rounded z-depth-2">
-            <h5 class="center py-2">Nenhuma venda encontrada nesse período!</h5>
+            <h5 class="center py-2">Nenhuma compra encontrada nesse período!</h5>
         </div>
     @endif
 

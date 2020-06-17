@@ -23,8 +23,8 @@
     <!-- Compiled and minified JavaScript -->
     <script src="{{ asset('js/materialize.min.js') }}"></script>
 
-   <!-- jquery.easing.1.3 -->
-   <script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
+    <!-- jquery.easing.1.3 -->
+    <script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
 
     <!-- Toastr -->
     <link href="{{ asset('toastr/toastr.min.css') }}" rel="stylesheet"/>

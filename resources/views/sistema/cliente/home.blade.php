@@ -96,71 +96,10 @@
                     <li class="tab col l3 s6"><a class="active" href="#agendamento">Agendamento</a></li>
                     <li class="tab col l3 s6"><a href="#conta">Conta</a></li>
                 </ul>
-                <div id="agendamento" class="col l12 s12 gradient-tab-content">
-                    <div class="row">
-                        <div class="col l4 s12">
-                            <div class="input-field col l12 s12 mt-4">
-                                <input id="nascimento" type="text" name="data" id="data" class="datepicker" placeholder="Informe a data para o agendamento" required>
-                                <label for="nascimento" class="dark-text">Data</label>
-                            </div>
-                        </div>
-                        <div class="col l8 s12">
-                            <table>
-                                <thead>
-                                    <tr class="grey-text text-darken-2">
-                                        <th>Horário</th>
-                                        <th>Evento</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for ($i = 8; $i <= 18; $i++)
-                                        <tr>
-                                            <td>{{ $i }}:00</td>
-                                            <td>
-                                                <a href="#" class="waves-effect waves-light btn right"><i class="fas fa-plus-circle"></i> Novo Evento</a>
-                                            </td>
-                                        </tr>
-                                    @endfor
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div id="conta" class="col l12 s12 gradient-tab-content">
-                    <a href="#" class="teal-text link-hover right">Imprimir Conta<i class="fa fa-print ml-1" aria-hidden="true"></i></a>
-                    <table>
-                        <thead>
-                            <tr class="grey-text text-darken-2">
-                                <th>Horário da Compra</th>
-                                <th colspan="2">Descrição</th>
-                                <th>Valor Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($compras as $compra)
-                                <tr>
-                                    <td rowspan="2">{{ \Carbon\Carbon::parse($compra->horario_venda)->format('d/m/Y H:i:s') }}</td>
-                                    <td class="py-0 pt-2"><span class="chip teal lighten-2 white-text rounded text-muted z-depth-1">Compra {{ sprintf('%03d',$compra->id) }}</span></td>
-                                    <td rowspan="2"><a href="#verMaisCompra{{ $compra->id }}" class="mt-2 teal-text text-darken-2 hover-link ml-2 right modal-trigger"><i>Ver mais</i></a></td>
-                                    <td rowspan="2" class="font-weight-bold cyan-text text-darken-3">R$ {{ number_format($compra->total_venda,2,',','.') }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="valign-wrapper py-1">
-                                        @foreach (\App\ItemVenda::where('venda_id','=',$compra->id)->take(3)->get() as $item)
-                                            <img class="chip-img ml-2" src="{{ env('APP_URL') }}/storage/{{ $item->produto->path_img }}">
-                                            <span>{{ $item->produto->descricao }}</span>
-                                        @endforeach
-                                    </td>
-                                </tr>
-                                <script>
-                                    $(document).ready(function(){
-                                        $('#verMaisCompra{{ $compra->id }}').modal();
-                                    });
-                                </script>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+
+                @include('sistema.cliente.agendamento')
+                @include('sistema.cliente.conta')
+
             </div>
         </div>
     </div>

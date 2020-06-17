@@ -118,6 +118,8 @@ Route::group(['prefix' => 'home/cliente', 'middleware' => ['auth']], function ()
     Route::get('findEspecies', 'AnimalController@getEspecie');
     Route::get('findRacas', 'AnimalController@getRacas');
     Route::get('findCores', 'AnimalController@getCores');
+
+    Route::post('findAgendamentos', 'AgendamentoController@getAgendamentos')->name('agendamento.consultar');
 });
 
 

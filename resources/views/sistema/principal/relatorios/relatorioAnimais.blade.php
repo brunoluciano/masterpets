@@ -30,7 +30,7 @@
     </div>
 
     <div id="animaisAssiduidade" class="col s12">
-        <form action="{{ route('relatorio.clientes.consultas') }}" method="GET" target="_blank">
+        <form action="{{ route('relatorio.animais.assiduidade') }}" method="GET" target="_blank">
             <div class="row mb-0">
                 <label class="white-text col l3 mt-4">
                     <input name="porperiodo" type="checkbox" value="1" />

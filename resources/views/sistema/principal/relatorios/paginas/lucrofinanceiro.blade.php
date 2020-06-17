@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>RELATÓRIO VENDAS REALIZADAS</title>
+    <title>RELATÓRIO LUCRO FINANCEIRO</title>
 </head>
 <body class="center">
-    <h2 class="mb-0">Relatório • Vendas Realizadas</h2>
+    <h2 class="mb-0">Relatório • Lucro Financeiro</h2>
     <hr>
     @if ($porperiodo)
         <h4 class="my-0">Por período: {{ $desde }} - {{ $ate }}</h4>
@@ -15,37 +15,25 @@
         <h4 class="my-0">Todo período</h4>
     @endif
 
-    @if ($vendasFuncionarios->count() > 0)
-        <table class="striped centered blue-grey darken-2 white-text text-shadow">
-            <thead class="cyan darken-3">
+    @if ($lucro > 0)
+        <div class="col l12 s12 p-4 rounded z-depth-2 card-info-user">
+            <h3 class="m-0 mb-3 pl-2 blue-grey-text text-lighten-1 centered"><b>LUCRO FINANCEIRO</b></h3>
+            <table>
                 <tr>
-                    <th>Código</th>
-                    <th>Funcionário</th>
-                    <th>E-mail</th>
-                    <th>Telefone</th>
-                    <th>Valor da Venda</th>
+                    <td class="green-text">
+                        <h4 class="font-weight-light"><b>R$ {{ $lucro }}</b></h4>
+                        <h6 class="font-weight-bold">lucro</h6>
+                    </td>
+                    <td class="center orange-text text-darken-1">
+                        <h4 class="font-weight-light"><b>{{ $qtdVendas }}</b></h4>
+                        <h6 class="font-weight-bold">vendas</h6>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($vendasFuncionarios as $venda)
-                    @php
-                        $valorVenda = number_format($venda->total_venda,2,',','.');
-                    @endphp
-                <tr>
-                    <td>{{ $venda->vendedor->id }}</td>
-                    <td>{{ $venda->vendedor->name }}</td>
-                    <td>{{ $venda->vendedor->email }}</td>
-                    <td>{{ $venda->vendedor->telefone }}</td>
-                    <td>R$ {{ $valorVenda }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <br>
-        <h5 class="left-align">Valor total de vendas: <b>R$ {{ $valorTotal }}</b></h5>
+            </table>
+        </div>
     @else
         <div class="row yellow lighten-2 rounded z-depth-2">
-            <h5 class="center py-2">Nenhuma venda encontrada nesse período!</h5>
+            <h5 class="center py-2">Não obteve nenhum lucro na empresa nesse período!</h5>
         </div>
     @endif
 
@@ -320,6 +308,18 @@
 }
 @page { margin-top: 0px; }
 body { margin: 0px; }
+.card-info-user {
+    min-height: 192px !important;
+    background: rgb(245,251,255);
+    background: -moz-linear-gradient(180deg, rgba(245,251,255,1) 0%, rgba(203,218,228,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(245,251,255,1) 0%, rgba(203,218,228,1) 100%);
+    background: linear-gradient(180deg, rgba(245,251,255,1) 0%, rgba(203,218,228,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f5fbff",endColorstr="#cbdae4",GradientType=1);
+    -webkit-transition: 0.4s 0s ease-in;
+    -moz-transition: 0.4s 0s ease-in;
+    -o-transition: 0.4s 0s ease-in;
+    transition: 0.4s 0s ease-in;
+}
     </style>
 </body>
 </html>

@@ -11,7 +11,7 @@ class EstoqueController extends Controller
     {
         $produtos = Produto::orderBy('descricao','asc')->get();
 
-        $faltaProdutos = Produto::whereBetween('estoque_atual',[0,'estoque_minimo'])->get();
+        $faltaProdutos = Produto::whereRaw('estoque_atual <= estoque_minimo')->get();
 
         return view('sistema.principal.estoque.home', compact('produtos','faltaProdutos'));
     }

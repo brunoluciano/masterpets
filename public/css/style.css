@@ -1272,6 +1272,10 @@ main {
     color: #616161 !important;
 }
 
+input.dark-text {
+    color: #616161 !important;
+}
+
 /* label focus color */
 
 .input-field input[type=text]:focus+label,
