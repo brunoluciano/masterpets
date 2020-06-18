@@ -1,5 +1,5 @@
-<div class="row valign-wrapper my-0">
-    <div class="col l6 s12">
+<div class="row my-0">
+    {{-- <div class="col l6 s12">
         <label class="white-text">
             <input name="tipo_usuario_id" type="radio" value="1" />
             <span>Cliente</span>
@@ -12,8 +12,8 @@
             <input name="tipo_usuario_id" type="radio" value="3" />
             <span>Gerente</span>
         </label>
-    </div>
-    <div class="col l3 offset-l3 s12">
+    </div> --}}
+    <div class="col l3 s12">
         <div class="input-field">
             <input type="text" id="input_usuario" onkeyup="buscaUsuario()">
             <i class="fas fa-search fa-xs prefix right white-text"></i>

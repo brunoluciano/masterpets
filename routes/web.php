@@ -70,6 +70,11 @@ Route::group(['prefix' => 'dashboard/venda', 'middleware' => ['auth']], function
     Route::get('findClientes', 'VendaController@getClientes');
 });
 
+// AGENDA //
+Route::group(['prefix' => 'dashboard/agenda', 'middleware' => ['auth']], function () {
+    Route::get('', 'AgendamentoController@index')->name('agenda.index');
+});
+
 // PESQUISA //
 Route::group(['prefix' => 'dashboard/pesquisa', 'middleware' => ['auth']], function () {
     Route::get('', 'PesquisaController@index')->name('pesquisa.index');
@@ -121,6 +126,8 @@ Route::group(['prefix' => 'home/cliente', 'middleware' => ['auth']], function ()
 
     Route::post('findAgendamentos', 'AgendamentoController@getAgendamentos')->name('agendamento.consultar');
     Route::get('findEventos', 'AgendamentoController@getEventos')->name('evento.consultar');
+
+    Route::post('agendamento/store', 'AgendamentoController@store')->name('agendamento.store');
 });
 
 

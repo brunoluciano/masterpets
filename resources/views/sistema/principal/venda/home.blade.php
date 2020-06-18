@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row mx-3">
-    <h2>Venda (PDV)</h2>
+    <h2 class="ml-3 grey-text text-darken-2">Venda (PDV) <i class="fas fa-shopping-cart"></i></h2>
     <div class="bg-pdv-gradient z-depth-3 rounded white-text p-2">
         <div class="row">
             <div class="col l7 s12">

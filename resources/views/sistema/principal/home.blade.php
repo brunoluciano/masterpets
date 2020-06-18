@@ -34,7 +34,7 @@
             </a>
         </div>
         <div class="col l3 m6 s12">
-            <a href="#">
+            <a href="{{ route('agenda.index') }}">
                 <div class="card-panel gradient-card-agenda z-depth-2 hoverable">
                     <h3 class="header-dashboard-card center">AGENDA</h3>
                     <h4 class="white-text my-0 right-align">

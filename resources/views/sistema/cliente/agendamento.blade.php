@@ -20,14 +20,15 @@
                     <tr class="grey-text text-darken-2">
                         <th>Horário</th>
                         <th>Evento</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody id="table_agendamentos">
-                    @for ($i = 8; $i <= 18; $i++)
+                    @for ($i = 0; $i <= 10; $i++)
                         <tr>
-                            <td>{{ $i }}:00</td>
+                            <td>{{ $i+8 }}:00</td>
                             <td>
-                                <a href="#modalAgendamento" class="waves-effect waves-light btn right modal-trigger"><i class="fas fa-plus-circle"></i> Novo Evento</a>
+                                <a href="#modalAgendamento{{ $i+1 }}" class="waves-effect waves-light btn right modal-trigger"><i class="fas fa-plus-circle"></i> Novo Evento</a>
                             </td>
                         </tr>
                     @endfor
@@ -43,6 +44,7 @@
             e.preventDefault();
 
             var data_evento = $("#data_evento").val();
+            $('#data_evento_modal').val(data_evento);
 
             $.ajaxSetup({
                 headers: {
@@ -60,6 +62,7 @@
                 } else {
                     $("#data_invalida").hide();
                     $("#table_agendamentos").empty();
+                    var cont = 11;
                     response.indisponivel.forEach(el => {
                         if(el.disponivel == false){
                             $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
@@ -68,14 +71,15 @@
                         } else {
                             $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
                                                              "<td></td>"+
-                                                             "<td><a href='#modalAgendamento' class='waves-effect waves-light btn right modal-trigger'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
+                                                             "<td><a href='#modalAgendamento"+cont+"' class='waves-effect waves-light btn right modal-trigger'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
                         }
+                        console.log(cont)
+                        cont = cont - 1;
                     });
                 }
             }
         })
         });
-
 
     })
 </script>
