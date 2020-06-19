@@ -56,14 +56,7 @@
             url: '{!! URL::to('home/cliente/findAgendamentos') !!}',
             dataType: "json",
             data: $('#agendamento_disponivel_form').serialize(),
-            success:function(response){
-                var proArray = response;
-                var dataPro = {};
-                for (var i = 0; i < proArray.length; i++) {
-                    dataPro[proArray[i].agendamentos] = proArray[i];
-                }
-
-                
+            success:function(response){                
                 if(response.success == false){
                     $("#data_invalida").show();
                 } else {
@@ -71,13 +64,16 @@
                     $("#table_agendamentos").empty();
                     var i = 0;
                     var cont = 11;
-                        console.log(dataPro[i]);
                     response.indisponivel.forEach(el => {
                         if(el.disponivel == false){
-                            if("{{ \Auth::user()->id }}" == el.usuario_id){
-                                var msg = el.usuario_id.usuario.name;
+                            console.log(response['agendamentos'][0]);
+                            if("{{ \Auth::user()->id }}" == response['agendamentos'][0].usuario_id){
+                                // var msg = el.usuario_id.usuario.name;
+                                console.log("TRUE");
+                                console.log(response['usuarios'][0]);
                             } else {
                                 var msg = "Horário indisponível!";
+                                console.log("FALSE");
                             }
                             $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
                                                              "<td>"+msg+"</td>"+

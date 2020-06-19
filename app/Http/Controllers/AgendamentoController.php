@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Agendamento;
 use App\Animal;
 use App\Servico;
+use App\User;
 use Carbon\Carbon as CarbonCarbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -62,10 +63,13 @@ class AgendamentoController extends Controller
 
             // dd($agendamentos);
 
+            $usuarios = User::get();
+
             return response()->json([
                 'success' => true,
                 'agendamentos' => $agendamentos,
                 'indisponivel' => $hora_indisponivel,
+                'usuario' => $usuarios,
             ]);
         }
     }
