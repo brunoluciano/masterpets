@@ -34,7 +34,7 @@ class AgendamentoController extends Controller
             ]);
         } else {
             $agendamentos = Agendamento::where('data_evento','=',$data_evento->subDay(1))
-                                       ->orderBy('hora_inicio', 'desc')->get();
+                                       ->orderBy('hora_inicio', 'desc')->with('usuario')->get();
 
             $teste = new Carbon('08:00');
             $hora = new Carbon('08:00');
@@ -60,7 +60,7 @@ class AgendamentoController extends Controller
 
             $hora_indisponivel = array_reverse($hora_indisponivel);
 
-            // dd($hora_indisponivel);
+            // dd($agendamentos);
 
             return response()->json([
                 'success' => true,
@@ -99,7 +99,7 @@ class AgendamentoController extends Controller
         $agendamento->save();
 
         $data = Carbon::parse($agendamento->data_evento)->format('d/m/Y');
-        return redirect()->route('cadastros')
+        return redirect()->route('cliente')
                          ->with('success','Agendamento para o dia '.$data.' marcado com sucesso!');
     }
 }

@@ -57,25 +57,42 @@
             dataType: "json",
             data: $('#agendamento_disponivel_form').serialize(),
             success:function(response){
+                var proArray = response;
+                var dataPro = {};
+                for (var i = 0; i < proArray.length; i++) {
+                    dataPro[proArray[i].agendamentos] = proArray[i];
+                }
+
+                
                 if(response.success == false){
                     $("#data_invalida").show();
                 } else {
                     $("#data_invalida").hide();
                     $("#table_agendamentos").empty();
+                    var i = 0;
                     var cont = 11;
+                        console.log(dataPro[i]);
                     response.indisponivel.forEach(el => {
                         if(el.disponivel == false){
+                            if("{{ \Auth::user()->id }}" == el.usuario_id){
+                                var msg = el.usuario_id.usuario.name;
+                            } else {
+                                var msg = "Horário indisponível!";
+                            }
                             $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
-                                                             "<td>Horário indisponível!</td>"+
+                                                             "<td>"+msg+"</td>"+
                                                              "<td><a href='#' class='waves-effect waves-light btn right disabled'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
                         } else {
                             $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
                                                              "<td></td>"+
                                                              "<td><a href='#modalAgendamento"+cont+"' class='waves-effect waves-light btn right modal-trigger'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
                         }
-                        console.log(cont)
-                        cont = cont - 1;
+                        
+                        cont--;
+                        i++;
                     });
+                    
+                    
                 }
             }
         })
