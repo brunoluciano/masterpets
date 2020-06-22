@@ -36,7 +36,7 @@
                         @enderror
                     </div>
                     <div class="input-field col l6 s12">
-                        <input id="nascimentoAnimal" type="text" name="nascimento" class="datepicker" >
+                        <input id="nascimentoAnimal" type="text" name="nascimento" class="datepicker" max="{{ $hoje }}">
                         <label for="nascimento">Nascimento</label>
                         <i class="fas fa-calendar-alt fa-xs prefix right white-text" aria-hidden="true"></i>
                         @error('nascimento')
@@ -182,7 +182,6 @@
             type: 'get',
             url: '{!! URL::to('home/cliente/findEspecies') !!}',
             success:function(response){
-                console.log(response);
                 // converter array para object
                 var espArray = response;
                 var dataEsp = {};
@@ -191,13 +190,11 @@
                     dataEsp[espArray[i].nome] = null;
                     dataEsp2[espArray[i].nome] = espArray[i];
                 }
-                console.log(dataEsp2);
 
                 // materialize css
                 $('input#especie').autocomplete({
                     data: dataEsp,
                     onAutocomplete:function(reqdata){
-                        console.log(dataEsp2[reqdata])
                         $('input#especie_id').val(dataEsp2[reqdata]['id']);
                     }
                 });
@@ -208,7 +205,6 @@
             type: 'get',
             url: '{!! URL::to('home/cliente/findRacas') !!}',
             success:function(response){
-                console.log(response);
                 // converter array para object
                 var racArray = response;
                 var dataRac = {};
@@ -217,20 +213,17 @@
                     dataRac[racArray[i].nome] = null;
                     dataRac2[racArray[i].nome] = racArray[i];
                 }
-                console.log(dataRac2);
 
                 // materialize css
                 $('input#raca_predominante').autocomplete({
                     data: dataRac,
                     onAutocomplete:function(reqdata){
-                        console.log(dataRac2[reqdata])
                         $('input#raca_predominante_id').val(dataRac2[reqdata]['id']);
                     }
                 });
                 $('input#raca_secundaria').autocomplete({
                     data: dataRac,
                     onAutocomplete:function(reqdata){
-                        console.log(dataRac2[reqdata])
                         $('input#raca_secundaria_id').val(dataRac2[reqdata]['id']);
                     }
                 });
@@ -241,7 +234,6 @@
             type: 'get',
             url: '{!! URL::to('home/cliente/findCores') !!}',
             success:function(response){
-                console.log(response);
                 // converter array para object
                 var corArray = response;
                 var dataCor = {};
@@ -250,20 +242,17 @@
                     dataCor[corArray[i].descricao] = null;
                     dataCor2[corArray[i].descricao] = corArray[i];
                 }
-                console.log(dataCor2);
 
                 // materialize css
                 $('input#cor_predominante').autocomplete({
                     data: dataCor,
                     onAutocomplete:function(reqdata){
-                        console.log(dataCor2[reqdata])
                         $('input#cor_predominante_id').val(dataCor2[reqdata]['id']);
                     }
                 });
                 $('input#cor_secundaria').autocomplete({
                     data: dataCor,
                     onAutocomplete:function(reqdata){
-                        console.log(dataCor2[reqdata])
                         $('input#cor_secundaria_id').val(dataCor2[reqdata]['id']);
                     }
                 });

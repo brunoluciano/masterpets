@@ -6,7 +6,7 @@
                     @csrf
 
                     <label for="data_evento" class="dark-text">Data</label>
-                    <input id="data_evento" type="text" name="data_evento" class="datepicker dark-text" placeholder="Informe uma data para agendamento" autocomplete="off" required>
+                    <input id="data_evento" type="text" name="data_evento" class="datepicker dark-text" value="{{ $hoje }}" placeholder="Informe uma data para agendamento" autocomplete="off" required>
                     <span id="data_invalida" class="helper-text data-error" style="display:none;">É necessário informar uma data válida! (Ex: Data atual ou posterior)</span>
                     <button id="verificar_disponibilidade" class="btn waves-effect waves-light cyan btn-block" type="submit" name="action">
                         Verificar disponibilidade <i class="fas fa-search"></i>
@@ -64,29 +64,59 @@
                     $("#table_agendamentos").empty();
                     var i = 0;
                     var cont = 11;
-                    response.indisponivel.forEach(el => {
-                        if(el.disponivel == false){
-                            console.log(response['agendamentos'][0]);
-                            if("{{ \Auth::user()->id }}" == response['agendamentos'][0].usuario_id){
-                                // var msg = el.usuario_id.usuario.name;
-                                console.log("TRUE");
-                                console.log(response['usuarios'][0]);
-                            } else {
-                                var msg = "Horário indisponível!";
-                                console.log("FALSE");
+                    
+                    for (let j = 0; j < response['agendamentos'].length; j++) {
+                        // console.log(response['indisponivel'][j].disponivel);
+                    }
+
+                    var msg;
+                    for (let j = 0; j < response['indisponivel'].length; j++) {
+                        if (response['indisponivel'][j].disponivel == false) {
+                            // if("{{ $cliente->id }}" == response['agendamentos'][j])
+                            for (let k = 0; k < response['agendamentos'].length; k++) {
+                                console.log("{{ $cliente->id }} == " + response['agendamentos'][k].usuario_id)
+                                var id = "{{ $cliente->id }}";
+                                if(id == response['agendamentos'][k].usuario_id){
+                                    msg = response['agendamentos'][k].usuario_id
+                                } else {
+                                    msg = "Horário indisponível!";
+                                }
                             }
-                            $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
+                            
+
+                            $("#table_agendamentos").prepend("<tr><td>"+response['indisponivel'][j].horario+"</td>"+
                                                              "<td>"+msg+"</td>"+
                                                              "<td><a href='#' class='waves-effect waves-light btn right disabled'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
                         } else {
-                            $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
+
+                            $("#table_agendamentos").prepend("<tr><td>"+response['indisponivel'][j].horario+"</td>"+
                                                              "<td></td>"+
-                                                             "<td><a href='#modalAgendamento"+cont+"' class='waves-effect waves-light btn right modal-trigger'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
-                        }
-                        
+                                                             "<td><a href='#modalAgendamento"+cont+"' class='waves-effect waves-light btn right modal-trigger'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");    
+                        }  
                         cont--;
-                        i++;
-                    });
+                        i++;   
+                    }
+                    
+                   
+                    // response.indisponivel.forEach(el => {
+                    //     if(el.disponivel == false){
+                            
+                                
+                            
+                            
+                    //         var msg = "Horário indisponível!";
+                    //         $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
+                    //                                          "<td>"+msg+"</td>"+
+                    //                                          "<td><a href='#' class='waves-effect waves-light btn right disabled'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
+                    //     } else {
+                    //         $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
+                    //                                          "<td></td>"+
+                    //                                          "<td><a href='#modalAgendamento"+cont+"' class='waves-effect waves-light btn right modal-trigger'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
+                    //     }
+                        
+                    //     cont--;
+                    //     i++;
+                    // });
                     
                     
                 }

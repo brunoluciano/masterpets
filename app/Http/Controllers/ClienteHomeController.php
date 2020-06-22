@@ -10,6 +10,7 @@ use App\Pelo;
 use App\Venda;
 
 use App\User;
+use Carbon\Carbon;
 
 class ClienteHomeController extends Controller
 {
@@ -28,9 +29,11 @@ class ClienteHomeController extends Controller
 
             $compras = Venda::where('cliente_id','=',$cliente->id)->orderBy('id','desc')->get();
 
+            $hoje = Carbon::now()->format('Y-m-d');
+
             return view('sistema.cliente.home', compact('cliente',
             'petsHome', 'petsLista', 'possuiPet', 'portes', 'pelos',
-            'compras'));
+            'compras', 'hoje'));
         }
     }
 

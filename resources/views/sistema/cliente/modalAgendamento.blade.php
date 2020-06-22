@@ -85,7 +85,6 @@
             type: 'get',
             url: '{!! URL::to('home/cliente/findEventos') !!}',
             success:function(response){
-                console.log(response);
                 // converter array para object
                 var proArray = response;
                 var dataPro = {};
@@ -94,13 +93,11 @@
                     dataPro[proArray[i].descricao] = null;
                     dataPro2[proArray[i].descricao] = proArray[i];
                 }
-                console.log(dataPro2);
 
                 // materialize css
                 $('input#evento_modal').autocomplete({
                     data: dataPro,
                     onAutocomplete:function(reqdata){
-                        console.log(dataPro2[reqdata])
                         $('input#evento_id_modal').val(dataPro2[reqdata]['id']);
 
                         var valor_servico = dataPro2[reqdata]['valor'];
