@@ -128,6 +128,8 @@ Route::group(['prefix' => 'home/cliente', 'middleware' => ['auth']], function ()
     Route::get('findEventos', 'AgendamentoController@getEventos')->name('evento.consultar');
 
     Route::post('agendamento/store', 'AgendamentoController@store')->name('agendamento.store');
+    Route::put('agendamento/update/{id}', 'AgendamentoController@update')->name('agendamento.update');
+    Route::delete('agendamento/destroy/{id}', 'AgendamentoController@destroy')->name('agendamento.destroy');
 });
 
 

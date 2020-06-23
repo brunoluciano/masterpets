@@ -16,4 +16,14 @@ class Agendamento extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function pet()
+    {
+        return $this->belongsTo('App\Animal');
+    }
+
+    public function servico()
+    {
+        return $this->belongsTo('App\Servico', 'evento_id');
+    }
 }

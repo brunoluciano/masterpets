@@ -8,6 +8,7 @@ use App\Animal;
 use App\Porte;
 use App\Pelo;
 use App\Venda;
+use App\Agendamento;
 
 use App\User;
 use Carbon\Carbon;
@@ -31,9 +32,13 @@ class ClienteHomeController extends Controller
 
             $hoje = Carbon::now()->format('Y-m-d');
 
+            $meusAgendamentos = Agendamento::where('usuario_id','=',$cliente->id)
+                                        //    ->where('data_evento','=',$data_evento)
+                                           ->orderBy('hora_inicio','desc')->with('pet')->get();
+
             return view('sistema.cliente.home', compact('cliente',
             'petsHome', 'petsLista', 'possuiPet', 'portes', 'pelos',
-            'compras', 'hoje'));
+            'compras', 'hoje', 'meusAgendamentos'));
         }
     }
 

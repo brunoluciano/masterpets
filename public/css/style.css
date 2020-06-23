@@ -1624,6 +1624,11 @@ a:hover.link-hover {
     height: 45px !important;
 }
 
+.pet-img-list {
+    min-width: auto !important;
+    height: 30px !important;
+}
+
 .hover-link:hover {
     text-decoration: underline !important;
 }
@@ -1646,6 +1651,10 @@ a:hover.link-hover {
 
 .btn.red.lighten-1:hover {
     background-color: #e53935 !important;
+}
+
+.btn.red.lighten-2:hover {
+    background-color: #f44336 !important;
 }
 
 .btn.orange.lighten-2:hover {

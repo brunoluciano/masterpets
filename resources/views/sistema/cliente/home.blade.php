@@ -119,6 +119,10 @@
 
     @include('sistema.cliente.modalAgendamento')
 
+    @include('sistema.cliente.modalAgendamentoEditar')
+
+    @include('sistema.cliente.modalAgendamentoCancelar')
+
     <!-------------- Inicialização Modais -------------->
     <script>
         $(document).ready(function(){

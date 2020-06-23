@@ -62,33 +62,51 @@
                 } else {
                     $("#data_invalida").hide();
                     $("#table_agendamentos").empty();
-                    var i = 0;
-                    var cont = 11;
-                    
+                    let i = 0;
+                    let cont = 11;
+                    let cont_user = 0;
+                    let cont_pet = 0;
+                    let botao = "";
+
                     for (let j = 0; j < response['agendamentos'].length; j++) {
                         // console.log(response['indisponivel'][j].disponivel);
                     }
 
-                    var msg;
+                    let msg;
+                    let id = "{{ $cliente->id }}";
                     for (let j = 0; j < response['indisponivel'].length; j++) {
                         if (response['indisponivel'][j].disponivel == false) {
-                            // if("{{ $cliente->id }}" == response['agendamentos'][j])
-                            for (let k = 0; k < response['agendamentos'].length; k++) {
-                                console.log("{{ $cliente->id }} == " + response['agendamentos'][k].usuario_id)
-                                var id = "{{ $cliente->id }}";
-                                if(id == response['agendamentos'][k].usuario_id){
-                                    msg = response['agendamentos'][k].usuario_id
-                                } else {
-                                    msg = "Horário indisponível!";
+                            if(id == response['agendamentos'][cont_user].usuario_id){
+                                let agendamento_id = response['meuAgendamento'][cont_pet].id;
+                                let servico = response['meuAgendamento'][cont_pet].servico.descricao;
+                                let servico_preco = response['meuAgendamento'][cont_pet].servico.valor;
+                                servico_preco = servico_preco.toFixed(2).toString().replace(".", ",");
+                                let pet = response['meuAgendamento'][cont_pet].pet.nome;
+                                let pet_img = response['meuAgendamento'][cont_pet].pet.path_img;
+                                let pet_sexo = response['meuAgendamento'][cont_pet].pet.sexo;
+                                let pet_sexo_cor = pet_sexo == "M" ? "blue" : "pink";
+                                let url_pet_img = parse('{{ asset("storage/%s") }}',pet_img);
+                                let observacao = response['meuAgendamento'][cont_pet].observacoes != null ? " • <i>Obs: "+response['meuAgendamento'][cont_pet].observacoes+"</i>" : "";
+
+                                // função para concatenar variável com string
+                                function parse(str) {
+                                    var args = [].slice.call(arguments, 1),
+                                        i = 0;
+                                    return str.replace(/%s/g, () => args[i++]);
                                 }
+                                
+                                msg = "<img src='"+url_pet_img+"' class='mr-1 circle responsive-img pet-img-list z-depth-1 border border-"+pet_sexo_cor+"'>"+pet+" • "+servico+" • R$ "+servico_preco+observacao;
+                                botao = "<td><a href='#modalAgendamentoEditar"+agendamento_id+"' class='waves-effect waves-light btn right modal-trigger cyan darken-1'><i class='fas fa-edit'></i> EDITAR</a></td>"
+                                cont_pet++;
+                            } else {
+                                msg = "<b>Horário indisponível!</b>";
+                                botao = "<td><a href='#' class='waves-effect waves-light btn right disabled'><i class='fas fa-plus-circle'></i> Novo Evento</a></td>";
                             }
-                            
-
+                        
                             $("#table_agendamentos").prepend("<tr><td>"+response['indisponivel'][j].horario+"</td>"+
-                                                             "<td>"+msg+"</td>"+
-                                                             "<td><a href='#' class='waves-effect waves-light btn right disabled'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
+                                                             "<td class='valign-wrapper'>"+msg+"</td>"+botao+"</tr>");
+                            cont_user++;
                         } else {
-
                             $("#table_agendamentos").prepend("<tr><td>"+response['indisponivel'][j].horario+"</td>"+
                                                              "<td></td>"+
                                                              "<td><a href='#modalAgendamento"+cont+"' class='waves-effect waves-light btn right modal-trigger'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");    
@@ -96,29 +114,6 @@
                         cont--;
                         i++;   
                     }
-                    
-                   
-                    // response.indisponivel.forEach(el => {
-                    //     if(el.disponivel == false){
-                            
-                                
-                            
-                            
-                    //         var msg = "Horário indisponível!";
-                    //         $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
-                    //                                          "<td>"+msg+"</td>"+
-                    //                                          "<td><a href='#' class='waves-effect waves-light btn right disabled'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
-                    //     } else {
-                    //         $("#table_agendamentos").prepend("<tr><td>"+el.horario+"</td>"+
-                    //                                          "<td></td>"+
-                    //                                          "<td><a href='#modalAgendamento"+cont+"' class='waves-effect waves-light btn right modal-trigger'><i class='fas fa-plus-circle'></i> Novo Evento</a></td></tr>");
-                    //     }
-                        
-                    //     cont--;
-                    //     i++;
-                    // });
-                    
-                    
                 }
             }
         })

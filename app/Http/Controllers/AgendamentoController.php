@@ -25,6 +25,8 @@ class AgendamentoController extends Controller
 
     public function getAgendamentos(Request $request)
     {
+        $cliente = \Auth::user();
+
         setlocale(LC_TIME, 'ptb');
         $data_evento =  new Carbon($request->input('data_evento'));
         $data_evento = $data_evento->addDay(1);
@@ -34,10 +36,12 @@ class AgendamentoController extends Controller
                 'success' => false,
             ]);
         } else {
-            $agendamentos = Agendamento::where('data_evento','=',$data_evento->subDay(1))
-                                       ->orderBy('hora_inicio', 'desc')->with('usuario')->get();
+            $agendamentos = Agendamento::with('pet')->where('data_evento','=',$data_evento->subDay(1))
+                                       ->orderBy('hora_inicio', 'desc')->get();
+            $meusAgendamentos = Agendamento::where('usuario_id','=',$cliente->id)
+                                           ->where('data_evento','=',$data_evento)
+                                           ->orderBy('hora_inicio','desc')->with('pet')->with('servico')->get();
 
-            $teste = new Carbon('08:00');
             $hora = new Carbon('08:00');
             // dd($hora);
             $cont = 0;
@@ -69,7 +73,8 @@ class AgendamentoController extends Controller
                 'success' => true,
                 'agendamentos' => $agendamentos,
                 'indisponivel' => $hora_indisponivel,
-                'usuario' => $usuarios,
+                'usuarios' => $usuarios,
+                'meuAgendamento' => $meusAgendamentos,
             ]);
         }
     }
@@ -105,5 +110,39 @@ class AgendamentoController extends Controller
         $data = Carbon::parse($agendamento->data_evento)->format('d/m/Y');
         return redirect()->route('cliente')
                          ->with('success','Agendamento para o dia '.$data.' marcado com sucesso!');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'data_evento_modal' => 'required',
+            'horario_evento_modal' => 'required',
+            'animal_id' => 'required',
+            'evento_id' => 'required',
+            'observacao' => 'max:250'
+        ]);
+
+        $user = \Auth::user();
+
+        $agendamento = Agendamento::find($id);
+        $agendamento->id = $id;
+        $agendamento->usuario_id = $user->id;
+        $agendamento->pet_id = $request->input('animal_id');
+        $agendamento->evento_id = $request->input('evento_id');
+        $agendamento->data_evento = $request->input('data_evento_modal');
+        $agendamento->hora_inicio = $request->input('horario_evento_modal');
+        $agendamento->observacoes = $request->input('observacao');
+        $agendamento->save();
+
+        $data = Carbon::parse($agendamento->data_evento)->format('d/m/Y');
+        return redirect()->route('cliente')
+                         ->with('success','Agendamento para o dia '.$data.' atualizado com sucesso!');
+    }
+
+    public function destroy($id){
+        Agendamento::findOrFail($id)->delete();
+
+        return redirect()->route('cliente')
+                         ->with('success','Agendamento removido com sucesso!');
     }
 }
