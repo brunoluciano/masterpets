@@ -86,7 +86,8 @@
                                 let pet_sexo = response['meuAgendamento'][cont_pet].pet.sexo;
                                 let pet_sexo_cor = pet_sexo == "M" ? "blue" : "pink";
                                 let url_pet_img = parse('{{ asset("storage/%s") }}',pet_img);
-                                let observacao = response['meuAgendamento'][cont_pet].observacoes != null ? " • <i>Obs: "+response['meuAgendamento'][cont_pet].observacoes+"</i>" : "";
+                                
+                                let observacao = response['meuAgendamento'][cont_pet].observacoes != null ? " • <span id='tooltipObservacao' data-position='top' data-tooltip='"+response['meuAgendamento'][cont_pet].observacoes+"'><i>Obs: "+response['meuAgendamento'][cont_pet].observacoes+"</i></span>" : "";
 
                                 // função para concatenar variável com string
                                 function parse(str) {
@@ -104,7 +105,8 @@
                             }
                         
                             $("#table_agendamentos").prepend("<tr><td>"+response['indisponivel'][j].horario+"</td>"+
-                                                             "<td class='valign-wrapper'>"+msg+"</td>"+botao+"</tr>");
+                                                             "<td style='max-width:400px' class='valign-wrapper text-truncate'>"+msg+"</td>"+botao+"</tr>");
+                            $('#tooltipObservacao').tooltip();
                             cont_user++;
                         } else {
                             $("#table_agendamentos").prepend("<tr><td>"+response['indisponivel'][j].horario+"</td>"+

@@ -1973,3 +1973,9 @@ table.table-overflow-pesquisa tbody {
 .data-error {
     color: #F44336 !important;
 }
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
