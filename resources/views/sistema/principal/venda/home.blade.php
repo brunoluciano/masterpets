@@ -18,7 +18,7 @@
                         @csrf
 
                         <div class="col l4 s12 mt-2">
-                            <img id="produto_img" src="{{ asset('images/produtoSemFigura.jpg') }}" class="responsive-img z-depth-2 materialboxed">
+                            <img id="produto_img" src="{{ asset('images/produtoDefault.jpg') }}" class="responsive-img z-depth-2 materialboxed">
                         </div>
                         <div class="col l8 s12 mt-2">
                             <div class="row">
@@ -166,7 +166,6 @@
             type: 'get',
             url: '{!! URL::to('dashboard/venda/findProdutos') !!}',
             success:function(response){
-                console.log(response);
                 // converter array para object
                 var proArray = response;
                 var dataPro = {};
@@ -175,14 +174,11 @@
                     dataPro[proArray[i].descricao] = '{{ env("APP_URL") }}/storage/'+proArray[i].path_img;
                     dataPro2[proArray[i].descricao] = proArray[i];
                 }
-                console.log(dataPro2);
 
                 // materialize css
                 $('input#produto').autocomplete({
                     data: dataPro,
                     onAutocomplete:function(reqdata){
-                        console.log(dataPro2[reqdata])
-
                         var preco_venda = dataPro2[reqdata]['preco_venda'];
                         preco_venda = preco_venda.toFixed(2).toString().replace(".", ",");
                         var total = $('input#quantidade').val() * dataPro2[reqdata]['preco_venda'];
@@ -238,8 +234,6 @@
 
             $('#adicionar_produto_form').find(':input:disabled').removeAttr('disabled');
 
-            console.log(teste);
-
             $.ajax({
                 type: "post",
                 url: '{!! URL::to('dashboard/venda/carrinho/adicionarProduto') !!}',
@@ -258,16 +252,19 @@
 
                     var preco_venda = response.produtos.produto.preco_venda.toFixed(2).toString().replace(".", ",");
 
-                    $("#lista_carrinho").prepend("<tr><td class='td-qtd-carrinho-venda'>"+response.produtos.quantidade+"</td>"+
-                                                    "<td class='td-img-carrinho-venda'><img src='{{ env('APP_URL') }}/storage/"+response.produtos.produto.path_img+"' class='chip-img right-align'></td>"+
-                                                    "<td class='td-descricao-carrinho-venda'>"+response.produtos.produto.descricao+"</td>"+
-                                                    "<td class='td-preco-carrinho-venda'>R$ "+preco_venda+"</td>"+
-                                                    "<td class='td-operacoes-carrinho-venda'>"+
-                                                        "<a href='#' class='waves-effect waves-light btn amber'><i class='fas fa-edit'></i></a>"+
-                                                        "<input type='hidden' name='_token' value='{{ csrf_token() }}'>"+
-                                                        "<input type='hidden' name='_method' value='DELETE'>"+
-                                                        "<button id='remProdutoAjax' class='btn waves-effect waves-light red lighten-1' type='submit' data-id='"+response.produtos.id+"'><i class='fa fa-trash'></i></button>"+
-                                                    "</td></tr>")
+                    var lista_carrinho = document.querySelector("#lista_carrinho");
+                    var trProduto = montaTrProduto(lista_carrinho, response);
+                    lista_carrinho.insertBefore(trProduto, lista_carrinho.childNodes[0]);
+
+                    function parse(str) {
+                        var args = [].slice.call(arguments, 1),
+                            i = 0;
+                        return str.replace(/%s/g, () => args[i++]);
+                    }
+                    var action = parse('{{ route("remover.produto.destroy", "%s") }}',response.produtos.produto.id);
+
+                    var form = montarForm(action,"POST");
+                    console.log(form);
 
                     $("h5#total_venda").text("R$ "+response.total_venda);
                     if (response.atualizar_qtd_produto==0) {
@@ -280,9 +277,6 @@
                         $('input#quantidade').val(1);
                         $('input#quantidade').prop( "disabled", false );
                     }
-
-                    console.log("ID INSERIDO");
-                    console.log(response.produtos.id);
                 },
                 error: function(response){
                     toastr.options = {
@@ -302,8 +296,6 @@
             var obj = $(this); // first store $(this) in obj
             var id = $(this).attr('data-id'); // get id of data using this
             var token = $("meta[name='csrf-token']").attr("content");
-            console.log("ID: PRODUTO EXCLUIDO");
-            console.log(id);
             $.ajax({
                 type: "DELETE",
                 url: "{!! URL::to('dashboard/venda/carrinho/removerProduto/') !!}" + '/' + id,
@@ -340,7 +332,6 @@
             type: 'get',
             url: '{!! URL::to('dashboard/venda/findClientes') !!}',
             success:function(response){
-                console.log(response);
                 // converter array para object
                 var cliArray = response;
                 var dataCli = {};
@@ -349,18 +340,101 @@
                     dataCli[cliArray[i].name] = null;
                     dataCli2[cliArray[i].name] = cliArray[i];
                 }
-                console.log(dataCli2);
 
                 // materialize css
                 $('input#cliente').autocomplete({
                     data: dataCli,
                     onAutocomplete:function(reqdata){
-                        console.log(dataCli2[reqdata])
                         $('input#cliente_id').val(dataCli2[reqdata]['id']);
                     }
                 });
             }
         })
     })
+</script>
+<script>
+    function montaTrProduto(lista, response){
+        produto = {
+            quantidade: response.produtos.quantidade,
+            img : response.produtos.produto.path_img,
+            descricao: response.produtos.produto.descricao,
+            preco: response.produtos.produto.preco_venda.toFixed(2).toString().replace(".", ",")
+        }
+
+        var tr = document.createElement("tr");
+
+        var tdQuantidade = montarTdProduto(produto.quantidade, "td-qtd-carrinho-venda");
+        var img = montarImg(produto.img,"chip-img");
+        var tdImg = document.createElement("td");
+        tdImg.appendChild(img);
+        tdImg.classList.add("td-img-carrinho-venda");
+        var tdDescricao = montarTdProduto(produto.descricao,"td-preco-carrinho-venda");
+        var tdPreco = montarTdProduto("R$ "+produto.preco,"td-preco-carrinho-venda")
+
+        tr.appendChild(tdQuantidade);
+        tr.appendChild(tdImg);
+        tr.appendChild(tdDescricao);
+        tr.appendChild(tdPreco);
+
+        return tr;
+        console.log(tr);
+    }
+
+    function montarTdProduto(dado, classe){
+        var td = document.createElement("td");
+        td.textContent = dado;
+        td.classList.add(classe);
+        return td;
+    }
+
+    function montarImg(src, classe){
+        var img = document.createElement("img");
+        img.src = "{{ env('APP_URL') }}/storage/"+src;
+        img.classList.add(classe);
+        return img;
+    }
+
+    function montarForm(action,method){
+        var form = document.createElement("form");
+        form.action = action;
+        form.method = method;
+        var inputCsrf = montarInput("hidden","_token","{{ csrf_token() }}");
+        var inputMethodDelete = montarInput("hidden","_method","DELETE");
+        form.appendChild(inputCsrf);
+        form.appendChild(inputMethodDelete);
+
+        var remBotao = montarBotao("submit","remProduto");
+        form.appendChild(remBotao);
+
+        console.log(form);
+
+        return form;
+
+        // <form action="{{ route('remover.produto.destroy', $item->id) }}" method="POST">
+        //     <td class="td-operacoes-carrinho-venda">
+        //         <a href="#" class="waves-effect waves-light btn amber"><i class="fas fa-edit"></i></a>
+
+        //         @csrf
+        //         @method('DELETE')
+        //         <button class="remProduto btn waves-effect waves-light red lighten-1" type="submit" data-id="{{ $item->id }}"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        //     </td>
+        // </form>
+    }
+
+    function montarInput(type,name,value){
+        var input = document.createElement("input");
+        input.type = type;
+        input.name = name;
+        input.value = value;
+        return input;
+    }
+
+    function montarBotao(type,class){
+        var botao = document.createElement("button");
+        botao.type = type;
+        botao.classList.add(class);
+        return botao;
+    }
+    
 </script>
 @endsection
